@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,17 +27,15 @@ public class UsuarioController {
 
     @GetMapping("/{dni}")
     public ResponseEntity<Usuario>getUsuarioByDni(@PathVariable Long dni){
-        Optional<Usuario>usuario=usuarioService.getUsuarioByDni(dni);
-
-        if(usuario.isPresent()){
-            return ResponseEntity.ok(usuario.get());
-        }else{
-            return ResponseEntity.notFound().build();
-        }
+        return usuarioService.getUsuarioByDni(dni)
+                .map(usuario -> ResponseEntity.ok().body(usuario))
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/agregar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario>agregarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO){
+
         Usuario usuario=new Usuario();
         usuario.setNombre(usuarioDTO.getNombre());
         usuario.setApellido(usuarioDTO.getApellido());
@@ -50,14 +49,10 @@ public class UsuarioController {
     }
 
     @PutMapping("/eliminar/{dni}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario>borrarUsuario(@PathVariable Long dni){
-        Optional<Usuario>usuario=usuarioService.getUsuarioByDni(dni);
-
-        if(usuario.isPresent()){
-            usuarioService.deleteByDni(usuario.get());
-            return ResponseEntity.noContent().build();
-        }else{
-            return ResponseEntity.notFound().build();
-        }
+        return usuarioService.getUsuarioByDni(dni)
+                .map(usuario -> ResponseEntity.ok().body(usuario))
+                .orElse(ResponseEntity.notFound().build());
     }
 }

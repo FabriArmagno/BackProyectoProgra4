@@ -21,7 +21,7 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculoService.getVehiculos());
     }
 
-    @PostMapping
+    @PostMapping("/agregar")
     public ResponseEntity<Vehiculo> createVehiculo(@RequestBody Vehiculo vehiculo){
         return ResponseEntity.status(HttpStatus.CREATED).body(vehiculoService.createVehiculo(vehiculo));
     }
