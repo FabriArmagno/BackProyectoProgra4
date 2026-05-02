@@ -48,10 +48,10 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(usuario));
     }
 
-    @PutMapping("/eliminar/{dni}")
+    @PatchMapping("/{dni}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Usuario>borrarUsuario(@PathVariable Long dni){
-        return usuarioService.getUsuarioByDni(dni)
+    public ResponseEntity<Usuario>darDeBajaUsuario(@PathVariable Long dni){
+        return usuarioService.bajaDeUsuario(dni)
                 .map(usuario -> ResponseEntity.ok().body(usuario))
                 .orElse(ResponseEntity.notFound().build());
     }

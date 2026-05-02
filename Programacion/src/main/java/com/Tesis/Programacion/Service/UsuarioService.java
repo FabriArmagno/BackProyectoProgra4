@@ -25,8 +25,12 @@ public class UsuarioService {
         return usuarioRepository.findByDni(dni);
     }
 
-    public void deleteByDni(Usuario usuario){
-        usuario.setActivo(false);
-        usuarioRepository.save(usuario);
+    public Optional<Usuario> bajaDeUsuario(Long dni){
+        return usuarioRepository.findByDni(dni)
+                .map(usuario -> {
+                    usuario.setActivo(false);
+                    return usuarioRepository.save(usuario);
+                });
     }
+
 }

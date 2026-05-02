@@ -22,8 +22,6 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Vehiculo {

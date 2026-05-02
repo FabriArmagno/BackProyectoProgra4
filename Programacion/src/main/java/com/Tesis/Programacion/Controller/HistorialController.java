@@ -16,10 +16,10 @@ public class HistorialController {
     @Autowired
     private HistorialService historialService;
 
-    @GetMapping
+   /* @GetMapping
     public ResponseEntity<List<Historial>>getHistoriales(){
         return ResponseEntity.ok(historialService.getHistoriales());
-    }
+    }*/
 
 
 }
