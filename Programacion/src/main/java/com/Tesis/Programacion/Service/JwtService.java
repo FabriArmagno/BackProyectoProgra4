@@ -14,8 +14,8 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    // Clave secreta para firmar el token. No publicar al github
-    private static final String SECRET_KEY = "clave-super-secreta-para-firmar-los-jwt-segura-y-larga";
+    // Clave secreta para firmar el token. Sirve para firmar el JWT
+    private static final String SECRET_KEY = System.getenv("JWT_KEY");
 
     // Genera un token para un usuario autenticado
     public String generateToken(UserDetails userDetails) {
@@ -57,5 +57,9 @@ public class JwtService {
     private Key getKey() {
         byte[] keyBytes = SECRET_KEY.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes); // Usa HMAC con SHA-256
+    }
+
+    public String toString(){
+        return SECRET_KEY;
     }
 }
