@@ -50,13 +50,13 @@ public class VehiculoController {
     }
 
     @GetMapping("/modelos")
-    public List<String>getModelos(@RequestParam String tipo, @RequestParam String marca){
-        return carApiService.obtenerModelos(tipo, marca);
+    public List<String>getModelos(@RequestParam String tipo, @RequestParam String make){
+        return carApiService.obtenerModelos(tipo, make);
     }
 
     @GetMapping("/anios")
-    public List<Integer>getAnios(@RequestParam String tipo, @RequestParam String modelo){
-        return carApiService.obtenerAnios(tipo, modelo);
+    public List<Integer>getAnios(@RequestParam String tipo, @RequestParam String model){
+        return carApiService.obtenerAnios(tipo, model);
     }
 
 }

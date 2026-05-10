@@ -3,6 +3,7 @@ package com.Tesis.Programacion.Controller;
 import com.Tesis.Programacion.Model.DTO.LoginRequest;
 import com.Tesis.Programacion.Model.DTO.LoginResponse;
 import com.Tesis.Programacion.Service.JwtService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,18 +29,18 @@ public class AuthController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse>login(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<LoginResponse>login(@Valid @RequestBody LoginRequest loginRequest){
 
         //Autenticamos al usuario con nombre y contraseña
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
+                        loginRequest.getEmail(),
                         loginRequest.getPassword()
                 )
         );
 
         //Obtenemos los detalles del usuario
-        UserDetails user= userDetailsService.loadUserByUsername(loginRequest.getUsername());
+        UserDetails user= userDetailsService.loadUserByUsername(loginRequest.getEmail());
 
         //Generamos el token JWT
         String token= jwtService.generateToken(user);

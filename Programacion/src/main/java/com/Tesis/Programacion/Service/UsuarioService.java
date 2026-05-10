@@ -33,4 +33,12 @@ public class UsuarioService {
                 });
     }
 
+    public Optional<Usuario> activarUsuario(Long dni){
+        return usuarioRepository.findByDni(dni)
+                .map(usuario -> {
+                    usuario.setActivo(true);
+                    return usuarioRepository.save(usuario);
+                });
+    }
+
 }

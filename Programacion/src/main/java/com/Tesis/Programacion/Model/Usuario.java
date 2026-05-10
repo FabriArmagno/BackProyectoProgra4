@@ -11,7 +11,6 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private Long dni;
 
     private String nombre;
@@ -20,7 +19,6 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @Column(unique = true, nullable = false)
     private String email;
 
     private String password;

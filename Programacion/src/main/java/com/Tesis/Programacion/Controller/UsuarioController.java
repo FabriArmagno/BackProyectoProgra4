@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,16 +43,24 @@ public class UsuarioController {
         usuario.setDni(usuarioDTO.getDni());
         usuario.setRol(usuarioDTO.getRol());
         usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setPassword(usuarioDTO.getPassword());
+        usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioDTO.getPassword()));
         usuario.setActivo(true);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(usuario));
     }
 
-    @PatchMapping("/{dni}")
+    @PatchMapping("/eliminar/{dni}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario>darDeBajaUsuario(@PathVariable Long dni){
         return usuarioService.bajaDeUsuario(dni)
+                .map(usuario -> ResponseEntity.ok().body(usuario))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/activar/{dni}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Usuario>activarUsuario(@PathVariable Long dni){
+        return usuarioService.activarUsuario(dni)
                 .map(usuario -> ResponseEntity.ok().body(usuario))
                 .orElse(ResponseEntity.notFound().build());
     }

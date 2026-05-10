@@ -4,16 +4,19 @@ import com.Tesis.Programacion.Model.Enums.Rol;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UsuarioDTO {
 
-    @NotBlank
-    @Size(min = 7, max = 8)
+    @NotNull
+    @Min(1000000)
+    @Max(99999999)
+    @Column(unique = true)
     private Long dni;
 
     @NotBlank
@@ -24,11 +27,12 @@ public class UsuarioDTO {
     @Size(min = 2, max = 30)
     private String apellido;
 
-    @NotBlank
+    @NotNull
     private Rol rol;
 
     @NotBlank
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank

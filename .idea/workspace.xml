@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/WebClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/CarApiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/CustomUserDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/UsuarioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/UsuarioDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/VehiculoApiDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/ProgramacionApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/ProgramacionApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/VehiculoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/VehiculoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +61,7 @@
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;Spring Boot.ProgramacionApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;rama-fran&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/franm/Desktop/BackProyectoProgra4&quot;,
@@ -62,7 +72,7 @@
   <component name="RunManager">
     <configuration name="ProgramacionApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
-        <env name="JWT_KEY" value="emmatribu21" />
+        <env name="JWT_KEY" value="LA-CLAVE-MAS-SECRETA-Y-SEGURA-DEL-MUNDO" />
       </envs>
       <option name="MAIN_CLASS_NAME" value="com.Tesis.Programacion.ProgramacionApplication" />
       <module name="Programacion" />
@@ -102,5 +112,16 @@
     <option featureType="dependencySupport" implementationName="java:org.springframework.boot:spring-boot" />
     <option featureType="dependencySupport" implementationName="java:org.springframework:spring-webmvc" />
     <option featureType="dependencySupport" implementationName="java:org.projectlombok:lombok" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
