@@ -22,11 +22,13 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<Usuario>>getUsuarios(){
         return ResponseEntity.ok(usuarioService.getUsuarios());
     }
 
     @GetMapping("/{dni}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Usuario>getUsuarioByDni(@PathVariable Long dni){
         return usuarioService.getUsuarioByDni(dni)
                 .map(usuario -> ResponseEntity.ok().body(usuario))
