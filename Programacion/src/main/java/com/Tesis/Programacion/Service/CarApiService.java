@@ -1,8 +1,6 @@
 package com.Tesis.Programacion.Service;
 
-import com.Tesis.Programacion.Model.DTO.MakeResponseDTO;
-import com.Tesis.Programacion.Model.DTO.ModelResponseDTO;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.Tesis.Programacion.Model.DTO.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -89,6 +87,32 @@ public class CarApiService {
                     return uriBuilder.build();
                 }).retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<Integer>>() {})//Es para decirle a spring que la respuesta es una lista de integer
+                .block();
+    }
+
+    public List<SubModelDTO>obtenerSubmodels(String modelo, Integer anio){
+        String endpoint="/api/trims/v2";
+
+        SubModelResponseDTO subModelResponseDTO=webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(endpoint)
+                        .queryParam("model", modelo)
+                        .queryParam("year", anio)
+                        .build()
+                ).retrieve()
+                .bodyToMono(SubModelResponseDTO.class)
+                .block();
+
+        return subModelResponseDTO.getData();
+    }
+
+    public VehiculoDetalleDTO obtenerDetalleDelVehiculo(Long id){
+        String endpoint = "/api/trims/v2/"+id;
+
+        return webClient.get()
+                .uri(endpoint)
+                .retrieve()
+                .bodyToMono(VehiculoDetalleDTO.class)//convierte el json a dto y completa automaticamente los campos
                 .block();
     }
 }

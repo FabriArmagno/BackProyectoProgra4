@@ -1,6 +1,5 @@
 package com.Tesis.Programacion.Model;
 
-import com.Tesis.Programacion.Model.Enums.TipoAuto;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,11 +11,8 @@ import lombok.EqualsAndHashCode;
 public class Auto extends Vehiculo{
     private int puertas;
     private int potencia;
-
-    @Enumerated(EnumType.STRING)
-    private TipoAuto tipoAuto;
-
-
-
-
+    private String tipoAuto;
+    private String submodelo;
+    private String tipoDeTraccion;
+    private String transmision;
 }

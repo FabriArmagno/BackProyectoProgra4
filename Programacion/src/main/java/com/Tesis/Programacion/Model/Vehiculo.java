@@ -1,14 +1,12 @@
 package com.Tesis.Programacion.Model;
 
-import com.Tesis.Programacion.Model.Enums.Combustion;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -33,15 +31,12 @@ public abstract class Vehiculo {
     private String patente;
     private String marca;
     private String modelo;
-    private Long precio;
+    private Double precio;
     private String color;
     private int año;
-    private Long kilometraje;
+    private Double kilometraje;
     private String motor;
-
-    @Enumerated(EnumType.STRING)
-    private Combustion combustion;
-    private String descripcion;
+    private String combustion;
     private LocalDate fechaIngreso;
     private boolean enReparacion;
     private boolean vendido;

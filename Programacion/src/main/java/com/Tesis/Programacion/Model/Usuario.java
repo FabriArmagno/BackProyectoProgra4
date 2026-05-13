@@ -11,6 +11,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private Long dni;
 
     private String nombre;
@@ -19,6 +20,7 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
+    @Column(unique = true)
     private String email;
 
     private String password;

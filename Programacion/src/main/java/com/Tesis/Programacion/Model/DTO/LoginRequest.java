@@ -13,7 +13,6 @@ public class LoginRequest {
 
     @Email(message = "Formato invalido")
     @NotBlank(message = "El email no puede estar vacio")
-    @Column(unique = true)
     private String email;
 
     @NotBlank(message = "La contraseña no puede estar vacia")
