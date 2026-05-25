@@ -17,7 +17,7 @@ public class ClienteMapper {
         );
     }
 
-    public static ClienteDetalleResponse toDetalleDto(Cliente cliente){
+   public static ClienteDetalleResponse toDetalleDto(Cliente cliente){
         return new ClienteDetalleResponse(
                 cliente.getId(),
                 cliente.getNombre(),
@@ -26,7 +26,7 @@ public class ClienteMapper {
                 cliente.getEmail(),
                 cliente.getTelefono(),
                 cliente.getActivo(),
-                cliente.getHistorialVentas()
+                cliente.getHistorialCompras()
         );
     }
 

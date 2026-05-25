@@ -17,5 +17,5 @@ public class ClienteDetalleResponse {
     private String email;
     private String telefono;
     private Boolean activo;
-    private List<HistorialVenta> historialVentas;
+    private List<HistorialVenta>historialVentas;
 }

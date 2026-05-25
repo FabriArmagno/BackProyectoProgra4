@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Service;
 
+import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
 import com.Tesis.Programacion.Model.Taller;
 import com.Tesis.Programacion.Repository.TallerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class TallerService {
     @Autowired
     private TallerRepository tallerRepository;
 
-    private Taller createTaller(Taller t){
+    private Taller createTaller(CrearTallerRequest request){
         return tallerRepository.save(t);
     }
 

@@ -111,5 +111,4 @@ public class UsuarioService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
         }
     }
-
 }

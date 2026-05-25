@@ -33,5 +33,5 @@ public class Cliente {
     private Boolean activo;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<HistorialVenta>historialVentas=new ArrayList<>();
+    private List<HistorialVenta>historialCompras=new ArrayList<>();
 }
