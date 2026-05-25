@@ -1,18 +1,17 @@
 package com.Tesis.Programacion.Controller;
 
-import com.Tesis.Programacion.Model.DTO.UsuarioDTO;
-import com.Tesis.Programacion.Model.Usuario;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
 import com.Tesis.Programacion.Service.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -23,47 +22,31 @@ public class UsuarioController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Usuario>>getUsuarios(){
+    public ResponseEntity<List<UsuarioResponse>>getUsuarios(){
         return ResponseEntity.ok(usuarioService.getUsuarios());
     }
 
-    @GetMapping("/{dni}")
+    @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Usuario>getUsuarioByDni(@PathVariable Long dni){
-        return usuarioService.getUsuarioByDni(dni)
-                .map(usuario -> ResponseEntity.ok().body(usuario))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UsuarioResponse>agregarUsuario(@Valid @RequestBody CrearUsuarioRequest crearUsuarioRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(crearUsuarioRequest));
     }
 
-    @PostMapping("/agregar")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Usuario>agregarUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO){
-
-        Usuario usuario=new Usuario();
-        usuario.setNombre(usuarioDTO.getNombre());
-        usuario.setApellido(usuarioDTO.getApellido());
-        usuario.setDni(usuarioDTO.getDni());
-        usuario.setRol(usuarioDTO.getRol());
-        usuario.setEmail(usuarioDTO.getEmail());
-        usuario.setPassword(new BCryptPasswordEncoder().encode(usuarioDTO.getPassword()));
-        usuario.setActivo(true);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(usuario));
+    public ResponseEntity<UsuarioResponse>modificarUsuario(@Valid @RequestBody UpdateUsuarioRequest request, @PathVariable Long id){
+        return ResponseEntity.ok().body(usuarioService.actualizarUsuario(request, id));
     }
 
-    @PatchMapping("/eliminar/{dni}")
+    @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Usuario>darDeBajaUsuario(@PathVariable Long dni){
-        return usuarioService.bajaDeUsuario(dni)
-                .map(usuario -> ResponseEntity.ok().body(usuario))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UsuarioResponse>darDeBajaUsuario(@PathVariable Long id){
+        return ResponseEntity.ok().body(usuarioService.bajaDeUsuario(id));
     }
 
-    @PatchMapping("/activar/{dni}")
+    @PatchMapping("/{id}/activar")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Usuario>activarUsuario(@PathVariable Long dni){
-        return usuarioService.activarUsuario(dni)
-                .map(usuario -> ResponseEntity.ok().body(usuario))
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<UsuarioResponse>activarUsuario(@PathVariable Long id){
+        return ResponseEntity.ok().body(usuarioService.activarUsuario(id));
     }
 }

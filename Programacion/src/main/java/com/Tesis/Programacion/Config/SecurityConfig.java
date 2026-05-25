@@ -55,11 +55,12 @@ public class SecurityConfig {
                                                    JwtAuthFilter jwtAuthFilter,
                                                    UserDetailsService userDetailsService) throws Exception {
         return http
+                .cors(cors ->{})
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider(userDetailsService))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

@@ -1,10 +1,10 @@
-package com.Tesis.Programacion.Model.DTO;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 public class VehiculoDetalleDTO {
     private String make;
     private String model;

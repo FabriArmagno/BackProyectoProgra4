@@ -1,20 +1,26 @@
 package com.Tesis.Programacion.Model;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Data;
+import java.time.LocalDate;
 
 @Entity
 @Data
 @DiscriminatorValue("VENTA")
 public class HistorialVenta extends Historial{
-    @ManyToOne
-    private Usuario cliente;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id", nullable = false)
+    private Cliente cliente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendedor_id", nullable = false)
     private Usuario vendedor;
-    private Double PrecioVenta;
+
+    @Column(nullable = false)
+    private Double precioVenta;
+
+    @Column(nullable = false)
+    private LocalDate fechaVenta;
 
 }

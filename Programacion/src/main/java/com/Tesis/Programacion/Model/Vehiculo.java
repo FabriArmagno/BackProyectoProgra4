@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model;
 
+import com.Tesis.Programacion.Model.Enums.Estado;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
@@ -7,6 +8,8 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -23,25 +26,44 @@ import java.time.LocalDateTime;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_vehiculo", discriminatorType = DiscriminatorType.STRING)
 public abstract class Vehiculo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String patente;
-    private String marca;
-    private String modelo;
-    private Double precio;
-    private String color;
-    private int año;
-    private Double kilometraje;
-    private String motor;
-    private String combustion;
-    private LocalDate fechaIngreso;
-    private boolean enReparacion;
-    private boolean vendido;
 
-    @ManyToOne
-    @JoinColumn(name = "historial_id")
-    private Historial historial;
+    @Column(nullable = false)
+    private String marca;
+
+    @Column(nullable = false)
+    private String modelo;
+
+    @Column(nullable = false)
+    private Double precio;
+
+    @Column(nullable = false)
+    private String color;
+
+    @Column(nullable = false)
+    private int año;
+
+    @Column(nullable = false)
+    private Double kilometraje;
+
+    @Column(nullable = false)
+    private String motor;
+
+    @Column(nullable = false)
+    private String combustion;
+
+    @Column(nullable = false)
+    private LocalDate fechaIngreso;
+
+    @Column(nullable = false)
+    private Estado estado;
+
+    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Historial> historial = new ArrayList<>();
 }

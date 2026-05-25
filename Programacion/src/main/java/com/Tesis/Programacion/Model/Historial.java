@@ -23,12 +23,12 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_historial")
 public class Historial {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "historial")
-    private List<Vehiculo> vehiculo;
-
-    private LocalDate fechaSalida;
+    @ManyToOne
+    @JoinColumn(name = "vehiculo_id")
+    private Vehiculo vehiculo;
 }

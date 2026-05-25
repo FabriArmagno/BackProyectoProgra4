@@ -1,8 +1,8 @@
-package com.Tesis.Programacion.Model.DTO;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class EngineDTO {
     private String engine_type;
     private String cylinders;

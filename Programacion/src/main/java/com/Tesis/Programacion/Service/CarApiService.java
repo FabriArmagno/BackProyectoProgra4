@@ -1,6 +1,6 @@
 package com.Tesis.Programacion.Service;
 
-import com.Tesis.Programacion.Model.DTO.*;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.*;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,13 +22,13 @@ public class CarApiService {
                 ? "/api/makes/powersports?type=street_motorcycle"
                 : "/api/makes/v2";
 
-        MakeResponseDTO makeResponseDTO=webClient.get()//Hace una peticion HTTP GET
+        MakeResponse makeResponse =webClient.get()//Hace una peticion HTTP GET
                 .uri(endpoint)//Define el endpoint
                 .retrieve()//Ejecuta la peticion
-                .bodyToMono(MakeResponseDTO.class)
+                .bodyToMono(MakeResponse.class)
                 .block();//Lo vuelve sincronico
 
-        return makeResponseDTO
+        return makeResponse
                 .getData()
                 .stream()
                 .map(makeDTO -> makeDTO.getName())
@@ -43,7 +43,7 @@ public class CarApiService {
                 ? "/api/models/powersports"
                 : "/api/models/v2";
 
-        ModelResponseDTO modelResponseDTO=webClient.get()
+        ModelResponse modelResponse =webClient.get()
                 .uri(uriBuilder ->
                             {
                                 uriBuilder.path(endpoint)
@@ -57,10 +57,10 @@ public class CarApiService {
                             }
                 )
                 .retrieve()
-                .bodyToMono(ModelResponseDTO.class)
+                .bodyToMono(ModelResponse.class)
                 .block();
 
-        return modelResponseDTO
+        return modelResponse
                 .getData()
                 .stream()
                 .map(modelDTO -> modelDTO.getName())
@@ -93,17 +93,17 @@ public class CarApiService {
     public List<SubModelDTO>obtenerSubmodels(String modelo, Integer anio){
         String endpoint="/api/trims/v2";
 
-        SubModelResponseDTO subModelResponseDTO=webClient.get()
+        SubModelResponse subModelResponse =webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path(endpoint)
                         .queryParam("model", modelo)
                         .queryParam("year", anio)
                         .build()
                 ).retrieve()
-                .bodyToMono(SubModelResponseDTO.class)
+                .bodyToMono(SubModelResponse.class)
                 .block();
 
-        return subModelResponseDTO.getData();
+        return subModelResponse.getData();
     }
 
     public VehiculoDetalleDTO obtenerDetalleDelVehiculo(Long id){

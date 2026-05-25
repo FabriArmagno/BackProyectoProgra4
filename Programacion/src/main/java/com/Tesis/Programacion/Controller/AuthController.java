@@ -1,7 +1,7 @@
 package com.Tesis.Programacion.Controller;
 
-import com.Tesis.Programacion.Model.DTO.LoginRequest;
-import com.Tesis.Programacion.Model.DTO.LoginResponse;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Auth.LoginRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Auth.LoginResponse;
 import com.Tesis.Programacion.Service.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,18 +1,18 @@
 package com.Tesis.Programacion.Controller;
 
-import com.Tesis.Programacion.Model.Auto;
-import com.Tesis.Programacion.Model.DTO.CrearVehiculoDTO;
-import com.Tesis.Programacion.Model.DTO.SubModelDTO;
-import com.Tesis.Programacion.Model.DTO.VehiculoDetalleDTO;
-import com.Tesis.Programacion.Model.Vehiculo;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Auto.CrearAutoRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
+import com.Tesis.Programacion.Service.AutoService;
 import com.Tesis.Programacion.Service.CarApiService;
 import com.Tesis.Programacion.Service.VehiculoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,52 +23,34 @@ public class VehiculoController {
     private VehiculoService vehiculoService;
 
     @Autowired
+    private AutoService autoService;
+
+    @Autowired
     private CarApiService carApiService;
 
-    @GetMapping
-    public ResponseEntity<List<Vehiculo>> getVehiculos(){
-        return ResponseEntity.ok(vehiculoService.getVehiculos());
+    ///------------------------------------------AUTO---------------------------------------------------------------
+
+    @GetMapping("/autos")
+    public ResponseEntity<List<AutoResponse>> getAutos(){
+        return ResponseEntity.ok().body(autoService.getAutos());
     }
 
-    @PostMapping("/auto/agregar")
-    public ResponseEntity<Vehiculo> agregarAuto(@RequestBody CrearVehiculoDTO crearVehiculoDTO){
-        VehiculoDetalleDTO vehiculoDetalleDTO = carApiService.obtenerDetalleDelVehiculo(crearVehiculoDTO.getIdTrim());
-
-        Auto auto=new Auto();
-        auto.setPatente(crearVehiculoDTO.getPatente());
-        auto.setMarca(vehiculoDetalleDTO.getMake());
-        auto.setModelo(vehiculoDetalleDTO.getModel());
-        auto.setPrecio(crearVehiculoDTO.getPrecio());
-        auto.setColor(crearVehiculoDTO.getColor());
-        auto.setAño(vehiculoDetalleDTO.getYear());
-        auto.setKilometraje(crearVehiculoDTO.getKilometraje());
-        auto.setSubmodelo(vehiculoDetalleDTO.getDescription());
-        auto.setFechaIngreso(LocalDate.now());
-        auto.setEnReparacion(false);
-        auto.setVendido(false);
-
-        if(!vehiculoDetalleDTO.getEngines().isEmpty()){
-            auto.setMotor(vehiculoDetalleDTO.getEngines().getFirst().getSize());
-            auto.setCombustion(vehiculoDetalleDTO.getEngines().getFirst().getEngine_type());
-            auto.setPotencia(vehiculoDetalleDTO.getEngines().getFirst().getHorsepower_hp());
-        }
-
-        if(!vehiculoDetalleDTO.getDrive_types().isEmpty()){
-            auto.setTipoDeTraccion(vehiculoDetalleDTO.getDrive_types().getFirst().getDescription());
-        }
-
-        if(!vehiculoDetalleDTO.getTransmissions().isEmpty()){
-            auto.setTransmision(vehiculoDetalleDTO.getTransmissions().getFirst().getDescription());
-        }
-
-        if(!vehiculoDetalleDTO.getBodies().isEmpty()){
-            auto.setPuertas(vehiculoDetalleDTO.getBodies().getFirst().getDoors());
-            auto.setTipoAuto(vehiculoDetalleDTO.getBodies().getFirst().getType());
-        }
-
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(vehiculoService.createVehiculo(auto));
+    @GetMapping("/autos/{id}")
+    public ResponseEntity<AutoDetalleResponse> getDetalleAuto(@PathVariable Long id) {
+        return ResponseEntity.ok().body(autoService.getAutoById(id));
     }
+
+   @PostMapping("/autos")
+    public ResponseEntity<AutoDetalleResponse> agregarAuto(@Valid @RequestBody CrearAutoRequest crearAutoRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(autoService.createAuto(crearAutoRequest));
+    }
+
+    @PutMapping("/autos/{id}")
+    public ResponseEntity<AutoDetalleResponse> venderAuto(@PathVariable Long id){
+        return ResponseEntity.ok().body(autoService.venderAuto(id));
+    }
+
+    ///-------------------------------AUTO Y MOTO-----------------------------------------------------------------
 
     @GetMapping("/list/patente/{patente}")
     public ResponseEntity<?> getVehiculoByPatente(@PathVariable String patente){

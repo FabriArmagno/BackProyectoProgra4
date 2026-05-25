@@ -13,14 +13,6 @@ public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;
 
-    public Vehiculo createVehiculo(Vehiculo v){
-        return vehiculoRepository.save(v);
-    }
-
-    public List<Vehiculo> getVehiculos(){
-        return vehiculoRepository.findAll();
-    }
-
     public Optional<Vehiculo> getVehiculoByPatente(String patente){
         return vehiculoRepository.findByPatente(patente);
     }

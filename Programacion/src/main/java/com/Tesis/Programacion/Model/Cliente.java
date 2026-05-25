@@ -1,19 +1,18 @@
 package com.Tesis.Programacion.Model;
 
-import com.Tesis.Programacion.Model.Enums.Rol;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Data
-public class Usuario {
+public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(unique = true, nullable = false)
-    private Integer dni;
 
     @Column(nullable = false)
     private String nombre;
@@ -21,15 +20,18 @@ public class Usuario {
     @Column(nullable = false)
     private String apellido;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Rol rol;
+    private Integer dni;
 
-    @Column(unique = true)
+    @Column(nullable = false)
     private String email;
 
-    private String password;
+    @Column(nullable = false)
+    private String telefono;
 
     @Column(nullable = false)
     private Boolean activo;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private List<HistorialVenta>historialVentas=new ArrayList<>();
 }

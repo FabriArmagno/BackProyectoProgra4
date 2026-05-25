@@ -1,4 +1,4 @@
-package com.Tesis.Programacion.Model.DTO;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.Auth;
 
 public class LoginResponse {
     private String token;

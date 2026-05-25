@@ -12,23 +12,26 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Taller {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
+
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Especialidad especialidad;
+
+    @Column(nullable = false)
     private String nombre;
 
     @OneToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario encargado;
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario encargadoTaller;
 
-    @OneToMany
-    @JoinColumn(name = "taller_id")
-    private List<Vehiculo> vehiculos;
-
+    @Column(nullable = false)
     private String direccion;
+
+    @OneToMany(mappedBy = "taller", fetch = FetchType.LAZY)
+    private List<HistorialReparacion> historialReparaciones;
 }
