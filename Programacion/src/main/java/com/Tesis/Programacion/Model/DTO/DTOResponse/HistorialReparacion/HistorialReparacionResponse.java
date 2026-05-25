@@ -1,12 +1,13 @@
-package com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
-
-public class CrearReparacionRequest {
+public class HistorialReparacionResponse {
     private Long idTaller;
     private Long idVehiculo;
     private LocalDate fechaDeEntrada;

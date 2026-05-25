@@ -1,28 +1,73 @@
 package com.Tesis.Programacion.Service;
 
-import com.Tesis.Programacion.Model.Historial;
-import com.Tesis.Programacion.Repository.HistorialRepository;
+import com.Tesis.Programacion.Model.*;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Venta.VentaResponse;
+import com.Tesis.Programacion.Model.Mapper.VentaMapper;
+import com.Tesis.Programacion.Repository.ClienteRepository;
 import com.Tesis.Programacion.Repository.HistorialVentaRepository;
+import com.Tesis.Programacion.Repository.UsuarioRepository;
+import com.Tesis.Programacion.Repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class HistorialVentaService {
     @Autowired
     private HistorialVentaRepository historialVentaRepository;
 
-    private Historial createHistorial(Historial h){
-        return historialVentaRepository.save(h);
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VehiculoRepository vehiculoRepository;
+
+
+    //CRUD
+
+    public Historial createHistorial(CrearVentaRequest ventaRequest) {
+        Cliente cId = clienteRepository.findById(ventaRequest.getClienteId()).orElse(null);
+        Usuario uId = usuarioRepository.findById(ventaRequest.getVendedorId()).orElse(null);
+        Vehiculo vId = vehiculoRepository.findById(ventaRequest.getVehiculoId()).orElse(null);
+
+        if (cId != null && uId != null && vId != null && ventaRequest.getPrecioVenta() > 0) {
+
+            return HistorialVenta.builder()
+                    .vehiculo(vId)
+                    .cliente(cId)
+                    .vendedor(uId)
+                    .precioVenta(ventaRequest.getPrecioVenta())
+                    .fechaVenta(LocalDate.now())
+                    .build();
+        } else {
+            throw new RuntimeException("IDs o datos inválidos para registrar la venta");
+        }
     }
 
-    private List<Historial> getHistoriales(){
-        return historialVentaRepository.findAll();
+    public List<VentaResponse> getVentas(){
+        return historialVentaRepository.findAll().stream()
+                .map(VentaMapper::toDto)
+                .toList();
     }
 
-    private Optional<Historial> getHistorialByID(Long id){
-        return historialVentaRepository.findById(id);
+    public VentaResponse getVentaById(Long id){
+        return historialVentaRepository.findById(id)
+                .map(VentaMapper::toDto)
+                .orElse(null);
     }
+
+
+
+
+
+
+
+
+
 }

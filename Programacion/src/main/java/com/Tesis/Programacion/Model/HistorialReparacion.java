@@ -1,12 +1,19 @@
 package com.Tesis.Programacion.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDate;
 
 
 @Entity
 @Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @DiscriminatorValue("REPARACION")
 public class HistorialReparacion extends Historial{
 
