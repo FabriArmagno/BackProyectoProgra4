@@ -4,29 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Ventas/CrearVentaRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/HistorialReparacion/HistorialReparacionResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Venta/VentaResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/ReparacionMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/VentaMapper.java" afterDir="false" />
+    <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="Historiales terminados">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialReparacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialReparacionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialVentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Reparacion/CrearReparacionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Reparacion/CrearReparacionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Historial.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Historial.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/HistorialReparacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/HistorialReparacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/HistorialVenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/HistorialVenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/ClienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialVentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialVentaService.java" afterDir="false" />
     </list>
     <list id="006253f8-499f-4b21-885b-9b8490eca5ae" name="Changes by Fabri" comment="" />
-    <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="">
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Reparacion/CrearReparacionRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Reparacion/CrearReparacionRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/TallerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/TallerRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialReparacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialReparacionService.java" afterDir="false" />
-    </list>
+    <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="Changes by Leandro" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,16 +26,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Reparacion/CrearReparacionRequest.java">
-      <ranges>
-        <range start1="2" end1="2" start2="2" end2="3" changelist="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" />
-        <range start1="4" end1="4" start2="5" end2="6" changelist="778374ff-05a3-4ca8-993c-ea77e2a20df1" />
-        <range start1="5" end1="5" start2="7" end2="9" changelist="778374ff-05a3-4ca8-993c-ea77e2a20df1" />
-        <range start1="6" end1="7" start2="10" end2="15" changelist="778374ff-05a3-4ca8-993c-ea77e2a20df1" />
-      </ranges>
-    </file>
-  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;FabriArmagno&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FabriArmagno/BackProyectoProgra4.git&quot;,
+    &quot;accountId&quot;: &quot;5545e823-20af-44a0-ad15-2fc3e888b286&quot;
+  }
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -76,31 +60,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.ProgramacionApplication.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "Spring Boot.ProgramacionApplication.executor": "Run",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/proyectoFinalProgra/BackProyectoProgra4",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ProgramacionApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ProgramacionApplication.executor&quot;: &quot;Run&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/proyectoFinalProgra/BackProyectoProgra4&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ProgramacionApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <envs>
@@ -127,8 +111,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1777504001277</updated>
-      <workItem from="1779738999768" duration="5039000" />
+      <workItem from="1779738999768" duration="5151000" />
+      <workItem from="1780179336922" duration="20000" />
     </task>
+    <task id="LOCAL-00001" summary="Historiales terminados">
+      <option name="closed" value="true" />
+      <created>1779744072797</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779744072797</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes by Leandro">
+      <option name="closed" value="true" />
+      <created>1779744099769</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1779744099769</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,5 +158,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <confirmRemoveEmptyChangelist value="1" />
+    <MESSAGE value="Historiales terminados" />
+    <MESSAGE value="Changes by Leandro" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Leandro" />
   </component>
 </project>
