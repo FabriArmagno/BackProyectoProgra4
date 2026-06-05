@@ -9,9 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TallerRepository extends JpaRepository<Taller,Long> {
-<<<<<<< HEAD
     List<Taller> findByActivo(Boolean activo);
-=======
-
->>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
 }

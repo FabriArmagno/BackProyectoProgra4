@@ -4,7 +4,6 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
     <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/TallerController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Taller/UpdateTallerRequest.java" afterDir="false" />
@@ -25,13 +24,11 @@
     </list>
     <list id="006253f8-499f-4b21-885b-9b8490eca5ae" name="Changes by Fabri" comment="" />
     <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="" />
-=======
     <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="Historiales terminados">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <list id="006253f8-499f-4b21-885b-9b8490eca5ae" name="Changes by Fabri" comment="" />
     <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="Changes by Leandro" />
->>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,8 +46,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-<<<<<<< HEAD
-=======
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
     &quot;state&quot;: &quot;OPEN&quot;,
@@ -100,9 +95,7 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-<<<<<<< HEAD
     &quot;last_opened_file_path&quot;: &quot;C:/Users/franm/Desktop/BackProyectoProgra4&quot;,
-=======
     &quot;last_opened_file_path&quot;: &quot;D:/proyectoFinalProgra/BackProyectoProgra4&quot;,
 >>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
