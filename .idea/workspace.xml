@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/TallerController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Taller/UpdateTallerRequest.java" afterDir="false" />
@@ -24,6 +25,13 @@
     </list>
     <list id="006253f8-499f-4b21-885b-9b8490eca5ae" name="Changes by Fabri" comment="" />
     <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="" />
+=======
+    <list default="true" id="778374ff-05a3-4ca8-993c-ea77e2a20df1" name="Changes" comment="Historiales terminados">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <list id="006253f8-499f-4b21-885b-9b8490eca5ae" name="Changes by Fabri" comment="" />
+    <list id="e96ecbad-6d6a-4ad2-8e48-f1aeb6814c46" name="Changes by Leandro" comment="Changes by Leandro" />
+>>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +49,21 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;FabriArmagno&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FabriArmagno/BackProyectoProgra4.git&quot;,
+    &quot;accountId&quot;: &quot;5545e823-20af-44a0-ad15-2fc3e888b286&quot;
+  }
+}</component>
+>>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -77,7 +100,11 @@
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+<<<<<<< HEAD
     &quot;last_opened_file_path&quot;: &quot;C:/Users/franm/Desktop/BackProyectoProgra4&quot;,
+=======
+    &quot;last_opened_file_path&quot;: &quot;D:/proyectoFinalProgra/BackProyectoProgra4&quot;,
+>>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -114,8 +141,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1777504001277</updated>
-      <workItem from="1779738999768" duration="5039000" />
+      <workItem from="1779738999768" duration="5151000" />
+      <workItem from="1780179336922" duration="20000" />
     </task>
+    <task id="LOCAL-00001" summary="Historiales terminados">
+      <option name="closed" value="true" />
+      <created>1779744072797</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779744072797</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Changes by Leandro">
+      <option name="closed" value="true" />
+      <created>1779744099769</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1779744099769</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,5 +188,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <confirmRemoveEmptyChangelist value="1" />
+    <MESSAGE value="Historiales terminados" />
+    <MESSAGE value="Changes by Leandro" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes by Leandro" />
   </component>
 </project>

@@ -1,4 +1,8 @@
 package com.Tesis.Programacion.Service;
+<<<<<<< HEAD
+=======
+
+>>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
 import com.Tesis.Programacion.Model.*;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CrearReparacionRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
@@ -40,6 +44,41 @@ public class HistorialReparacionService {
             throw new RuntimeException("Ids Invalidos");
         }
     }
+<<<<<<< HEAD
+=======
+
+    public List<HistorialReparacionResponse> getReparaciones(){
+        return repository.findAll().stream()
+                .map(ReparacionMapper::toDto)
+                .toList();
+    }
+
+    public HistorialReparacionResponse getReparacionByID(Long id){
+        return repository.findById(id)
+                .map(ReparacionMapper::toDto)
+                .orElse(null);
+    }
+
+    public static boolean fechasValidas(LocalDate entrada, LocalDate salida) {
+
+        // Verificar null
+        if (entrada == null || salida == null) {
+            return false;
+        }
+
+        // La salida no puede ser antes de la entrada
+        if (salida.isBefore(entrada)) {
+            return false;
+        }
+
+        // Opcional: no permitir mismo día
+        if (salida.isEqual(entrada)) {
+            return false;
+        }
+
+        return true;
+    }
+>>>>>>> e6494d02781679ef948c241cc376fdd82eb214ea
 
     public List<HistorialReparacionResponse> getReparaciones(){
         return repository.findAll().stream()
