@@ -10,4 +10,5 @@ public class TallerResponse {
     private Long id;
     private Especialidad especialidad;
     private String nombre;
+    private Boolean activo;
 }

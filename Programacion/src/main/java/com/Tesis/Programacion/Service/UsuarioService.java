@@ -8,7 +8,11 @@ import com.Tesis.Programacion.Model.Usuario;
 import com.Tesis.Programacion.Repository.ClienteRepository;
 import com.Tesis.Programacion.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,7 +31,6 @@ public class UsuarioService {
     // Crear un usuario verificando que no exista
 
     public UsuarioResponse createUser(CrearUsuarioRequest request){
-
        validarDni(request.getDni());
        validarEmail(request.getEmail());
 
@@ -98,6 +101,11 @@ public class UsuarioService {
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
     }
 
+    public Usuario encontrarUsuarioByEmail(String email){
+        return usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+    }
+
     // Metodo para validar que el DNI no exista
     public void validarDni(Integer dni){
         if (usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni)){
@@ -111,4 +119,5 @@ public class UsuarioService {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
         }
     }
+
 }

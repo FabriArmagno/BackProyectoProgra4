@@ -6,22 +6,24 @@ import com.Tesis.Programacion.Model.Taller;
 
 public class TallerMapper {
 
-    public TallerResponse toDto(Taller taller){
+    public static TallerResponse toDto(Taller taller){
         return new TallerResponse(
                 taller.getId(),
                 taller.getEspecialidad(),
-                taller.getNombre()
+                taller.getNombre(),
+                taller.getActivo()
         );
     }
 
-    public TallerDetalleResponse toDetalleDto(Taller taller){
+    public static TallerDetalleResponse toDetalleDto(Taller taller){
         return new TallerDetalleResponse(
             taller.getId(),
                 taller.getEspecialidad(),
                 taller.getNombre(),
                 taller.getEncargadoTaller(),
                 taller.getDireccion(),
-                taller.getHistorialReparaciones()
+                taller.getHistorialReparaciones(),
+                taller.getActivo()
         );
     }
 }

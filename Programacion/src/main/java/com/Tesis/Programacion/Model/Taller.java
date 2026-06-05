@@ -32,6 +32,9 @@ public class Taller {
     @Column(nullable = false)
     private String direccion;
 
+    @Column(nullable = false)
+    private Boolean activo;
+
     @OneToMany(mappedBy = "taller", fetch = FetchType.LAZY)
     private List<HistorialReparacion> historialReparaciones;
 }

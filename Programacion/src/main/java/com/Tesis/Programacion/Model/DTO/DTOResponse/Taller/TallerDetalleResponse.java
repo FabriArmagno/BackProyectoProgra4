@@ -17,4 +17,5 @@ public class TallerDetalleResponse {
     private Usuario encargadoTaller;
     private String direccion;
     private List<HistorialReparacion> historialReparaciones;
+    private Boolean activo;
 }

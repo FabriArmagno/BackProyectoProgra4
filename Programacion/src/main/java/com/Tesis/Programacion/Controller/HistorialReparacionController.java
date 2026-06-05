@@ -32,9 +32,4 @@ public class HistorialReparacionController {
     public ResponseEntity<Historial> saveVenta(@RequestBody CrearReparacionRequest reparacionRequest){
         return ResponseEntity.ok(reparacionService.saveHistorialReparacion(reparacionRequest));
     }
-
-
-
-
-
 }
