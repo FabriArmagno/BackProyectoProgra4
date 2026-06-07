@@ -41,13 +41,16 @@ public abstract class Vehiculo {
     private String modelo;
 
     @Column(nullable = false)
+    private String version;
+
+    @Column(nullable = false)
     private Double precio;
 
     @Column(nullable = false)
     private String color;
 
     @Column(nullable = false)
-    private int año;
+    private int anio;
 
     @Column(nullable = false)
     private Double kilometraje;

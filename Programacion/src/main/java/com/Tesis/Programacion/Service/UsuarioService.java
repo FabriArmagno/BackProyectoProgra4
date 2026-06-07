@@ -8,17 +8,12 @@ import com.Tesis.Programacion.Model.Usuario;
 import com.Tesis.Programacion.Repository.ClienteRepository;
 import com.Tesis.Programacion.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UsuarioService {
@@ -27,6 +22,9 @@ public class UsuarioService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // Crear un usuario verificando que no exista
 
@@ -40,7 +38,7 @@ public class UsuarioService {
         usuario.setApellido(request.getApellido());
         usuario.setRol(request.getRol());
         usuario.setEmail(request.getEmail());
-        usuario.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
+        usuario.setPassword(passwordEncoder.encode(request.getPassword()));
         usuario.setActivo(true);
 
         return UsuarioMapper.toDto(usuarioRepository.save(usuario));

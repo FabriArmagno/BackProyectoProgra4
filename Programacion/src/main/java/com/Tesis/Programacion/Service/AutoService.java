@@ -2,8 +2,7 @@ package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Auto.CrearAutoRequest;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.VehiculoDetalleDTO;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
@@ -36,9 +35,10 @@ public class AutoService {
         auto.setModelo(vehiculoDetalleDTO.getModel());
         auto.setPrecio(request.getPrecio());
         auto.setColor(request.getColor());
-        auto.setAño(vehiculoDetalleDTO.getYear());
+        auto.setAnio(vehiculoDetalleDTO.getYear());
         auto.setKilometraje(request.getKilometraje());
-        auto.setSubmodelo(vehiculoDetalleDTO.getDescription());
+        auto.setVersion(vehiculoDetalleDTO.getSubmodel());
+        auto.setDescripcion(vehiculoDetalleDTO.getDescription());
         auto.setFechaIngreso(LocalDate.now());
         auto.setEstado(Estado.DISPONIBLE);
 
@@ -60,38 +60,6 @@ public class AutoService {
             auto.setPuertas(vehiculoDetalleDTO.getBodies().getFirst().getDoors());
             auto.setTipoAuto(vehiculoDetalleDTO.getBodies().getFirst().getType());
         }
-
-        return AutoMapper.toDetalleDTO(autoRepository.save(auto));
-    }
-
-    // Listar todos los autos
-
-    public List<AutoResponse> getAutos(){
-        return autoRepository.findAll()
-                .stream()
-                .map(auto -> AutoMapper.toDTO(auto))
-                .toList();
-    }
-
-    // Mostrar el detalle de un auto con el ID
-
-    public AutoDetalleResponse getAutoById(Long id){
-        Auto auto=autoRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Auto no encontrado"));
-
-        return AutoMapper.toDetalleDTO(auto);
-    }
-
-    // Eliminar el vehiculo(actualizamos el estado a vendido)
-
-    ///PENDIENTE. AGREGAR AL HISTORIAL DE VENTAS
-    public AutoDetalleResponse venderAuto(Long id){
-        Auto auto=autoRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Auto no encontrado"
-                ));
-
-        auto.setEstado(Estado.VENDIDO);
 
         return AutoMapper.toDetalleDTO(autoRepository.save(auto));
     }

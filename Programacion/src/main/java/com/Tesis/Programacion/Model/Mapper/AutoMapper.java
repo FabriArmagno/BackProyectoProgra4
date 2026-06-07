@@ -1,45 +1,33 @@
 package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.Auto;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 
 public class AutoMapper {
 
     ///Metodo para convertir una entidad a un DTO
-    public static AutoResponse toDTO(Auto auto){
-        return new AutoResponse(
-                auto.getId(),
-                auto.getPatente(),
-                auto.getMarca(),
-                auto.getModelo(),
-                auto.getPrecio(),
-                auto.getAño(),
-                auto.getKilometraje(),
-                auto.getEstado(),
-                auto.getSubmodelo()
-        );
-    }
+   public static AutoDetalleResponse toDetalleDTO(Auto auto){
+       AutoDetalleResponse autoResponse=new AutoDetalleResponse();
+       autoResponse.setId(auto.getId());
+       autoResponse.setPatente(auto.getPatente());
+       autoResponse.setMarca(auto.getMarca());
+       autoResponse.setModelo(auto.getModelo());
+       autoResponse.setPrecio(auto.getPrecio());
+       autoResponse.setColor(auto.getColor());
+       autoResponse.setAnio(auto.getAnio());
+       autoResponse.setKilometraje(auto.getKilometraje());
+       autoResponse.setMotor(auto.getMotor());
+       autoResponse.setCombustion(auto.getCombustion());
+       autoResponse.setTipo("AUTO");
+       autoResponse.setPuertas(auto.getPuertas());
+       autoResponse.setPotencia(auto.getPotencia());
+       autoResponse.setTipoAuto(auto.getTipoAuto());
+       autoResponse.setDescripcion(auto.getDescripcion());
+       autoResponse.setTipoDeTraccion(auto.getTipoDeTraccion());
+       autoResponse.setTransmision(auto.getTransmision());
+       autoResponse.setFechaIngreso(auto.getFechaIngreso());
+       autoResponse.setVersion(auto.getVersion());
 
-    public static AutoDetalleResponse toDetalleDTO(Auto auto){
-        return new AutoDetalleResponse(
-                auto.getId(),
-                auto.getPatente(),
-                auto.getMarca(),
-                auto.getModelo(),
-                auto.getPrecio(),
-                auto.getAño(),
-                auto.getKilometraje(),
-                auto.getEstado(),
-                auto.getSubmodelo(),
-                auto.getColor(),
-                auto.getMotor(),
-                auto.getCombustion(),
-                auto.getPotencia(),
-                auto.getTipoAuto(),
-                auto.getTipoDeTraccion(),
-                auto.getTransmision(),
-                auto.getHistorial()
-        );
+       return autoResponse;
     }
 }

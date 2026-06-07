@@ -3,10 +3,16 @@ package com.Tesis.Programacion.Model;
 import com.Tesis.Programacion.Model.Enums.Rol;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +34,19 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
+    @Column(nullable = false)
     private String password;
 
     @Column(nullable = false)
     private Boolean activo;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }

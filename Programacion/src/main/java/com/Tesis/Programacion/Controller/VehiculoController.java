@@ -1,9 +1,10 @@
 package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Auto.CrearAutoRequest;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Auto.AutoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Service.AutoService;
 import com.Tesis.Programacion.Service.CarApiService;
 import com.Tesis.Programacion.Service.VehiculoService;
@@ -11,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,29 +30,24 @@ public class VehiculoController {
     @Autowired
     private CarApiService carApiService;
 
-    ///------------------------------------------AUTO---------------------------------------------------------------
+    ///------------------------------------------VEHICULOS----------------------------------------------------------
 
-    @GetMapping("/autos")
-    public ResponseEntity<List<AutoResponse>> getAutos(){
-        return ResponseEntity.ok().body(autoService.getAutos());
+    @GetMapping
+    public ResponseEntity<List<VehiculoResponse>>getVehiculos(){
+        return ResponseEntity.ok(vehiculoService.getVehiculos());
     }
 
-    @GetMapping("/autos/{id}")
-    public ResponseEntity<AutoDetalleResponse> getDetalleAuto(@PathVariable Long id) {
-        return ResponseEntity.ok().body(autoService.getAutoById(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<VehiculoDetalleResponse> getDetalleVehiculo(@PathVariable Long id) {
+        return ResponseEntity.ok().body(vehiculoService.getVehiculoById(id));
     }
 
-   @PostMapping("/autos")
-    public ResponseEntity<AutoDetalleResponse> agregarAuto(@Valid @RequestBody CrearAutoRequest crearAutoRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(autoService.createAuto(crearAutoRequest));
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void>eliminarVehiculo(@PathVariable Long id){
+        vehiculoService.eliminarVehiculo(id);
+        return ResponseEntity.noContent().build();
     }
-
-    @PutMapping("/autos/{id}")
-    public ResponseEntity<AutoDetalleResponse> venderAuto(@PathVariable Long id){
-        return ResponseEntity.ok().body(autoService.venderAuto(id));
-    }
-
-    ///-------------------------------AUTO Y MOTO-----------------------------------------------------------------
 
     @GetMapping("/list/patente/{patente}")
     public ResponseEntity<?> getVehiculoByPatente(@PathVariable String patente){
@@ -64,6 +61,11 @@ public class VehiculoController {
         return vehiculoService.getVehiculoByMarca(marca).
                 map(vehiculo -> ResponseEntity.ok().body(vehiculo))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> venderAuto(@PathVariable Long id){
+        return ResponseEntity.ok().body(vehiculoService.venderAuto(id));
     }
 
     @GetMapping("/marcas")
@@ -86,6 +88,13 @@ public class VehiculoController {
         return carApiService.obtenerSubmodels(model, year);
     }
 
+
+    ///------------------------------------------AUTO---------------------------------------------------------------
+
+   @PostMapping("/autos")
+    public ResponseEntity<AutoDetalleResponse> agregarAuto(@Valid @RequestBody CrearAutoRequest crearAutoRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(autoService.createAuto(crearAutoRequest));
+    }
 
 
 }
