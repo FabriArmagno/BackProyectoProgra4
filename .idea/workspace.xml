@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/MvcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UploadFileService.java" afterDir="false" />
+    <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="Crear autos con Imagenes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/WebClientConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/WebClientConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Auto/CrearAutoRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTORequest/Auto/CrearAutoRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/VehiculoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/VehiculoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/VehiculoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/VehiculoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/AutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/AutoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UploadFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UploadFileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/VehiculoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/VehiculoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779744099769</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Crear autos con Imagenes">
+      <option name="closed" value="true" />
+      <created>1780858270953</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1780858270954</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,6 +167,7 @@
     <confirmRemoveEmptyChangelist value="1" />
     <MESSAGE value="Historiales terminados" />
     <MESSAGE value="Changes by Leandro" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Leandro" />
+    <MESSAGE value="Crear autos con Imagenes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Crear autos con Imagenes" />
   </component>
 </project>

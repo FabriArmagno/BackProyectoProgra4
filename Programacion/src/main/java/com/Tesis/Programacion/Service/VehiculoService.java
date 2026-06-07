@@ -9,11 +9,15 @@ import com.Tesis.Programacion.Model.Mapper.AutoMapper;
 import com.Tesis.Programacion.Model.Mapper.VehiculoMapper;
 import com.Tesis.Programacion.Model.Vehiculo;
 import com.Tesis.Programacion.Repository.VehiculoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.security.PublicKey;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +25,9 @@ import java.util.Optional;
 public class VehiculoService {
     @Autowired
     private VehiculoRepository vehiculoRepository;
+
+    @Autowired
+    private UploadFileService uploadService;
 
     public List<VehiculoResponse>getVehiculos(){
        return vehiculoRepository.findAll()
@@ -71,4 +78,47 @@ public class VehiculoService {
     public Optional<Vehiculo> getVehiculoByMarca(String marca){
         return vehiculoRepository.findByMarca(marca);
     }
+
+    ///------------------------------------------IMAGENES---------------------------------------------------------------
+
+
+    // --- AGREGAR MÁS IMÁGENES A UN VEHÍCULO EXISTENTE ---
+    public void agregarImagenes(Long id, List<MultipartFile> files) {
+        Vehiculo vehiculo = vehiculoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
+
+        if (files != null && !files.isEmpty()) {
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    try {
+                        String nombreImagen = uploadService.guardarImagen(file);
+                        vehiculo.getImagenes().add(nombreImagen); // Se acopla a la lista existente
+                    } catch (IOException e) {
+                        throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al guardar la imagen");
+                    }
+                }
+            }
+            vehiculoRepository.save(vehiculo); // Guarda los nuevos registros en la tabla intermedia
+        }
+    }
+
+    @Transactional
+    public void eliminarImagen(Long id, String nombreImagen) {
+        Vehiculo vehiculo = vehiculoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
+
+        // 1. Verificamos si el vehículo realmente tiene esa imagen asociada
+        if (!vehiculo.getImagenes().contains(nombreImagen)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La imagen no pertenece a este vehículo");
+        }
+
+        // 2. Eliminamos el registro de la base de datos (de la lista de la entidad)
+        vehiculo.getImagenes().remove(nombreImagen);
+        vehiculoRepository.save(vehiculo);
+
+        // 3. Eliminamos el archivo físico del disco rígido
+        uploadService.eliminarArchivo(nombreImagen);
+    }
+
+
 }

@@ -61,6 +61,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .anyRequest().authenticated()
+
                 )
                 .authenticationProvider(authenticationProvider(userDetailsService))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

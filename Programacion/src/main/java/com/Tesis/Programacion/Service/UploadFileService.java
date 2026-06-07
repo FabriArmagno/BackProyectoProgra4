@@ -29,4 +29,16 @@ public class UploadFileService {
 
         return nombreUnico;
     }
+
+    public boolean eliminarArchivo(String nombreArchivo) {
+        try {
+            Path rootFolder = Paths.get(this.uploadDir);
+            Path rutaCompleta = rootFolder.resolve(nombreArchivo).toAbsolutePath();
+
+            // Intenta borrar el archivo si existe en la carpeta
+            return Files.deleteIfExists(rutaCompleta);
+        } catch (IOException e) {
+            throw new RuntimeException("No se pudo eliminar el archivo físico: " + e.getMessage());
+        }
+    }
 }

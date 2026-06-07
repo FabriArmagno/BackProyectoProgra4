@@ -8,6 +8,7 @@ import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Service.AutoService;
 import com.Tesis.Programacion.Service.CarApiService;
 import com.Tesis.Programacion.Service.VehiculoService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -101,5 +102,25 @@ public class VehiculoController {
                 .body(autoService.createAuto(crearAutoRequest, files));
     }
 
+    ///------------------------------------------IMAGENES---------------------------------------------------------------
 
+
+    @DeleteMapping("/{id}/imagenes")
+    public ResponseEntity<String> eliminarImagenDeVehiculo(
+            @PathVariable Long id,
+            @RequestParam("nombre") String nombreImagen)
+    {
+        vehiculoService.eliminarImagen(id,nombreImagen);
+        return ResponseEntity.ok("Imagen eliminada correctamente.");
+    }
+
+
+    @PostMapping(value = "/{id}/imagenes", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> agregarImagenesAVehiculo(
+            @PathVariable Long id,
+            @RequestPart("files") List<MultipartFile> files) {
+
+        vehiculoService.agregarImagenes(id, files);
+        return ResponseEntity.ok("Imágenes agregadas correctamente.");
+    }
 }
