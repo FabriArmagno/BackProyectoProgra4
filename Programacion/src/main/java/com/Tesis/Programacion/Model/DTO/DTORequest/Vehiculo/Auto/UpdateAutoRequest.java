@@ -1,4 +1,4 @@
-package com.Tesis.Programacion.Model.DTO.DTORequest.Auto;
+package com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto;
 
 import com.Tesis.Programacion.Model.Enums.Estado;
 import jakarta.validation.constraints.NotBlank;

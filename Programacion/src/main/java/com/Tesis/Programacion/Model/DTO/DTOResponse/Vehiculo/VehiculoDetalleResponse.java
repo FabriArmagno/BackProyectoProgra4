@@ -20,6 +20,6 @@ public abstract class VehiculoDetalleResponse {
     private String motor;
     private String combustion;
     private String tipo;
+    private String descripcion;
     private LocalDate fechaIngreso;
-
 }

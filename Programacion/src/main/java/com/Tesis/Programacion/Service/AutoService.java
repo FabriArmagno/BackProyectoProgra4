@@ -1,19 +1,16 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Auto.CrearAutoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.VehiculoDetalleDTO;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
 import com.Tesis.Programacion.Repository.AutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class AutoService {

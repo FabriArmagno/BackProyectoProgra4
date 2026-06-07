@@ -1,9 +1,9 @@
-package com.Tesis.Programacion.Model.DTO.DTORequest.Auto;
+package com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
-import lombok.Setter;
+
 
 @Getter
 public class CrearAutoRequest {

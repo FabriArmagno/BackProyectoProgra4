@@ -16,7 +16,6 @@ public class AutoDetalleResponse extends VehiculoDetalleResponse {
     private int puertas;
     private int potencia;
     private String tipoAuto;
-    private String descripcion;
     private String tipoDeTraccion;
     private String transmision;
 }

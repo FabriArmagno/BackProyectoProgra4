@@ -65,6 +65,9 @@ public abstract class Vehiculo {
     private LocalDate fechaIngreso;
 
     @Column(nullable = false)
+    private String descripcion;
+
+    @Column(nullable = false)
     private Estado estado;
 
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, orphanRemoval = true)

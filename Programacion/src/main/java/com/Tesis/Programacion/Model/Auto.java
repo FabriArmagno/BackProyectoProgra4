@@ -20,9 +20,6 @@ public class Auto extends Vehiculo{
     private String tipoAuto;
 
     @Column(nullable = false)
-    private String descripcion;
-
-    @Column(nullable = false)
     private String tipoDeTraccion;
 
     @Column(nullable = false)
