@@ -25,7 +25,7 @@ public class VehiculoService {
     public List<VehiculoResponse>getVehiculos(){
        return vehiculoRepository.findAll()
                .stream()
-               .map(vehiculo -> VehiculoMapper.toDto(vehiculo))
+               .map(VehiculoMapper::toDto)
                .toList();
     }
 

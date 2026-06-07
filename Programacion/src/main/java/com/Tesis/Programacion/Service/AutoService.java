@@ -10,8 +10,10 @@ import com.Tesis.Programacion.Repository.AutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,9 +26,11 @@ public class AutoService {
     @Autowired
     private CarApiService carApiService;
 
+    @Autowired
+    private UploadFileService uploadService;
     // Crear un auto
 
-    public AutoDetalleResponse createAuto(CrearAutoRequest request){
+    public AutoDetalleResponse createAuto(CrearAutoRequest request, List<MultipartFile> files){
         VehiculoDetalleDTO vehiculoDetalleDTO=carApiService.obtenerDetalleDelVehiculo(request.getIdTrim());
 
         Auto auto=new Auto();
@@ -59,6 +63,24 @@ public class AutoService {
         if(!vehiculoDetalleDTO.getBodies().isEmpty()){
             auto.setPuertas(vehiculoDetalleDTO.getBodies().getFirst().getDoors());
             auto.setTipoAuto(vehiculoDetalleDTO.getBodies().getFirst().getType());
+        }
+
+        //LOGICA DE IMAGENES
+
+        if (files != null && !files.isEmpty()){
+            for (MultipartFile file : files){
+                if (!file.isEmpty()){
+                    try {
+                        String nombreImagen = uploadService.guardarImagen(file);
+                        auto.getImagenes().add(nombreImagen);
+                    }catch (IOException e){
+                        throw new ResponseStatusException(
+                                HttpStatus.INTERNAL_SERVER_ERROR,
+                                "Error al procesar las imagenes" + e.getMessage()
+                        );
+                    }
+                }
+            }
         }
 
         return AutoMapper.toDetalleDTO(autoRepository.save(auto));

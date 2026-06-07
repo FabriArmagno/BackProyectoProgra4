@@ -11,9 +11,11 @@ import com.Tesis.Programacion.Service.VehiculoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -33,7 +35,7 @@ public class VehiculoController {
     ///------------------------------------------VEHICULOS----------------------------------------------------------
 
     @GetMapping
-    public ResponseEntity<List<VehiculoResponse>>getVehiculos(){
+    public ResponseEntity<List<VehiculoResponse>> getVehiculos() {
         return ResponseEntity.ok(vehiculoService.getVehiculos());
     }
 
@@ -91,9 +93,12 @@ public class VehiculoController {
 
     ///------------------------------------------AUTO---------------------------------------------------------------
 
-   @PostMapping("/autos")
-    public ResponseEntity<AutoDetalleResponse> agregarAuto(@Valid @RequestBody CrearAutoRequest crearAutoRequest){
-        return ResponseEntity.status(HttpStatus.CREATED).body(autoService.createAuto(crearAutoRequest));
+    @PostMapping(value = "/autos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<AutoDetalleResponse> agregarAuto(
+            @RequestPart("datos") @Valid CrearAutoRequest crearAutoRequest,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(autoService.createAuto(crearAutoRequest, files));
     }
 
 
