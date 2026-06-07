@@ -4,26 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/Auto/AutoDetalleResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/Moto/MotoDetalleResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/Moto/MotoResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/VehiculoDetalleResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/VehiculoMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/AuthService.java" afterDir="false" />
+    <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="Crear autos con Imagenes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/VehiculoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Auto.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Auto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Auto/AutoDetalleResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Auto/AutoResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/CarApi/VehiculoDetalleDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/CarApi/VehiculoDetalleDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/VehiculoResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Vehiculo/VehiculoResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/AutoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/AutoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Vehiculo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/AutoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/AutoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UploadFileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/UploadFileService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/VehiculoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/VehiculoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -80,10 +65,20 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.ProgramacionApplication.executor": "Run",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "Spring Boot.ProgramacionApplication.executor": "Run",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "to.speed.mode.migration.done": "true"
   }
 }]]></component>
   <component name="RunManager">
@@ -131,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779744099769</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Crear autos con Imagenes">
+      <option name="closed" value="true" />
+      <created>1780858270953</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1780858270954</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +167,7 @@
     <confirmRemoveEmptyChangelist value="1" />
     <MESSAGE value="Historiales terminados" />
     <MESSAGE value="Changes by Leandro" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes by Leandro" />
+    <MESSAGE value="Crear autos con Imagenes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Crear autos con Imagenes" />
   </component>
 </project>

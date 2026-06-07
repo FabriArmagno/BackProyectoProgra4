@@ -4,6 +4,7 @@ import com.Tesis.Programacion.Model.Enums.Estado;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class VehiculoResponse {
@@ -18,4 +19,5 @@ public class VehiculoResponse {
     private Estado estado;
     private String patente;
     private int anio;
+    private List<String> imagenes;
 }

@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class CrearAutoRequest {
 
@@ -22,4 +25,6 @@ public class CrearAutoRequest {
 
     @NotBlank(message = "El color es obligatorio")
     private String color;
+
+    private List<String> imagenes = new ArrayList<>();
 }

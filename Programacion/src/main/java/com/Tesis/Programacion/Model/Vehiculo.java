@@ -72,4 +72,9 @@ public abstract class Vehiculo {
 
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Historial> historial = new ArrayList<>();
+
+    @ElementCollection
+    @CollectionTable(name = "vehiculo_imagenes", joinColumns = @JoinColumn(name = "vehiculo_id"))
+    @Column(name = "url")
+    private List<String> imagenes = new ArrayList<>();
 }
