@@ -2,6 +2,7 @@ package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.VehiculoDetalleDTO;
 import com.Tesis.Programacion.Model.Enums.Estado;
@@ -86,11 +87,11 @@ public class AutoService {
         return AutoMapper.toDetalleDTO(autoRepository.save(auto));
     }
 
-    // Modificar auto por id
+    // Modificar auto por id (preguntar a tribu como le gusta je)
 
-    ///PENDIENTE. PENSAR COMO ACTUALIZAR EL AUTO SEGUN LOS DATOS DE LA API
-   /* public AutoDetalleResponse modificarAuto(Long id, UpdateAutoRequest request){
-        Auto auto = autoRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Auto no encontrado"));
-    }*/
+   /* ///PENDIENTE. PENSAR COMO ACTUALIZAR EL AUTO SEGUN LOS DATOS DE LA API
+   public AutoDetalleResponse modificarAuto(Long id, UpdateAutoRequest request) {
+       Auto auto = autoRepository.findById(id)
+               .orElseThrow(() -> new RuntimeException("Auto no encontrado"));
+   }*/
 }
