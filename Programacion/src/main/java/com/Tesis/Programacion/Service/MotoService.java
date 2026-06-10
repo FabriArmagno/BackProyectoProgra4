@@ -31,6 +31,7 @@ public class MotoService {
     //crear moto
     public MotoDetalleResponse crearMoto(CrearMotoRequest request, List<MultipartFile>files){
 
+
         Moto moto=new Moto();
         moto.setPatente(request.getPatente());
         moto.setMarca(request.getMarca());
@@ -47,6 +48,8 @@ public class MotoService {
         moto.setEstado(Estado.DISPONIBLE);
         moto.setTipoMoto(request.getTipoMoto());
         moto.setCilindrada(request.getCilindrada());
+
+        //LOGICA DE IMAGENES
 
         if (files != null && !files.isEmpty()){
             for (MultipartFile file : files){
@@ -69,13 +72,37 @@ public class MotoService {
 
     //Obtener los tipos de motos
 
-    public List<TipoMotoResponse>obtenerTiposDeMotos(){
+    public List<TipoMotoResponse>obtenerTiposDeMotos() {
         return Arrays.stream(TipoMoto.values())
                 .map(tipoMoto -> new TipoMotoResponse(
                         tipoMoto.name(),
                         tipoMoto.getLabel()
                 ))
                 .toList();
+    }
+
+    public MotoDetalleResponse editarMoto(Long id, CrearMotoRequest request) {
+        Moto moto = repo.findById(id).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Moto no encontrada con ID: " + id)
+        );
+
+        List<String> imagenesActuales = moto.getImagenes();
+
+        moto.setPatente(request.getPatente());
+        moto.setMarca(request.getMarca());
+        moto.setModelo(request.getModelo());
+        moto.setPrecio(request.getPrecio());
+        moto.setColor(request.getColor());
+        moto.setAnio(request.getAnio());
+        moto.setKilometraje(request.getKilometraje());
+        moto.setVersion(request.getVersion());
+        moto.setDescripcion(request.getDescripcion());
+        moto.setTipoMoto(request.getTipoMoto());
+        moto.setCilindrada(request.getCilindrada());
+
+        moto.setImagenes(imagenesActuales);
+
+        return MotoMapper.toDetalleDTO(repo.save(moto));
     }
 
 }

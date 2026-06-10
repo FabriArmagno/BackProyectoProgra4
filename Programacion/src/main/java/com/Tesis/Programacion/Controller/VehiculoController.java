@@ -97,28 +97,34 @@ public class VehiculoController {
         return carApiService.obtenerSubmodels(model, year);
     }
 
-
     ///------------------------------------------AUTO---------------------------------------------------------------
 
     @PostMapping(value = "/autos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AutoDetalleResponse> agregarAuto(
             @RequestPart("datos") @Valid CrearAutoRequest crearAutoRequest,
-            @RequestPart(value = "files", required = false) List<MultipartFile> files) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(autoService.createAuto(crearAutoRequest, files));
+        @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(autoService.createAuto(crearAutoRequest, files));
     }
 
-    ///------------------------------------------MOTO---------------------------------------------------------------
-
+    ///------------------------------------------MOTO----------------------------------------------------------------
     @PostMapping(value = "/motos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<MotoDetalleResponse> agregarMoto(
             @RequestPart("datos") @Valid CrearMotoRequest crearMotoRequest,
             @RequestPart(value = "files", required = false) List<MultipartFile> files) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(motoService.crearMoto(crearMotoRequest, files));
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(motoService.crearMoto(crearMotoRequest, files));
     }
 
-    ///------------------------------------------IMAGENES---------------------------------------------------------------
+    @PutMapping("/motos/{id}")
+    public ResponseEntity<MotoDetalleResponse> editarMoto(
+            @PathVariable Long id,
+            @Valid @RequestBody CrearMotoRequest crearMotoRequest
+    ) {
+        MotoDetalleResponse motoActualizada = motoService.editarMoto(id, crearMotoRequest);
+
+        return ResponseEntity.ok(motoActualizada);
+    }
 
 
     @DeleteMapping("/{id}/imagenes")

@@ -116,11 +116,11 @@ public class VehiculoService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La imagen no pertenece a este vehículo");
         }
 
-        // 2. Eliminamos el registro de la base de datos (de la lista de la entidad)
+        // 2. se elimina el registro de la base de datos
         vehiculo.getImagenes().remove(nombreImagen);
         vehiculoRepository.save(vehiculo);
 
-        // 3. Eliminamos el archivo físico del disco rígido
+        // 3. se elimina el archivo fisico
         uploadService.eliminarArchivo(nombreImagen);
     }
 
