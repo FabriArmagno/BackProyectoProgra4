@@ -9,6 +9,8 @@ import lombok.Getter;
 
 import javax.management.DescriptorAccess;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class CrearMotoRequest {
@@ -27,30 +29,29 @@ public class CrearMotoRequest {
     @NotNull(message = "el precio es incorrecto")
     private Double precio;
 
-    @NotBlank(message = "el color es incorrecto")
+    @NotBlank(message = "El color es obligatorio")
     private String color;
 
-    @NotNull(message = "ese anio es incorrecto")
+    @NotNull(message = "El año es obligatorio")
     private int anio;
 
-    @NotNull(message = "el kilometraje es incorrecto")
+    @NotNull(message = "El kilometraje es obligatorio")
     private Double kilometraje;
 
-    @NotBlank(message = "ese motor es incorrecto")
+    @NotBlank(message = "El motor es obligatorio")
     private String motor;
 
-    @NotBlank(message = "esa combustion no existe")
+    @NotBlank(message = "La combustion es obligatorio")
     private String combustion;
 
-    @NotBlank(message = "esa descripcion no es posible")
+    @NotBlank(message = "La descripcion es obligatorio")
     private String descripcion;
 
-    @NotBlank(message = "ese estado no existe")
-    private Estado estado;
+    @NotNull(message = "La cilindrada es obligatorio")
+    private int cilindrada;
 
-    @NotBlank(message = "esa cilindrada no es posible")
-    private String cilindrada;
-
-    @NotBlank(,message = "ese motor no es posible")
+    @NotNull(message = "El tipo de moto es obligatorio")
     private TipoMoto tipoMoto;
+
+    private List<String> imagenes = new ArrayList<>();
 }

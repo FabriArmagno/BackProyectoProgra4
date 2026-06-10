@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MotoDetalleResponse extends VehiculoDetalleResponse {
-    private String cilindrada;
+    private int cilindrada;
     private TipoMoto tipoMoto;
 }

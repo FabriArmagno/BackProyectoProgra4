@@ -1,14 +1,17 @@
 package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Service.AutoService;
 import com.Tesis.Programacion.Service.CarApiService;
+import com.Tesis.Programacion.Service.MotoService;
 import com.Tesis.Programacion.Service.VehiculoService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +32,9 @@ public class VehiculoController {
 
     @Autowired
     private AutoService autoService;
+
+    @Autowired
+    private MotoService motoService;
 
     @Autowired
     private CarApiService carApiService;
@@ -102,6 +108,16 @@ public class VehiculoController {
                 .body(autoService.createAuto(crearAutoRequest, files));
     }
 
+    ///------------------------------------------MOTO---------------------------------------------------------------
+
+    @PostMapping(value = "/motos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<MotoDetalleResponse> agregarMoto(
+            @RequestPart("datos") @Valid CrearMotoRequest crearMotoRequest,
+            @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(motoService.crearMoto(crearMotoRequest, files));
+    }
+
     ///------------------------------------------IMAGENES---------------------------------------------------------------
 
 
@@ -122,5 +138,12 @@ public class VehiculoController {
 
         vehiculoService.agregarImagenes(id, files);
         return ResponseEntity.ok("Imágenes agregadas correctamente.");
+    }
+
+    ///------------------------------------------TIPO MOTO---------------------------------------------------------------
+
+    @GetMapping("/tipos-moto")
+    public ResponseEntity<List<TipoMotoResponse>>getTiposMoto(){
+        return ResponseEntity.ok(motoService.obtenerTiposDeMotos());
     }
 }

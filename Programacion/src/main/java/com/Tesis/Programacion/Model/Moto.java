@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Moto extends Vehiculo{
 
-    private String cilindrada;
+    private int cilindrada;
 
     private TipoMoto tipoMoto;
 }

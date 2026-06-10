@@ -6,7 +6,9 @@ import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResp
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
+import com.Tesis.Programacion.Model.Mapper.MotoMapper;
 import com.Tesis.Programacion.Model.Mapper.VehiculoMapper;
+import com.Tesis.Programacion.Model.Moto;
 import com.Tesis.Programacion.Model.Vehiculo;
 import com.Tesis.Programacion.Repository.VehiculoRepository;
 import jakarta.transaction.Transactional;
@@ -40,10 +42,12 @@ public class VehiculoService {
 
     public VehiculoDetalleResponse getVehiculoById(Long id){
         Vehiculo vehiculo=vehiculoRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo encontrado"));
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no encontrado"));
 
         if(vehiculo instanceof Auto auto){
             return AutoMapper.toDetalleDTO(auto);
+        }else if(vehiculo instanceof Moto moto){
+            return MotoMapper.toDetalleDTO(moto);
         }
 
         throw new IllegalStateException("Tipo de vehiculo desconocido");
