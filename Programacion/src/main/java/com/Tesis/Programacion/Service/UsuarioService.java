@@ -3,6 +3,7 @@ package com.Tesis.Programacion.Service;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
+import com.Tesis.Programacion.Model.Enums.Rol;
 import com.Tesis.Programacion.Model.Mapper.UsuarioMapper;
 import com.Tesis.Programacion.Model.Usuario;
 import com.Tesis.Programacion.Repository.ClienteRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -118,4 +120,13 @@ public class UsuarioService {
         }
     }
 
+    // Metodo para traer todos los encargados de taller
+    public List<UsuarioResponse> getEncargadosDeTaller(){
+        Rol rol = Rol.ENCARGADOTALLER;
+
+        return usuarioRepository.findByRolAndActivoTrue(rol)
+                .stream()
+                .map(usuario -> UsuarioMapper.toDto(usuario))
+                .toList();
+    }
 }
