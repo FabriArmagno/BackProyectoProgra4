@@ -1,10 +1,11 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Taller;
 
 import com.Tesis.Programacion.Model.Enums.Especialidad;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class TallerResponse {
     private Long id;

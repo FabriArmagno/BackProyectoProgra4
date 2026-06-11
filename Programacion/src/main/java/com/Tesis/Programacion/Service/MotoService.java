@@ -1,7 +1,7 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.TipoMotoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Enums.TipoMoto;

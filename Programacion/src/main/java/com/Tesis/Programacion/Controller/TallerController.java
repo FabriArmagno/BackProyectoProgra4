@@ -2,6 +2,7 @@ package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerEspecialidadResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerResponse;
 import com.Tesis.Programacion.Service.TallerService;
 import jakarta.validation.Valid;
@@ -39,12 +40,17 @@ public class TallerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<TallerDetalleResponse>deleteTaller(@PathVariable Long id){
+    public ResponseEntity<String>deleteTaller(@PathVariable Long id){
         return ResponseEntity.ok(tallerService.deleteTaller(id));
     }
 
     @PatchMapping("/{id}/activar")
     public ResponseEntity<TallerDetalleResponse>activarTaller(@PathVariable Long id){
         return ResponseEntity.ok(tallerService.activarTaller(id));
+    }
+
+    @GetMapping("/especialidades")
+    public ResponseEntity<List<TallerEspecialidadResponse>>obtenerEspecialidad(){
+        return ResponseEntity.ok(tallerService.obtenerEspecialidades());
     }
 }

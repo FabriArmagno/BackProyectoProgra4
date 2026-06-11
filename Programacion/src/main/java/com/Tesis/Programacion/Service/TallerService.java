@@ -3,7 +3,9 @@ package com.Tesis.Programacion.Service;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.UpdateTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerEspecialidadResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerResponse;
+import com.Tesis.Programacion.Model.Enums.Especialidad;
 import com.Tesis.Programacion.Model.Enums.Rol;
 import com.Tesis.Programacion.Model.Mapper.TallerMapper;
 import com.Tesis.Programacion.Model.Taller;
@@ -16,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,11 +71,12 @@ public class TallerService {
 
     // Eliminar un taller(baja logica para no eliminar el historial de reparaciones)
 
-    public TallerDetalleResponse deleteTaller(Long id){
+    public String deleteTaller(Long id){
         Taller taller=encontrarTaller(id);
         taller.setActivo(false);
+        tallerRepository.save(taller);
 
-        return TallerMapper.toDetalleDto(tallerRepository.save(taller));
+        return "Taller eliminado con exito";
     }
 
     // Activar un taller que se habia eliminado
@@ -95,6 +99,18 @@ public class TallerService {
         if(request.getIdEncargadoTaller()!=null) taller.setEncargadoTaller(encontrarEncargado(request.getIdEncargadoTaller()));
 
         return TallerMapper.toDetalleDto(tallerRepository.save(taller));
+    }
+
+
+    // Obtener las especialidades
+
+    public List<TallerEspecialidadResponse>obtenerEspecialidades(){
+        return Arrays.stream(Especialidad.values())
+                .map(especialidad -> new TallerEspecialidadResponse(
+                        especialidad.name(),
+                        especialidad.getLabel()
+                ))
+                .toList();
     }
 
     public Usuario encontrarEncargado(Long id){

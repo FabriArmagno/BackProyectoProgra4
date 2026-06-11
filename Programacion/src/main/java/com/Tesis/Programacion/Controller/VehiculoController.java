@@ -2,7 +2,7 @@ package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.TipoMotoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;

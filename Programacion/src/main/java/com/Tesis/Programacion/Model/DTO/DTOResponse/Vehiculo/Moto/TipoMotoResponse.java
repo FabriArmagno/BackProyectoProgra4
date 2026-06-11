@@ -1,4 +1,4 @@
-package com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
