@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
@@ -21,31 +22,31 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UsuarioResponse>>getUsuarios(){
         return ResponseEntity.ok(usuarioService.getUsuarios());
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioResponse>agregarUsuario(@Valid @RequestBody CrearUsuarioRequest crearUsuarioRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(crearUsuarioRequest));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioResponse>modificarUsuario(@Valid @RequestBody UpdateUsuarioRequest request, @PathVariable Long id){
         return ResponseEntity.ok().body(usuarioService.actualizarUsuario(request, id));
     }
 
+    @GetMapping("/encargados")
+    public ResponseEntity<List<UsuarioResponse>>getEncargados(){
+        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller());
+    }
+
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioResponse>darDeBajaUsuario(@PathVariable Long id){
         return ResponseEntity.ok().body(usuarioService.bajaDeUsuario(id));
     }
 
     @PatchMapping("/{id}/activar")
-    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UsuarioResponse>activarUsuario(@PathVariable Long id){
         return ResponseEntity.ok().body(usuarioService.activarUsuario(id));
     }

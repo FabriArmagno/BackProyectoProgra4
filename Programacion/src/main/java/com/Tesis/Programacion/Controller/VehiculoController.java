@@ -1,6 +1,7 @@
 package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
@@ -105,6 +106,12 @@ public class VehiculoController {
         @RequestPart(value = "files", required = false) List<MultipartFile> files) {
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(autoService.createAuto(crearAutoRequest, files));
+    }
+
+    @PutMapping("/modificar/{id}")
+    public ResponseEntity<AutoDetalleResponse> modificarAuto(@RequestBody @Valid UpdateAutoRequest request, @PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(autoService.modificarAuto(id, request));
     }
 
     ///------------------------------------------MOTO----------------------------------------------------------------

@@ -42,7 +42,7 @@ public class TallerService {
         taller.setDireccion(request.getDireccion());
         taller.setActivo(true);
 
-        return TallerMapper.toDetalleDto(taller);
+        return TallerMapper.toDetalleDto(tallerRepository.save(taller));
     }
 
     // Listar todos los talleres

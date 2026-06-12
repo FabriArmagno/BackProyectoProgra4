@@ -9,48 +9,18 @@ import lombok.Setter;
 @Getter
 public class UpdateAutoRequest {
 
-    @NotBlank
-    private String patente;
-
-    @NotBlank
-    private String marca;
-
-    @NotBlank
-    private String modelo;
-
     @NotNull
+    private Long idTrim;
+
+    @NotNull(message = "El precio es obligatorio")
     private Double precio;
 
-    @NotNull
-    private int año;
-
-    @NotNull
+    @NotNull(message = "El kilometraje es obligatorio")
     private Double kilometraje;
 
-    @NotBlank
-    private Estado estado;
+    @NotBlank(message = "La patente es obligatoria")
+    private String patente;
 
-    @NotBlank
-    private String submodelo;
-
-    @NotBlank
+    @NotBlank(message = "El color es obligatorio")
     private String color;
-
-    @NotBlank
-    private String motor;
-
-    @NotBlank
-    private String combustion;
-
-    @NotNull
-    private int potencia;
-
-    @NotBlank
-    private String tipoAuto;
-
-    @NotBlank
-    private String tipoDeTraccion;
-
-    @NotBlank
-    private String transmision;
 }

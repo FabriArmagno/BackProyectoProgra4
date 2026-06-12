@@ -10,7 +10,7 @@ public class VehiculoDetalleDTO {
     private String model;
     private String submodel;
     private String description;
-    private int year;
+    private Integer year;
     private List<BodyDTO> bodies;
     private List<EngineDTO>engines;
     private List<TransmissionDTO>transmissions;

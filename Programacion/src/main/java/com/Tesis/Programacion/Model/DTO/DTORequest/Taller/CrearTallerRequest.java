@@ -14,7 +14,7 @@ public class CrearTallerRequest {
     @NotBlank(message = "El nombre es obligatorio")
     private String nombre;
 
-    @NotBlank(message = "El encargado es obligatorio")
+    @NotNull(message = "El encargado es obligatorio")
     private Long idEncargadoTaller;
 
     @NotBlank(message = "La direccion es obligatoria")
