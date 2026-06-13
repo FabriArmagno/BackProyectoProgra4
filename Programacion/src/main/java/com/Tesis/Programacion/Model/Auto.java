@@ -14,4 +14,5 @@ public class Auto extends Vehiculo{
     private String tipoAuto;
     private String tipoDeTraccion;
     private String transmision;
+    private Long idTrim;
 }

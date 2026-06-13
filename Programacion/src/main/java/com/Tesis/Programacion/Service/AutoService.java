@@ -47,6 +47,7 @@ public class AutoService {
         auto.setDescripcion(vehiculoDetalleDTO.getDescription());
         auto.setFechaIngreso(LocalDate.now());
         auto.setEstado(Estado.DISPONIBLE);
+        auto.setIdTrim(request.getIdTrim());
 
         if(!vehiculoDetalleDTO.getEngines().isEmpty()){
             auto.setMotor(vehiculoDetalleDTO.getEngines().getFirst().getSize());
@@ -95,6 +96,8 @@ public class AutoService {
                .orElseThrow(() -> new RuntimeException("Auto no encontrado"));
 
        if (request.getIdTrim() != null) {
+           auto.setIdTrim(request.getIdTrim());
+
            VehiculoDetalleDTO vehiculoDetalleDTO = carApiService
                    .obtenerDetalleDelVehiculo(request.getIdTrim());
 

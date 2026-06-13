@@ -18,4 +18,5 @@ public class AutoDetalleResponse extends VehiculoDetalleResponse {
     private String tipoAuto;
     private String tipoDeTraccion;
     private String transmision;
+    private Long idTrim;
 }

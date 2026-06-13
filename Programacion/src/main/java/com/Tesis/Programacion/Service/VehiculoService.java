@@ -1,7 +1,6 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
