@@ -26,5 +26,7 @@ public class CrearAutoRequest {
     @NotBlank(message = "El color es obligatorio")
     private String color;
 
+    private String descripcion;
+
     private List<String> imagenes = new ArrayList<>();
 }

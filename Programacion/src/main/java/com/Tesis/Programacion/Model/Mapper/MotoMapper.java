@@ -23,6 +23,7 @@ public class MotoMapper {
         // Atributos de la Moto
         motoResponse.setTipoMoto(moto.getTipoMoto());
         motoResponse.setCilindrada(moto.getCilindrada());
+        motoResponse.setImagenes(moto.getImagenes());
 
         return motoResponse;
     }

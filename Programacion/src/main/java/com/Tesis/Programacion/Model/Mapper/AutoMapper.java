@@ -27,7 +27,9 @@ public class AutoMapper {
        autoResponse.setTransmision(auto.getTransmision());
        autoResponse.setFechaIngreso(auto.getFechaIngreso());
        autoResponse.setVersion(auto.getVersion());
+       autoResponse.setDescripcion(auto.getDescripcion());
        autoResponse.setIdTrim(auto.getIdTrim());
+       autoResponse.setImagenes(auto.getImagenes());
 
        return autoResponse;
     }

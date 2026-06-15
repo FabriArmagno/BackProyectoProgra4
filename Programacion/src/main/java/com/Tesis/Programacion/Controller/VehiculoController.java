@@ -3,12 +3,15 @@ package com.Tesis.Programacion.Controller;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
+import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Service.AutoService;
 import com.Tesis.Programacion.Service.CarApiService;
 import com.Tesis.Programacion.Service.MotoService;
@@ -43,8 +46,8 @@ public class VehiculoController {
     ///------------------------------------------VEHICULOS----------------------------------------------------------
 
     @GetMapping
-    public ResponseEntity<List<VehiculoResponse>> getVehiculos() {
-        return ResponseEntity.ok(vehiculoService.getVehiculos());
+    public ResponseEntity<List<VehiculoResponse>> getVehiculosByEstado(@RequestParam(required = false) Estado estado) {
+        return ResponseEntity.ok(vehiculoService.getVehiculoByEstado(estado));
     }
 
     @GetMapping("/{id}")
@@ -73,9 +76,9 @@ public class VehiculoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> venderAuto(@PathVariable Long id){
-        return ResponseEntity.ok().body(vehiculoService.venderAuto(id));
+    @PutMapping("/vender")
+    public ResponseEntity<String> venderAuto(@RequestBody CrearVentaRequest request){
+        return ResponseEntity.ok().body(vehiculoService.venderAuto(request));
     }
 
     @GetMapping("/marcas")
@@ -151,6 +154,13 @@ public class VehiculoController {
 
         vehiculoService.agregarImagenes(id, files);
         return ResponseEntity.ok("Imágenes agregadas correctamente.");
+    }
+
+    ///------------------------------------------ESTADOS-----------------------------------------------------------------
+
+    @GetMapping("/estados")
+    public ResponseEntity<List<VehiculoEstadoResponse>>getEstados(){
+        return ResponseEntity.ok(vehiculoService.getEstados());
     }
 
     ///------------------------------------------TIPO MOTO---------------------------------------------------------------

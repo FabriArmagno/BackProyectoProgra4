@@ -43,8 +43,8 @@ public class AutoService {
         auto.setColor(request.getColor());
         auto.setAnio(vehiculoDetalleDTO.getYear());
         auto.setKilometraje(request.getKilometraje());
-        auto.setVersion(vehiculoDetalleDTO.getSubmodel());
-        auto.setDescripcion(vehiculoDetalleDTO.getDescription());
+        auto.setVersion(vehiculoDetalleDTO.getDescription());
+        auto.setDescripcion(request.getDescripcion());
         auto.setFechaIngreso(LocalDate.now());
         auto.setEstado(Estado.DISPONIBLE);
         auto.setIdTrim(request.getIdTrim());
@@ -104,8 +104,8 @@ public class AutoService {
            auto.setMarca(vehiculoDetalleDTO.getMake());
            auto.setModelo(vehiculoDetalleDTO.getModel());
            auto.setAnio(vehiculoDetalleDTO.getYear());
-           auto.setVersion(vehiculoDetalleDTO.getSubmodel());
-           auto.setDescripcion(vehiculoDetalleDTO.getDescription());
+           auto.setVersion(vehiculoDetalleDTO.getDescription());
+           auto.setDescripcion(request.getDescripcion());
 
            if (!vehiculoDetalleDTO.getEngines().isEmpty()) {
                auto.setMotor(vehiculoDetalleDTO.getEngines().getFirst().getSize());

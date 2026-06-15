@@ -1,7 +1,9 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,11 +32,25 @@ public class VehiculoService {
     @Autowired
     private UploadFileService uploadService;
 
+    @Autowired
+    private HistorialVentaService historialVentaService;
+
     public List<VehiculoResponse>getVehiculos(){
        return vehiculoRepository.findAll()
                .stream()
                .map(VehiculoMapper::toDto)
                .toList();
+    }
+
+    public List<VehiculoResponse>getVehiculoByEstado(Estado estado){
+        if(estado==null){
+            return getVehiculos();
+        }else{
+            return vehiculoRepository.findByEstado(estado)
+                    .stream()
+                    .map(VehiculoMapper::toDto)
+                    .toList();
+        }
     }
 
     // Mostrar el detalle de un auto con el ID
@@ -62,13 +79,16 @@ public class VehiculoService {
 
     // Vender el vehiculo
     ///PENDIENTE. AGREGAR AL HISTORIAL DE VENTAS
-    public String venderAuto(Long id){
-        Vehiculo vehiculo=vehiculoRepository.findById(id)
+    public String venderAuto(CrearVentaRequest request){
+        Vehiculo vehiculo=vehiculoRepository.findById(request.getVehiculoId())
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Auto no encontrado"
                 ));
 
         vehiculo.setEstado(Estado.VENDIDO);
+        vehiculoRepository.save(vehiculo);
+
+        historialVentaService.createHistorial(request);
 
         return "Vehiculo vendido con exito";
     }
@@ -122,5 +142,15 @@ public class VehiculoService {
         uploadService.eliminarArchivo(nombreImagen);
     }
 
+    ///----------------------------------------------ESTADO--------------------------------------------------------------
+
+    //Obtener estados
+    public List<VehiculoEstadoResponse>getEstados(){
+        return Arrays.stream(Estado.values()).
+                map(estado -> new VehiculoEstadoResponse(
+                        estado.name(),
+                        estado.getLabel()
+                )).toList();
+    }
 
 }

@@ -68,6 +68,7 @@ public abstract class Vehiculo {
     private String descripcion;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Estado estado;
 
     @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Setter
 @Getter
@@ -22,4 +23,5 @@ public abstract class VehiculoDetalleResponse {
     private String tipo;
     private String descripcion;
     private LocalDate fechaIngreso;
+    private List<String> imagenes;
 }

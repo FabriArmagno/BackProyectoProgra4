@@ -23,4 +23,6 @@ public class UpdateAutoRequest {
 
     @NotBlank(message = "El color es obligatorio")
     private String color;
+
+    private String descripcion;
 }

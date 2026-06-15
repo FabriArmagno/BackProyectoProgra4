@@ -8,7 +8,6 @@ import java.util.List;
 public class VehiculoDetalleDTO {
     private String make;
     private String model;
-    private String submodel;
     private String description;
     private Integer year;
     private List<BodyDTO> bodies;
