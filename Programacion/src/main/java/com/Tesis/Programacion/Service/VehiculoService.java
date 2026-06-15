@@ -78,7 +78,6 @@ public class VehiculoService {
     }
 
     // Vender el vehiculo
-    ///PENDIENTE. AGREGAR AL HISTORIAL DE VENTAS
     public String venderAuto(CrearVentaRequest request){
         Vehiculo vehiculo=vehiculoRepository.findById(request.getVehiculoId())
                 .orElseThrow(()->new ResponseStatusException(
@@ -124,7 +123,6 @@ public class VehiculoService {
         }
     }
 
-    @Transactional
     public void eliminarImagen(Long id, String nombreImagen) {
         Vehiculo vehiculo = vehiculoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));

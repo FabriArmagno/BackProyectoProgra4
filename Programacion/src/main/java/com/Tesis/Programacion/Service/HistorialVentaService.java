@@ -31,20 +31,21 @@ public class HistorialVentaService {
 
     //CRUD
 
-    public Historial createHistorial(CrearVentaRequest ventaRequest) {
+    public VentaResponse createHistorial(CrearVentaRequest ventaRequest) {
         Cliente cId = clienteRepository.findById(ventaRequest.getClienteId()).orElse(null);
         Usuario uId = usuarioRepository.findById(ventaRequest.getVendedorId()).orElse(null);
         Vehiculo vId = vehiculoRepository.findById(ventaRequest.getVehiculoId()).orElse(null);
 
         if (cId != null && uId != null && vId != null && ventaRequest.getPrecioVenta() > 0) {
 
-            return HistorialVenta.builder()
-                    .vehiculo(vId)
-                    .cliente(cId)
-                    .vendedor(uId)
-                    .precioVenta(ventaRequest.getPrecioVenta())
-                    .fechaVenta(LocalDate.now())
-                    .build();
+            HistorialVenta historialVenta=new HistorialVenta();
+            historialVenta.setVehiculo(vId);
+            historialVenta.setCliente(cId);
+            historialVenta.setVendedor(uId);
+            historialVenta.setPrecioVenta(ventaRequest.getPrecioVenta());
+            historialVenta.setFechaVenta(LocalDate.now());
+
+            return VentaMapper.toDto(historialVentaRepository.save(historialVenta));
         } else {
             throw new RuntimeException("IDs o datos inválidos para registrar la venta");
         }

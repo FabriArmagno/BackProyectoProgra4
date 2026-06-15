@@ -18,14 +18,13 @@ import java.time.LocalDate;
 public class HistorialReparacion extends Historial{
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "taller_id", nullable = false)
+    @JoinColumn(name = "taller_id")
     private Taller taller;
 
-    @Column(nullable = false)
     private LocalDate fechaDeEntrada;
 
     private LocalDate fechaDeSalida;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
 }

@@ -28,8 +28,8 @@ public class HistorialVentaController {
         return ResponseEntity.ok(ventaService.getVentaById(id));
     }
 
-    @PostMapping()
-    public ResponseEntity<Historial> saveVenta(@RequestBody CrearVentaRequest venta){
+    @PostMapping
+    public ResponseEntity<VentaResponse> saveVenta(@RequestBody CrearVentaRequest venta){
         return ResponseEntity.ok(ventaService.createHistorial(venta));
     }
 

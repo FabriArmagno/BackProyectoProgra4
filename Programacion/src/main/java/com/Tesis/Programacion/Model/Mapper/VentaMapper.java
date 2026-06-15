@@ -1,7 +1,6 @@
 package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Venta.VentaResponse;
-import com.Tesis.Programacion.Model.Historial;
 import com.Tesis.Programacion.Model.HistorialVenta;
 
 public class VentaMapper {
