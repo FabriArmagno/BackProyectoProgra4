@@ -78,9 +78,10 @@ public class VehiculoService {
     }
 
     // Vender el vehiculo
-    public String venderAuto(CrearVentaRequest request){
-        Vehiculo vehiculo=vehiculoRepository.findById(request.getVehiculoId())
-                .orElseThrow(()->new ResponseStatusException(
+    public void venderAuto(CrearVentaRequest request){
+
+        Vehiculo vehiculo = vehiculoRepository.findById(request.getVehiculoId())
+                .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Auto no encontrado"
                 ));
 
@@ -88,8 +89,6 @@ public class VehiculoService {
         vehiculoRepository.save(vehiculo);
 
         historialVentaService.createHistorial(request);
-
-        return "Vehiculo vendido con exito";
     }
 
     public Optional<Vehiculo> getVehiculoByPatente(String patente){
@@ -138,6 +137,7 @@ public class VehiculoService {
 
         // 3. se elimina el archivo fisico
         uploadService.eliminarArchivo(nombreImagen);
+
     }
 
     ///----------------------------------------------ESTADO--------------------------------------------------------------

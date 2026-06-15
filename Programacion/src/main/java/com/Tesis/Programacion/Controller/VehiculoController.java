@@ -77,8 +77,10 @@ public class VehiculoController {
     }
 
     @PutMapping("/vender")
-    public ResponseEntity<String> venderAuto(@RequestBody CrearVentaRequest request){
-        return ResponseEntity.ok().body(vehiculoService.venderAuto(request));
+    public ResponseEntity<Void> venderAuto(@Valid @RequestBody CrearVentaRequest request){
+        vehiculoService.venderAuto(request);
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/marcas")

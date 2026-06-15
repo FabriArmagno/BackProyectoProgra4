@@ -63,12 +63,9 @@ public class HistorialVentaService {
                 .orElse(null);
     }
 
+    ///-----------------------------------------------CONTAR VENTAS--------------------------------------------------------
 
-
-
-
-
-
-
-
+    public Long contarVentas(){
+        return historialVentaRepository.count();
+    }
 }
