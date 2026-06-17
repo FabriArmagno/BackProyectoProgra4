@@ -1,23 +1,31 @@
 package com.Tesis.Programacion.Service;
 
+import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.AsignarTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.UpdateTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerEspecialidadResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerResponse;
 import com.Tesis.Programacion.Model.Enums.Especialidad;
+import com.Tesis.Programacion.Model.Enums.Estado;
+import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import com.Tesis.Programacion.Model.Enums.Rol;
+import com.Tesis.Programacion.Model.HistorialReparacion;
 import com.Tesis.Programacion.Model.Mapper.TallerMapper;
 import com.Tesis.Programacion.Model.Taller;
 import com.Tesis.Programacion.Model.Usuario;
+import com.Tesis.Programacion.Model.Vehiculo;
 import com.Tesis.Programacion.Repository.TallerRepository;
 import com.Tesis.Programacion.Repository.UsuarioRepository;
+import com.Tesis.Programacion.Repository.VehiculoRepository;
 import io.netty.handler.codec.http2.Http2PushPromiseFrame;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +37,12 @@ public class TallerService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private VehiculoRepository vehiculoRepository;
+
+    @Autowired
+    private HistorialReparacionService historialReparacionService;
 
     // Crear taller
 
@@ -101,6 +115,25 @@ public class TallerService {
         return TallerMapper.toDetalleDto(tallerRepository.save(taller));
     }
 
+    //Asignar el vehiculo a un taller
+    @Transactional
+    public void asignarVehiculoATaller(AsignarTallerRequest request){
+        Vehiculo vehiculo = vehiculoRepository.findById(request.getIdVehiculo())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no encontrado "));
+
+        Taller taller = encontrarTallerActivo(request.getIdTaller());
+
+        HistorialReparacion historialReparacion=new HistorialReparacion();
+        historialReparacion.setVehiculo(vehiculo);
+        historialReparacion.setTaller(taller);
+        historialReparacion.setFechaDeEntrada(LocalDate.now());
+        historialReparacion.setMotivo(request.getMotivo());
+        historialReparacion.setEstadoReparacion(EstadoReparacion.INGRESO);
+        historialReparacionService.saveHistorialReparacion(historialReparacion);
+
+        vehiculo.setEstado(Estado.ENREPARACION);
+        vehiculoRepository.save(vehiculo);
+    }
 
     // Obtener las especialidades
 
@@ -127,6 +160,13 @@ public class TallerService {
     }
 
     public Taller encontrarTaller(Long id){
+        return tallerRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(
+                        HttpStatus.NOT_FOUND, "El taller no existe"
+                ));
+    }
+
+    public Taller encontrarTallerActivo(Long id){
         return tallerRepository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "El taller no existe"

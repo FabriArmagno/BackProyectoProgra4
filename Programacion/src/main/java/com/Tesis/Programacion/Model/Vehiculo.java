@@ -71,7 +71,7 @@ public abstract class Vehiculo {
     @Enumerated(EnumType.STRING)
     private Estado estado;
 
-    @OneToMany(mappedBy = "vehiculo", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "vehiculo", orphanRemoval = true)
     private List<Historial> historial = new ArrayList<>();
 
     @ElementCollection

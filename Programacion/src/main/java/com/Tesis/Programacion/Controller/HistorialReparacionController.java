@@ -27,9 +27,4 @@ public class HistorialReparacionController {
     public ResponseEntity<HistorialReparacionResponse> getReparacionById(@PathVariable Long id){
         return ResponseEntity.ok(reparacionService.getReparacionByID(id));
     }
-
-    @PostMapping()
-    public ResponseEntity<Historial> saveVenta(@RequestBody CrearReparacionRequest reparacionRequest){
-        return ResponseEntity.ok(reparacionService.saveHistorialReparacion(reparacionRequest));
-    }
 }

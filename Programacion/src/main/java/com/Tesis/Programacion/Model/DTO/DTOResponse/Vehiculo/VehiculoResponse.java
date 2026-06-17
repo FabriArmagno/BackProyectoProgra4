@@ -16,7 +16,7 @@ public class VehiculoResponse {
     private String tipo;
     private Double kilometraje;
     private LocalDate fechaIngreso;
-    private Estado estado;
+    private VehiculoEstadoResponse estado;
     private String patente;
     private int anio;
     private List<String> imagenes;

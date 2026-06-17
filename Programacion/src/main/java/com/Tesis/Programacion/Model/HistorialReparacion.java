@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model;
 
+import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,5 +27,8 @@ public class HistorialReparacion extends Historial{
     private LocalDate fechaDeSalida;
 
     @Column(columnDefinition = "TEXT")
-    private String descripcion;
+    private String motivo;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoReparacion estadoReparacion;
 }

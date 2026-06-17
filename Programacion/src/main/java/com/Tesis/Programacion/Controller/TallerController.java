@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Controller;
 
+import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.AsignarTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerEspecialidadResponse;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,5 +54,12 @@ public class TallerController {
     @GetMapping("/especialidades")
     public ResponseEntity<List<TallerEspecialidadResponse>>obtenerEspecialidad(){
         return ResponseEntity.ok(tallerService.obtenerEspecialidades());
+    }
+
+    @PostMapping("/asignar-vehiculo")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void>asignarVehiculo(@Valid @RequestBody AsignarTallerRequest request){
+        tallerService.asignarVehiculoATaller(request);
+        return ResponseEntity.ok().build();
     }
 }

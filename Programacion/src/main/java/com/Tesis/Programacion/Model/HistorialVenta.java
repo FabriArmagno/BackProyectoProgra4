@@ -18,17 +18,15 @@ import java.time.LocalDate;
 public class HistorialVenta extends Historial{
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vendedor_id", nullable = false)
+    @JoinColumn(name = "vendedor_id")
     private Usuario vendedor;
 
-    @Column(nullable = false)
     private Double precioVenta;
 
-    @Column(nullable = false)
     private LocalDate fechaVenta;
 
 }

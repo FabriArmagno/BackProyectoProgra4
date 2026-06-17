@@ -10,7 +10,7 @@ public class ReparacionMapper {
                 historialReparacion.getVehiculo().getId(),
                 historialReparacion.getFechaDeEntrada(),
                 historialReparacion.getFechaDeSalida(),
-                historialReparacion.getDescripcion()
+                historialReparacion.getMotivo()
         );
     }
 }

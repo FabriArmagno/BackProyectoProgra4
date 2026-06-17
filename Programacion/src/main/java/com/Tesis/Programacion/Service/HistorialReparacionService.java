@@ -6,7 +6,9 @@ import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.Historia
 import com.Tesis.Programacion.Model.Mapper.ReparacionMapper;
 import com.Tesis.Programacion.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,23 +25,8 @@ public class HistorialReparacionService {
     private VehiculoRepository vehiculoRepository;
 
     //CRUD
-    public Historial saveHistorialReparacion(CrearReparacionRequest reparacionRequest) {
-        boolean validarfecha = fechasValidas(reparacionRequest.getFechaDeEntrada(), reparacionRequest.getFechaDeSalida());
-
-        Vehiculo vId = vehiculoRepository.findById(reparacionRequest.getIdVehiculo()).orElse(null);
-        Taller  tId = tallerRepository.findById(reparacionRequest.getIdTaller()).orElse(null);
-
-        if (vId != null && tId != null && validarfecha){
-            return HistorialReparacion.builder()
-                    .taller(tId)
-                    .fechaDeEntrada(reparacionRequest.getFechaDeEntrada())
-                    .fechaDeSalida(reparacionRequest.getFechaDeSalida())
-                    .descripcion(reparacionRequest.getDescripcion())
-                    .vehiculo(vId)
-                    .build();
-        }else{
-            throw new RuntimeException("Ids Invalidos");
-        }
+    public Historial saveHistorialReparacion(HistorialReparacion historialReparacion) {
+        return repository.save(historialReparacion);
     }
 
     public List<HistorialReparacionResponse> getReparaciones(){

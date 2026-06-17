@@ -1,16 +1,16 @@
 package com.Tesis.Programacion.Service;
 
-import com.Tesis.Programacion.Model.Auto;
+import com.Tesis.Programacion.Model.*;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.AsignarTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
+import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
 import com.Tesis.Programacion.Model.Mapper.MotoMapper;
 import com.Tesis.Programacion.Model.Mapper.VehiculoMapper;
-import com.Tesis.Programacion.Model.Moto;
-import com.Tesis.Programacion.Model.Vehiculo;
 import com.Tesis.Programacion.Repository.VehiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +58,7 @@ public class VehiculoService {
     // Mostrar el detalle de un auto con el ID
 
     public VehiculoDetalleResponse getVehiculoById(Long id){
-        Vehiculo vehiculo=vehiculoRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no encontrado"));
+        Vehiculo vehiculo = encontrarVehiculo(id);
 
         if(vehiculo instanceof Auto auto){
             return AutoMapper.toDetalleDTO(auto);
@@ -71,19 +72,20 @@ public class VehiculoService {
     // Eliminar vehiculo
 
     public void eliminarVehiculo(Long id){
-        if(!vehiculoRepository.existsById(id)){
-            throw new RuntimeException("Vehiculo no encontrado");
+        Vehiculo vehiculo=encontrarVehiculo(id);
+
+        if(!vehiculo.getHistorial().isEmpty()){
+            throw new RuntimeException("No se puede eliminar un vehiculo con historial");
         }
+
         vehiculoRepository.deleteById(id);
     }
 
     // Vender el vehiculo
+    @Transactional
     public void venderAuto(CrearVentaRequest request){
 
-        Vehiculo vehiculo = vehiculoRepository.findById(request.getVehiculoId())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND, "Auto no encontrado"
-                ));
+        Vehiculo vehiculo = encontrarVehiculo(request.getVehiculoId());
 
         vehiculo.setEstado(Estado.VENDIDO);
         vehiculoRepository.save(vehiculo);
@@ -97,6 +99,13 @@ public class VehiculoService {
 
     public Optional<Vehiculo> getVehiculoByMarca(String marca){
         return vehiculoRepository.findByMarca(marca);
+    }
+
+    // METODO PARA ENCONTRAR EL VEHICULO
+
+    public Vehiculo encontrarVehiculo(Long id){
+        return vehiculoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
     }
 
     ///------------------------------------------IMAGENES---------------------------------------------------------------
@@ -123,8 +132,7 @@ public class VehiculoService {
     }
 
     public void eliminarImagen(Long id, String nombreImagen) {
-        Vehiculo vehiculo = vehiculoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
+        Vehiculo vehiculo = encontrarVehiculo(id);
 
         // 1. Verificamos si el vehículo realmente tiene esa imagen asociada
         if (!vehiculo.getImagenes().contains(nombreImagen)) {
