@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Taller;
 
+import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
 import com.Tesis.Programacion.Model.HistorialReparacion;
 import com.Tesis.Programacion.Model.Usuario;
 import lombok.Getter;
@@ -14,5 +15,5 @@ import java.util.List;
 public class TallerDetalleResponse extends TallerResponse{
     private Usuario encargadoTaller;
     private String direccion;
-    private List<HistorialReparacion> historialReparaciones;
+    private List<HistorialReparacionResponse> historialReparaciones;
 }

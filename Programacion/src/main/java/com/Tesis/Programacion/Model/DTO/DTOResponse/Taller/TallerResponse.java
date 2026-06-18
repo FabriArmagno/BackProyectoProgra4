@@ -12,4 +12,5 @@ public class TallerResponse {
     private Especialidad especialidad;
     private String nombre;
     private Boolean activo;
+    private Integer reparacionesActivas;
 }

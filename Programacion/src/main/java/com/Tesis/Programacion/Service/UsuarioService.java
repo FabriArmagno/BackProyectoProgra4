@@ -55,6 +55,17 @@ public class UsuarioService {
                 .toList();
     }
 
+    public List<UsuarioResponse>getUsuariosPorEstado(Boolean activo){
+        if(activo==null){
+            return getUsuarios();
+        }else{
+            return usuarioRepository.findByActivo(activo)
+                    .stream()
+                    .map(usuario -> UsuarioMapper.toDto(usuario))
+                    .toList();
+        }
+    }
+
     // Dar de baja un usuario(baja logica)
 
     public UsuarioResponse bajaDeUsuario(Long id){

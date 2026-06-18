@@ -61,4 +61,9 @@ public class HistorialReparacionService {
         return true;
     }
 
+    // Metodo para contar las reparaciones activas por taller
+    public Integer contarReparacionesActivas(Long idTaller){
+        return repository.contarReparacionesActivas(idTaller);
+    }
+
 }

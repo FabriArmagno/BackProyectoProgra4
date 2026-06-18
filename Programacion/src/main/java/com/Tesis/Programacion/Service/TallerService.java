@@ -71,10 +71,18 @@ public class TallerService {
     // Listar todos los taller por estado
 
     public List<TallerResponse>getTalleresPorEstado(Boolean activo){
-        return tallerRepository.findByActivo(activo)
-                .stream()
-                .map(taller -> TallerMapper.toDto(taller))
-                .toList();
+        if(activo==null){
+            return getTalleres();
+        }else{
+            return tallerRepository.findByActivo(activo)
+                    .stream()
+                    .map(taller -> {
+                        TallerResponse tallerResponse=TallerMapper.toDto(taller);
+                        tallerResponse.setReparacionesActivas(contarReparacionesActivas(taller.getId()));
+                        return tallerResponse;
+                    })
+                    .toList();
+        }
     }
 
     // Obtener el detalle de un taller
@@ -133,6 +141,11 @@ public class TallerService {
 
         vehiculo.setEstado(Estado.ENREPARACION);
         vehiculoRepository.save(vehiculo);
+    }
+
+    // Contar reparaciones activas por taller
+    public Integer contarReparacionesActivas(Long idTaller){
+        return historialReparacionService.contarReparacionesActivas(idTaller);
     }
 
     // Obtener las especialidades

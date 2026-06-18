@@ -12,7 +12,8 @@ public class TallerMapper {
                 taller.getId(),
                 taller.getEspecialidad(),
                 taller.getNombre(),
-                taller.getActivo()
+                taller.getActivo(),
+                0
         );
     }
 
@@ -23,7 +24,11 @@ public class TallerMapper {
         tallerDetalleResponse.setNombre(taller.getNombre());
         tallerDetalleResponse.setEncargadoTaller(taller.getEncargadoTaller());
         tallerDetalleResponse.setDireccion(taller.getDireccion());
-        tallerDetalleResponse.setHistorialReparaciones(taller.getHistorialReparaciones());
+        tallerDetalleResponse.setHistorialReparaciones(taller.getHistorialReparaciones()
+                .stream()
+                .map(historialReparacion -> ReparacionMapper.toDto(historialReparacion))
+                .toList()
+        );
         tallerDetalleResponse.setActivo(taller.getActivo());
 
         return tallerDetalleResponse;

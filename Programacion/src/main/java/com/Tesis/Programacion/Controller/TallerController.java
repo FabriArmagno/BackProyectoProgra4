@@ -24,10 +24,6 @@ public class TallerController {
 
     @GetMapping
     public ResponseEntity<List<TallerResponse>>getTalleres(@RequestParam(required = false) Boolean activo){
-        if(activo==null){
-            return ResponseEntity.ok(tallerService.getTalleres());
-        }
-
         return ResponseEntity.ok(tallerService.getTalleresPorEstado(activo));
     }
 
@@ -62,4 +58,5 @@ public class TallerController {
         tallerService.asignarVehiculoATaller(request);
         return ResponseEntity.ok().build();
     }
+
 }

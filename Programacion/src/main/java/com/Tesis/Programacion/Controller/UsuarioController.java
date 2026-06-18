@@ -22,8 +22,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioResponse>>getUsuarios(){
-        return ResponseEntity.ok(usuarioService.getUsuarios());
+    public ResponseEntity<List<UsuarioResponse>>getUsuarios(@RequestParam (required = false) Boolean activo){
+        return ResponseEntity.ok(usuarioService.getUsuariosPorEstado(activo));
     }
 
     @PostMapping
