@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface HistorialReparacionRepository extends JpaRepository<HistorialReparacion,Long> {
-    @Query("SELECT COUNT(h) from HistorialReparacion h WHERE h.id=:tallerId AND h.estadoReparacion!='ENTREGADO'")
+    @Query("SELECT COUNT(h) from HistorialReparacion h WHERE h.taller=:tallerId AND h.estadoReparacion!='ENTREGADO'")
     Integer contarReparacionesActivas(@Param("tallerId")Long tallerId);
 }
