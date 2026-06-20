@@ -66,4 +66,10 @@ public class HistorialReparacionService {
         return repository.contarReparacionesActivas(idTaller);
     }
 
+    public List<HistorialReparacionResponse> getReparacionesPorTaller(Long idTaller) {
+        return repository.findByTallerId(idTaller).stream()
+                .map(ReparacionMapper::toDto)
+                .toList();
+    }
+
 }

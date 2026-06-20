@@ -27,4 +27,9 @@ public class HistorialReparacionController {
     public ResponseEntity<HistorialReparacionResponse> getReparacionById(@PathVariable Long id){
         return ResponseEntity.ok(reparacionService.getReparacionByID(id));
     }
+
+    @GetMapping("/taller/{idTaller}")
+    public ResponseEntity<List<HistorialReparacionResponse>> getReparacionesPorTaller(@PathVariable Long idTaller) {
+        return ResponseEntity.ok(reparacionService.getReparacionesPorTaller(idTaller));
+    }
 }
