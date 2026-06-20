@@ -13,7 +13,5 @@ import java.util.List;
 @Getter
 @Setter
 public class TallerDetalleResponse extends TallerResponse{
-    private Usuario encargadoTaller;
-    private String direccion;
     private List<HistorialReparacionResponse> historialReparaciones;
 }

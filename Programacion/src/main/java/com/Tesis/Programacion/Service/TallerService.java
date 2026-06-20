@@ -64,7 +64,7 @@ public class TallerService {
     public List<TallerResponse>getTalleres(){
         return tallerRepository.findAll()
                 .stream()
-                .map(taller -> TallerMapper.toDto(taller))
+                .map(TallerMapper::toDto)
                 .toList();
     }
 
@@ -76,11 +76,7 @@ public class TallerService {
         }else{
             return tallerRepository.findByActivo(activo)
                     .stream()
-                    .map(taller -> {
-                        TallerResponse tallerResponse=TallerMapper.toDto(taller);
-                        tallerResponse.setReparacionesActivas(contarReparacionesActivas(taller.getId()));
-                        return tallerResponse;
-                    })
+                    .map(TallerMapper::toDto)
                     .toList();
         }
     }
@@ -93,21 +89,18 @@ public class TallerService {
 
     // Eliminar un taller(baja logica para no eliminar el historial de reparaciones)
 
-    public String deleteTaller(Long id){
+    public void deleteTaller(Long id){
         Taller taller=encontrarTaller(id);
         taller.setActivo(false);
         tallerRepository.save(taller);
-
-        return "Taller eliminado con exito";
     }
 
     // Activar un taller que se habia eliminado
 
-    public TallerDetalleResponse activarTaller(Long id){
+    public void activarTaller(Long id){
         Taller taller=encontrarTaller(id);
         taller.setActivo(true);
-
-        return TallerMapper.toDetalleDto(tallerRepository.save(taller));
+        tallerRepository.save(taller);
     }
 
     // Actualizar un taller
@@ -141,11 +134,6 @@ public class TallerService {
 
         vehiculo.setEstado(Estado.ENREPARACION);
         vehiculoRepository.save(vehiculo);
-    }
-
-    // Contar reparaciones activas por taller
-    public Integer contarReparacionesActivas(Long idTaller){
-        return historialReparacionService.contarReparacionesActivas(idTaller);
     }
 
     // Obtener las especialidades

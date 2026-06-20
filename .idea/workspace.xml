@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="Crear autos con Imagenes">
-<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialReparacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialReparacionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/TallerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/TallerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/HistorialReparacion/HistorialReparacionResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/HistorialReparacion/HistorialReparacionResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Taller/TallerDetalleResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Taller/TallerDetalleResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Taller/TallerResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/DTO/DTOResponse/Taller/TallerResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/ReparacionMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/ReparacionMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/TallerMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Mapper/TallerMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Taller.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Model/Taller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialReparacionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialReparacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialReparacionService.java" afterDir="false" />
->>>>>>> 9f0fe6491f5aa4465b968d7db845a640e818e032
+      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/TallerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/TallerService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +78,7 @@
     "Spring Boot.ProgramacionApplication.executor": "Run",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "rama-lea",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
@@ -176,5 +179,10 @@
     <MESSAGE value="Changes by Leandro" />
     <MESSAGE value="Crear autos con Imagenes" />
     <option name="LAST_COMMIT_MESSAGE" value="Crear autos con Imagenes" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/BackProyectoProgra4$ProgramacionApplication.ic" NAME="ProgramacionApplication Coverage Results" MODIFIED="1781965908185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>com.Tesis.Programacion.*</FILTER>
+    </SUITE>
   </component>
 </project>

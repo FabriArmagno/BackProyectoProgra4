@@ -2,10 +2,9 @@ package com.Tesis.Programacion.Model;
 
 import com.Tesis.Programacion.Model.Enums.Especialidad;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -25,7 +24,7 @@ public class Taller {
     @Column(nullable = false)
     private String nombre;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario encargadoTaller;
 
@@ -36,5 +35,5 @@ public class Taller {
     private Boolean activo;
 
     @OneToMany(mappedBy = "taller", fetch = FetchType.LAZY)
-    private List<HistorialReparacion> historialReparaciones;
+    private List<HistorialReparacion> historialReparaciones = new ArrayList<>();
 }

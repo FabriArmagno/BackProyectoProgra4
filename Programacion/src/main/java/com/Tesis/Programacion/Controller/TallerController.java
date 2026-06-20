@@ -38,13 +38,17 @@ public class TallerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String>deleteTaller(@PathVariable Long id){
-        return ResponseEntity.ok(tallerService.deleteTaller(id));
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void>deleteTaller(@PathVariable Long id){
+        tallerService.deleteTaller(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/activar")
-    public ResponseEntity<TallerDetalleResponse>activarTaller(@PathVariable Long id){
-        return ResponseEntity.ok(tallerService.activarTaller(id));
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void>activarTaller(@PathVariable Long id){
+        tallerService.activarTaller(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/especialidades")
@@ -56,7 +60,7 @@ public class TallerController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void>asignarVehiculo(@Valid @RequestBody AsignarTallerRequest request){
         tallerService.asignarVehiculoATaller(request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }
