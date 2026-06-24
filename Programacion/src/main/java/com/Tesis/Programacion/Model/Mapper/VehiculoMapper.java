@@ -2,6 +2,7 @@ package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.Auto;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoReparacionResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Moto;
 import com.Tesis.Programacion.Model.Vehiculo;
@@ -32,5 +33,15 @@ public abstract class VehiculoMapper {
         vehiculoResponse.setVersion(vehiculo.getVersion());
 
         return vehiculoResponse;
+    }
+
+    public static VehiculoReparacionResponse vehiculoReparacionToDto(Vehiculo vehiculo){
+        VehiculoReparacionResponse vehiculoReparacionResponse=new VehiculoReparacionResponse();
+        vehiculoReparacionResponse.setId(vehiculo.getId());
+        vehiculoReparacionResponse.setMarca(vehiculo.getMarca());
+        vehiculoReparacionResponse.setModelo(vehiculo.getModelo());
+        vehiculoReparacionResponse.setVersion(vehiculo.getVersion());
+
+        return vehiculoReparacionResponse;
     }
 }

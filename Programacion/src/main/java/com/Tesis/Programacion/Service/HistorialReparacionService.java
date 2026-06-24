@@ -41,26 +41,6 @@ public class HistorialReparacionService {
                 .orElse(null);
     }
 
-    public static boolean fechasValidas(LocalDate entrada, LocalDate salida) {
-
-        // Verificar null
-        if (entrada == null || salida == null) {
-            return false;
-        }
-
-        // La salida no puede ser antes de la entrada
-        if (salida.isBefore(entrada)) {
-            return false;
-        }
-
-        // Opcional: no permitir mismo día
-        if (salida.isEqual(entrada)) {
-            return false;
-        }
-
-        return true;
-    }
-
     public List<HistorialReparacionResponse> getReparacionesPorTaller(Long idTaller) {
         return repository.findByTallerId(idTaller).stream()
                 .map(ReparacionMapper::toDto)

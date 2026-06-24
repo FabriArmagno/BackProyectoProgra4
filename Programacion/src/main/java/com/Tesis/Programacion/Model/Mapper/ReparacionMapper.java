@@ -8,7 +8,7 @@ public class ReparacionMapper {
         return new HistorialReparacionResponse(
                 historialReparacion.getId(),
                 historialReparacion.getTaller().getId(),
-                historialReparacion.getVehiculo().getId(),
+                VehiculoMapper.vehiculoReparacionToDto(historialReparacion.getVehiculo()),
                 historialReparacion.getFechaDeEntrada(),
                 historialReparacion.getFechaDeSalida(),
                 historialReparacion.getMotivo(),
