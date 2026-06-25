@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model.Mapper;
 
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.Moto;
 
@@ -21,7 +22,7 @@ public class MotoMapper {
         motoResponse.setFechaIngreso(moto.getFechaIngreso());
         motoResponse.setTipo("MOTO");
         // Atributos de la Moto
-        motoResponse.setTipoMoto(moto.getTipoMoto());
+        motoResponse.setTipoMoto(new EnumResponse(moto.getTipoMoto().name(), moto.getTipoMoto().getLabel()));
         motoResponse.setCilindrada(moto.getCilindrada());
         motoResponse.setImagenes(moto.getImagenes());
 

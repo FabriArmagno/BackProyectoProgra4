@@ -1,11 +1,11 @@
-package com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto;
+package com.Tesis.Programacion.Model.DTO.DTOResponse.Enum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class TipoMotoResponse {
+public class EnumResponse {
     private String name;
     private String label;
 }

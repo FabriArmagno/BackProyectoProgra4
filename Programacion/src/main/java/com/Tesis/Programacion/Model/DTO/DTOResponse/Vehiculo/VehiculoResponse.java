@@ -1,6 +1,6 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo;
 
-import com.Tesis.Programacion.Model.Enums.Estado;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -16,7 +16,7 @@ public class VehiculoResponse {
     private String tipo;
     private Double kilometraje;
     private LocalDate fechaIngreso;
-    private VehiculoEstadoResponse estado;
+    private EnumResponse estado;
     private String patente;
     private int anio;
     private List<String> imagenes;

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public abstract class VehiculoDetalleResponse {
+public class VehiculoDetalleResponse {
     private Long id;
     private String patente;
     private String marca;

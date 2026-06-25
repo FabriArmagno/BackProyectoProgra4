@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model.Mapper;
 
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerResponse;
 import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
@@ -10,7 +11,7 @@ public class TallerMapper {
     public static TallerResponse toDto(Taller taller){
         return new TallerResponse(
                 taller.getId(),
-                taller.getEspecialidad(),
+                new EnumResponse(taller.getEspecialidad().name(), taller.getEspecialidad().getLabel()),
                 taller.getNombre(),
                 taller.getActivo(),
                 taller.getHistorialReparaciones().stream()
@@ -24,7 +25,7 @@ public class TallerMapper {
     public static TallerDetalleResponse toDetalleDto(Taller taller){
         TallerDetalleResponse tallerDetalleResponse=new TallerDetalleResponse();
         tallerDetalleResponse.setId(taller.getId());
-        tallerDetalleResponse.setEspecialidad(taller.getEspecialidad());
+        tallerDetalleResponse.setEspecialidad(new EnumResponse(taller.getEspecialidad().name(), taller.getEspecialidad().getLabel()));
         tallerDetalleResponse.setNombre(taller.getNombre());
         tallerDetalleResponse.setEncargadoTaller(UsuarioMapper.toDto(taller.getEncargadoTaller()));
         tallerDetalleResponse.setHistorialReparaciones(

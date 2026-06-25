@@ -64,7 +64,6 @@ public abstract class Vehiculo {
     @Column(nullable = false)
     private LocalDate fechaIngreso;
 
-    @Column(nullable = false)
     private String descripcion;
 
     @Column(nullable = false)

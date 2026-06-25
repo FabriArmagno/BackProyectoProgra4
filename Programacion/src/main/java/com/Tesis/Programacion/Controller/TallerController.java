@@ -2,8 +2,8 @@ package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.AsignarTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.CrearTallerRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerEspecialidadResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Taller.TallerResponse;
 import com.Tesis.Programacion.Service.TallerService;
 import jakarta.validation.Valid;
@@ -52,7 +52,7 @@ public class TallerController {
     }
 
     @GetMapping("/especialidades")
-    public ResponseEntity<List<TallerEspecialidadResponse>>obtenerEspecialidad(){
+    public ResponseEntity<List<EnumResponse>>obtenerEspecialidad(){
         return ResponseEntity.ok(tallerService.obtenerEspecialidades());
     }
 

@@ -4,12 +4,11 @@ import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoReques
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.SubModelDTO;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Service.AutoService;
@@ -161,14 +160,14 @@ public class VehiculoController {
     ///------------------------------------------ESTADOS-----------------------------------------------------------------
 
     @GetMapping("/estados")
-    public ResponseEntity<List<VehiculoEstadoResponse>>getEstados(){
+    public ResponseEntity<List<EnumResponse>>getEstados(){
         return ResponseEntity.ok(vehiculoService.getEstados());
     }
 
     ///------------------------------------------TIPO MOTO---------------------------------------------------------------
 
     @GetMapping("/tipos-moto")
-    public ResponseEntity<List<TipoMotoResponse>>getTiposMoto(){
+    public ResponseEntity<List<EnumResponse>>getTiposMoto(){
         return ResponseEntity.ok(motoService.obtenerTiposDeMotos());
     }
 }

@@ -1,7 +1,7 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.TipoMotoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Moto.MotoDetalleResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Enums.TipoMoto;
@@ -72,9 +72,9 @@ public class MotoService {
 
     //Obtener los tipos de motos
 
-    public List<TipoMotoResponse>obtenerTiposDeMotos() {
+    public List<EnumResponse>obtenerTiposDeMotos() {
         return Arrays.stream(TipoMoto.values())
-                .map(tipoMoto -> new TipoMotoResponse(
+                .map(tipoMoto -> new EnumResponse(
                         tipoMoto.name(),
                         tipoMoto.getLabel()
                 ))

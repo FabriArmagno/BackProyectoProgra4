@@ -1,7 +1,7 @@
 package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.Auto;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoReparacionResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Moto;
@@ -17,17 +17,12 @@ public abstract class VehiculoMapper {
         vehiculoResponse.setPrecio(vehiculo.getPrecio());
         vehiculoResponse.setImagenes(vehiculo.getImagenes());
 
-        if(vehiculo instanceof Auto){
-            vehiculoResponse.setTipo("AUTO");
-        }
-
-        if(vehiculo instanceof Moto){
-            vehiculoResponse.setTipo("MOTO");
-        }
+        if(vehiculo instanceof Auto)vehiculoResponse.setTipo("AUTO");
+        if(vehiculo instanceof Moto)vehiculoResponse.setTipo("MOTO");
 
         vehiculoResponse.setKilometraje(vehiculo.getKilometraje());
         vehiculoResponse.setFechaIngreso(vehiculo.getFechaIngreso());
-        vehiculoResponse.setEstado(new VehiculoEstadoResponse(vehiculo.getEstado().name(), vehiculo.getEstado().getLabel()));
+        vehiculoResponse.setEstado(new EnumResponse(vehiculo.getEstado().name(), vehiculo.getEstado().getLabel()));
         vehiculoResponse.setPatente(vehiculo.getPatente());
         vehiculoResponse.setAnio(vehiculo.getAnio());
         vehiculoResponse.setVersion(vehiculo.getVersion());
@@ -41,6 +36,9 @@ public abstract class VehiculoMapper {
         vehiculoReparacionResponse.setMarca(vehiculo.getMarca());
         vehiculoReparacionResponse.setModelo(vehiculo.getModelo());
         vehiculoReparacionResponse.setVersion(vehiculo.getVersion());
+
+        if(vehiculo instanceof Auto) vehiculoReparacionResponse.setTipo("AUTO");
+        if(vehiculo instanceof Moto) vehiculoReparacionResponse.setTipo("MOTO");
 
         return vehiculoReparacionResponse;
     }

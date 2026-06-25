@@ -1,8 +1,7 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Taller;
 
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
-import com.Tesis.Programacion.Model.Enums.Especialidad;
-import com.Tesis.Programacion.Model.Usuario;
 import lombok.*;
 
 @Getter
@@ -11,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TallerResponse {
     private Long id;
-    private Especialidad especialidad;
+    private EnumResponse especialidad;
     private String nombre;
     private Boolean activo;
     private Long reparacionesActivas;

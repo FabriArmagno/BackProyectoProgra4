@@ -1,13 +1,11 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.*;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Taller.AsignarTallerRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoEstadoResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
-import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
 import com.Tesis.Programacion.Model.Mapper.MotoMapper;
 import com.Tesis.Programacion.Model.Mapper.VehiculoMapper;
@@ -20,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -151,9 +147,9 @@ public class VehiculoService {
     ///----------------------------------------------ESTADO--------------------------------------------------------------
 
     //Obtener estados
-    public List<VehiculoEstadoResponse>getEstados(){
+    public List<EnumResponse>getEstados(){
         return Arrays.stream(Estado.values()).
-                map(estado -> new VehiculoEstadoResponse(
+                map(estado -> new EnumResponse(
                         estado.name(),
                         estado.getLabel()
                 )).toList();

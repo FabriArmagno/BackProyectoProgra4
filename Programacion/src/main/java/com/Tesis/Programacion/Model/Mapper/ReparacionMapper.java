@@ -1,6 +1,7 @@
 package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.HistorialReparacion;
 
 public class ReparacionMapper {
@@ -12,7 +13,7 @@ public class ReparacionMapper {
                 historialReparacion.getFechaDeEntrada(),
                 historialReparacion.getFechaDeSalida(),
                 historialReparacion.getMotivo(),
-                historialReparacion.getEstadoReparacion()
+                new EnumResponse(historialReparacion.getEstadoReparacion().name(), historialReparacion.getEstadoReparacion().getLabel())
         );
     }
 }

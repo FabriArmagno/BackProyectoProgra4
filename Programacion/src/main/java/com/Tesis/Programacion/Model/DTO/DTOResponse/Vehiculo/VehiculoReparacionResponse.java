@@ -10,4 +10,5 @@ public class VehiculoReparacionResponse {
     private String marca;
     private String modelo;
     private String version;
+    private String tipo;
 }
