@@ -68,20 +68,18 @@ public class UsuarioService {
 
     // Dar de baja un usuario(baja logica)
 
-    public UsuarioResponse bajaDeUsuario(Long id){
+    public void bajaDeUsuario(Long id){
         Usuario usuario=encontrarUsuario(id);
         usuario.setActivo(false);
-
-        return UsuarioMapper.toDto(usuarioRepository.save(usuario));
+        usuarioRepository.save(usuario);
     }
 
     // Activar un usuario que estaba dado de baja
 
-    public UsuarioResponse activarUsuario(Long id){
+    public void activarUsuario(Long id){
         Usuario usuario=encontrarUsuario(id);
         usuario.setActivo(true);
-
-        return UsuarioMapper.toDto(usuarioRepository.save(usuario));
+        usuarioRepository.save(usuario);
     }
 
     // Actualizar un usuario

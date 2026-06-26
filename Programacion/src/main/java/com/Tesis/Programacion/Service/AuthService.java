@@ -34,6 +34,10 @@ public class AuthService {
         Usuario usuario=usuarioRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
+        if(!usuario.getActivo()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "El usuario se encuentra deshabilitado");
+        }
+
         String token=jwtService.generateToken(usuario);
 
         return new LoginResponse(token, UsuarioMapper.toDto(usuario));

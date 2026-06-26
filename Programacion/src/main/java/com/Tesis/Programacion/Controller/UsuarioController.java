@@ -42,12 +42,16 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UsuarioResponse>darDeBajaUsuario(@PathVariable Long id){
-        return ResponseEntity.ok().body(usuarioService.bajaDeUsuario(id));
+    public ResponseEntity<Void>darDeBajaUsuario(@PathVariable Long id){
+        usuarioService.bajaDeUsuario(id);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/activar")
-    public ResponseEntity<UsuarioResponse>activarUsuario(@PathVariable Long id){
-        return ResponseEntity.ok().body(usuarioService.activarUsuario(id));
+    public ResponseEntity<Void>activarUsuario(@PathVariable Long id){
+        usuarioService.activarUsuario(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

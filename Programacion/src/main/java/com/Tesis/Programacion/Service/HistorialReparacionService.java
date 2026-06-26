@@ -3,6 +3,7 @@ package com.Tesis.Programacion.Service;
 import com.Tesis.Programacion.Model.*;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CrearReparacionRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
+import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import com.Tesis.Programacion.Model.Mapper.ReparacionMapper;
 import com.Tesis.Programacion.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +37,18 @@ public class HistorialReparacionService {
     }
 
     public HistorialReparacionResponse getReparacionByID(Long id){
-        return repository.findById(id)
-                .map(ReparacionMapper::toDto)
-                .orElse(null);
+        return ReparacionMapper.toDto(encontrarReparacion(id));
     }
 
     public List<HistorialReparacionResponse> getReparacionesPorTaller(Long idTaller) {
         return repository.findByTallerId(idTaller).stream()
                 .map(ReparacionMapper::toDto)
                 .toList();
+    }
+
+    public HistorialReparacion encontrarReparacion(Long id){
+        return repository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Reparacion no encontrada"));
     }
 
 }
