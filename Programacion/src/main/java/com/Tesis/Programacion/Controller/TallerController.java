@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +29,20 @@ public class TallerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TallerDetalleResponse>getTallerById(@PathVariable Long id){
-        return ResponseEntity.ok(tallerService.getTallerByID(id));
+    public ResponseEntity<TallerDetalleResponse>getTallerById(Authentication auth, @PathVariable Long id){
+        return ResponseEntity.ok(tallerService.getTallerByID(auth, id));
     }
 
     @PostMapping
     public ResponseEntity<TallerDetalleResponse>crearTaller(@Valid @RequestBody CrearTallerRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(tallerService.createTaller(request));
+    }
+
+    @GetMapping("/mis-talleres")
+    @PreAuthorize("hasRole('ENCARGADOTALLER')")
+    public ResponseEntity<List<TallerResponse>>getTalleresPorEncargado(Authentication authentication){
+        String email=authentication.getName();
+        return ResponseEntity.ok(tallerService.getTalleresPorEncargado(email));
     }
 
     @DeleteMapping("/{id}")

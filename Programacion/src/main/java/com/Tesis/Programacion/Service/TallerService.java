@@ -21,6 +21,7 @@ import com.Tesis.Programacion.Repository.VehiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -81,8 +82,30 @@ public class TallerService {
 
     // Obtener el detalle de un taller
 
-    public TallerDetalleResponse getTallerByID(Long id){
-        return TallerMapper.toDetalleDto(encontrarTaller(id));
+    public TallerDetalleResponse getTallerByID(Authentication auth, Long id){
+        String email=auth.getName();
+
+        Usuario usuario=usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        Taller taller=encontrarTaller(id);
+
+        if(usuario.getRol()!=Rol.ADMIN && !usuario.getId().equals(taller.getEncargadoTaller().getId())){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Esta reparacion pertenece a otro encargado");
+        }
+
+        return TallerMapper.toDetalleDto(taller);
+    }
+
+    // Traer los talleres del encargado taller
+    public List<TallerResponse>getTalleresPorEncargado(String email){
+        Usuario usuario=usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        return tallerRepository.findByEncargadoTallerIdAndActivoTrue(usuario.getId())
+                .stream()
+                .map(taller -> TallerMapper.toDto(taller))
+                .toList();
     }
 
     // Eliminar un taller(baja logica para no eliminar el historial de reparaciones)

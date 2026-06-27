@@ -9,7 +9,9 @@ import com.Tesis.Programacion.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -27,9 +29,13 @@ public class AuthService {
     private UsuarioRepository usuarioRepository;
 
     public LoginResponse login(LoginRequest loginRequest){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
-        );
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+            );
+        }catch (AuthenticationException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Correo o contreseña incorrecta");
+        }
 
         Usuario usuario=usuarioRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));

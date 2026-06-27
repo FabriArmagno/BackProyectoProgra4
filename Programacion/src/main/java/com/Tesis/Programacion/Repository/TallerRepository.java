@@ -14,5 +14,5 @@ import java.util.Optional;
 @Repository
 public interface TallerRepository extends JpaRepository<Taller,Long> {
     List<Taller> findByActivo(Boolean activo);
-    Optional<Taller> findByIdAndActivoTrue(Long id);
+    List<Taller> findByEncargadoTallerIdAndActivoTrue(Long encargadoTallerId);
 }
