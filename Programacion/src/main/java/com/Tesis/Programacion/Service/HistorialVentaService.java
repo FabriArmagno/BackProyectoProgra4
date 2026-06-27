@@ -9,6 +9,8 @@ import com.Tesis.Programacion.Repository.HistorialVentaRepository;
 import com.Tesis.Programacion.Repository.UsuarioRepository;
 import com.Tesis.Programacion.Repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @Service
 public class HistorialVentaService {
+
     @Autowired
     private HistorialVentaRepository historialVentaRepository;
 
@@ -51,21 +54,56 @@ public class HistorialVentaService {
         }
     }
 
-    public List<VentaResponse> getVentas(){
-        return historialVentaRepository.findAll().stream()
-                .map(VentaMapper::toDto)
-                .toList();
+    public List<VentaResponse> getVentas(Authentication authentication) {
+        String username = authentication.getName();
+
+        // Verificamos si el usuario tiene el rol de ADMIN
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN")); // Cambia "ROLE_ADMIN" por cómo nombres tu rol
+
+        if (isAdmin) {
+            // El Admin ve absolutamente todo
+            return historialVentaRepository.findAll().stream()
+                    .map(VentaMapper::toDto)
+                    .toList();
+        } else {
+            // El empleado común solo ve sus propias ventas
+            return historialVentaRepository.findByVendedorUsername(username).stream()
+                    .map(VentaMapper::toDto)
+                    .toList();
+        }
     }
 
-    public VentaResponse getVentaById(Long id){
-        return historialVentaRepository.findById(id)
-                .map(VentaMapper::toDto)
-                .orElse(null);
+    public VentaResponse getVentaById(Long id, Authentication authentication) {
+        HistorialVenta venta = historialVentaRepository.findById(id).orElse(null);
+        if (venta == null) return null;
+
+        String username = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        // Regla de negocio: Si es admin O si es el vendedor que realizó la venta, puede ver el detalle
+        if (isAdmin || venta.getVendedor().getUsername().equals(username)) {
+            return VentaMapper.toDto(venta);
+        } else {
+            throw new RuntimeException("No tenés permisos para ver esta venta");
+        }
     }
 
     ///-----------------------------------------------CONTAR VENTAS--------------------------------------------------------
 
-    public Long contarVentas(){
-        return historialVentaRepository.count();
+    public Long contarVentas(Authentication authentication) {
+        String username = authentication.getName();
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .anyMatch(role -> role.equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            return historialVentaRepository.count();
+        } else {
+            return historialVentaRepository.countByVendedorUsername(username);
+        }
     }
 }
