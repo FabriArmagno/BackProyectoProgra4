@@ -20,7 +20,10 @@ public class MotoMapper {
         motoResponse.setVersion(moto.getVersion());
         motoResponse.setDescripcion(moto.getDescripcion());
         motoResponse.setFechaIngreso(moto.getFechaIngreso());
+        motoResponse.setCombustion(moto.getCombustion());
+        motoResponse.setMotor(moto.getMotor());
         motoResponse.setTipo("MOTO");
+
         // Atributos de la Moto
         motoResponse.setTipoMoto(new EnumResponse(moto.getTipoMoto().name(), moto.getTipoMoto().getLabel()));
         motoResponse.setCilindrada(moto.getCilindrada());

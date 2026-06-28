@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,9 +76,9 @@ public class VehiculoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/vender")
-    public ResponseEntity<Void> venderAuto(@Valid @RequestBody CrearVentaRequest request){
-        vehiculoService.venderAuto(request);
+    @PutMapping("/vender/{vehiculoId}")
+    public ResponseEntity<Void> venderAuto(Authentication authentication, @Valid @RequestBody CrearVentaRequest request, @PathVariable Long vehiculoId){
+        vehiculoService.venderAuto(authentication, request, vehiculoId);
 
         return ResponseEntity.ok().build();
     }
@@ -112,7 +113,7 @@ public class VehiculoController {
                     .body(autoService.createAuto(crearAutoRequest, files));
     }
 
-    @PutMapping("/modificar/{id}")
+    @PutMapping("/autos/{id}")
     public ResponseEntity<AutoDetalleResponse> modificarAuto(@RequestBody @Valid UpdateAutoRequest request, @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(autoService.modificarAuto(id, request));

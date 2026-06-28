@@ -13,6 +13,7 @@ import com.Tesis.Programacion.Repository.VehiculoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -79,14 +80,13 @@ public class VehiculoService {
 
     // Vender el vehiculo
     @Transactional
-    public void venderAuto(CrearVentaRequest request){
-
-        Vehiculo vehiculo = encontrarVehiculo(request.getVehiculoId());
+    public void venderAuto(Authentication authentication, CrearVentaRequest request, Long vehiculoId){
+        Vehiculo vehiculo = encontrarVehiculo(vehiculoId);
 
         vehiculo.setEstado(Estado.VENDIDO);
         vehiculoRepository.save(vehiculo);
 
-        historialVentaService.createHistorial(request);
+        historialVentaService.createHistorial(authentication, request, vehiculoId);
     }
 
     public Optional<Vehiculo> getVehiculoByPatente(String patente){
@@ -99,7 +99,7 @@ public class VehiculoService {
 
     // METODO PARA ENCONTRAR EL VEHICULO
 
-    public Vehiculo encontrarVehiculo(Long id){
+    private Vehiculo encontrarVehiculo(Long id){
         return vehiculoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
     }

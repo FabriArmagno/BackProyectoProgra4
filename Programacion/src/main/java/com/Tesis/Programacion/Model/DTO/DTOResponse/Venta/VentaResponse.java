@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 public class VentaResponse {
+    private Long id;
     private Long vehiculoId;
     private Long clienteId;
     private Long vendedorId;

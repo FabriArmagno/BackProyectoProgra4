@@ -24,6 +24,7 @@ public class TallerController {
     private TallerService tallerService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<TallerResponse>>getTalleres(@RequestParam(required = false) Boolean activo){
         return ResponseEntity.ok(tallerService.getTalleresPorEstado(activo));
     }
@@ -34,6 +35,7 @@ public class TallerController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TallerDetalleResponse>crearTaller(@Valid @RequestBody CrearTallerRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(tallerService.createTaller(request));
     }
@@ -42,7 +44,7 @@ public class TallerController {
     @PreAuthorize("hasRole('ENCARGADOTALLER')")
     public ResponseEntity<List<TallerResponse>>getTalleresPorEncargado(Authentication authentication){
         String email=authentication.getName();
-        return ResponseEntity.ok(tallerService.getTalleresPorEncargado(email));
+        return ResponseEntity.ok(tallerService.getTalleresPorEncargado(authentication));
     }
 
     @DeleteMapping("/{id}")

@@ -31,7 +31,6 @@ public class MotoService {
     //crear moto
     public MotoDetalleResponse crearMoto(CrearMotoRequest request, List<MultipartFile>files){
 
-
         Moto moto=new Moto();
         moto.setPatente(request.getPatente());
         moto.setMarca(request.getMarca());
@@ -88,19 +87,18 @@ public class MotoService {
 
         List<String> imagenesActuales = moto.getImagenes();
 
-        moto.setPatente(request.getPatente());
-        moto.setMarca(request.getMarca());
-        moto.setModelo(request.getModelo());
-        moto.setPrecio(request.getPrecio());
-        moto.setColor(request.getColor());
-        moto.setAnio(request.getAnio());
-        moto.setKilometraje(request.getKilometraje());
-        moto.setVersion(request.getVersion());
-        moto.setDescripcion(request.getDescripcion());
-        moto.setTipoMoto(request.getTipoMoto());
-        moto.setCilindrada(request.getCilindrada());
-
-        moto.setImagenes(imagenesActuales);
+        if (request.getPatente() != null) moto.setPatente(request.getPatente());
+        if (request.getMarca() != null) moto.setMarca(request.getMarca());
+        if (request.getModelo() != null) moto.setModelo(request.getModelo());
+        if (request.getPrecio() != null) moto.setPrecio(request.getPrecio());
+        if (request.getColor() != null) moto.setColor(request.getColor());
+        if (request.getAnio() != null)moto.setAnio(request.getAnio());
+        if (request.getKilometraje() != null) moto.setKilometraje(request.getKilometraje());
+        if (request.getVersion() != null)moto.setVersion(request.getVersion());
+        if (request.getDescripcion() != null)moto.setDescripcion(request.getDescripcion());
+        if (request.getTipoMoto() != null)moto.setTipoMoto(request.getTipoMoto());
+        if (request.getCilindrada() != null)moto.setCilindrada(request.getCilindrada());
+        if (imagenesActuales != null) moto.setImagenes(imagenesActuales);
 
         return MotoMapper.toDetalleDTO(repo.save(moto));
     }

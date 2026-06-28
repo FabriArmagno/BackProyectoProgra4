@@ -29,13 +29,9 @@ public class AuthService {
     private UsuarioRepository usuarioRepository;
 
     public LoginResponse login(LoginRequest loginRequest){
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
-            );
-        }catch (AuthenticationException e){
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Correo o contreseña incorrecta");
-        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+        );
 
         Usuario usuario=usuarioRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));

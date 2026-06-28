@@ -9,9 +9,12 @@ import com.Tesis.Programacion.Repository.HistorialVentaRepository;
 import com.Tesis.Programacion.Repository.UsuarioRepository;
 import com.Tesis.Programacion.Repository.VehiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -34,46 +37,43 @@ public class HistorialVentaService {
 
     //CRUD
 
-    public VentaResponse createHistorial(CrearVentaRequest ventaRequest) {
-        Cliente cId = clienteRepository.findById(ventaRequest.getClienteId()).orElse(null);
-        Usuario uId = usuarioRepository.findById(ventaRequest.getVendedorId()).orElse(null);
-        Vehiculo vId = vehiculoRepository.findById(ventaRequest.getVehiculoId()).orElse(null);
+    public VentaResponse createHistorial(Authentication authentication,CrearVentaRequest ventaRequest, Long vehiculoId) {
+        Cliente cliente = clienteRepository.findById(ventaRequest.getClienteId())
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
 
-        if (cId != null && uId != null && vId != null && ventaRequest.getPrecioVenta() > 0) {
+        Usuario vendedor = usuarioRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-            HistorialVenta historialVenta=new HistorialVenta();
-            historialVenta.setVehiculo(vId);
-            historialVenta.setCliente(cId);
-            historialVenta.setVendedor(uId);
-            historialVenta.setPrecioVenta(ventaRequest.getPrecioVenta());
-            historialVenta.setFechaVenta(LocalDate.now());
+        Vehiculo vehiculo = vehiculoRepository.findById(vehiculoId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
 
-            return VentaMapper.toDto(historialVentaRepository.save(historialVenta));
-        } else {
-            throw new RuntimeException("IDs o datos inválidos para registrar la venta");
+        if(ventaRequest.getPrecioVenta()<=0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a 0");
         }
+
+        HistorialVenta historialVenta=new HistorialVenta();
+        historialVenta.setVehiculo(vehiculo);
+        historialVenta.setCliente(cliente);
+        historialVenta.setVendedor(vendedor);
+        historialVenta.setPrecioVenta(ventaRequest.getPrecioVenta());
+        historialVenta.setFechaVenta(LocalDate.now());
+
+        return VentaMapper.toDto(historialVentaRepository.save(historialVenta));
     }
 
-    public List<VentaResponse> getVentas(Authentication authentication) {
-        String username = authentication.getName();
-
-        // Verificamos si el usuario tiene el rol de ADMIN
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ROLE_ADMIN")); // Cambia "ROLE_ADMIN" por cómo nombres tu rol
-
-        if (isAdmin) {
-            // El Admin ve absolutamente todo
-            return historialVentaRepository.findAll().stream()
-                    .map(VentaMapper::toDto)
-                    .toList();
-        } else {
-            // El empleado común solo ve sus propias ventas
-            return historialVentaRepository.findByVendedorUsername(username).stream()
-                    .map(VentaMapper::toDto)
-                    .toList();
-        }
+    public List<VentaResponse> getVentas() {
+        return historialVentaRepository.findAll().stream()
+                .map(VentaMapper::toDto)
+                .toList();
     }
+
+    public List<VentaResponse>getVentasPorEmpleado(Authentication authentication){
+        return historialVentaRepository.findByVendedorEmail(authentication.getName())
+                .stream()
+                .map(VentaMapper::toDto)
+                .toList();
+    }
+
 
     public VentaResponse getVentaById(Long id, Authentication authentication) {
         HistorialVenta venta = historialVentaRepository.findById(id).orElse(null);

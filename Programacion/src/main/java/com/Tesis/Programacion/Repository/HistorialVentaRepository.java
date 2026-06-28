@@ -9,7 +9,7 @@ import java.util.List;
 public interface HistorialVentaRepository extends JpaRepository<HistorialVenta, Long> {
 
     // Para listar las ventas de un empleado en específico por su username
-    List<HistorialVenta> findByVendedorUsername(String username);
+    List<HistorialVenta> findByVendedorEmail(String email);
 
     // Para contar solo las ventas de ese empleado
     Long countByVendedorUsername(String username);

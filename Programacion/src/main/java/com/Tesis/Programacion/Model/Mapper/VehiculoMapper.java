@@ -15,7 +15,6 @@ public abstract class VehiculoMapper {
         vehiculoResponse.setMarca(vehiculo.getMarca());
         vehiculoResponse.setModelo(vehiculo.getModelo());
         vehiculoResponse.setPrecio(vehiculo.getPrecio());
-        vehiculoResponse.setImagenes(vehiculo.getImagenes());
 
         if(vehiculo instanceof Auto)vehiculoResponse.setTipo("AUTO");
         if(vehiculo instanceof Moto)vehiculoResponse.setTipo("MOTO");

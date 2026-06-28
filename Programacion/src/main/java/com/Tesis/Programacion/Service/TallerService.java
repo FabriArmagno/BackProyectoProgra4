@@ -61,10 +61,7 @@ public class TallerService {
     // Listar todos los talleres
 
     public List<TallerResponse>getTalleres(){
-        return tallerRepository.findAll()
-                .stream()
-                .map(TallerMapper::toDto)
-                .toList();
+        return mapear(tallerRepository.findAll());
     }
 
     // Listar todos los taller por estado
@@ -73,10 +70,7 @@ public class TallerService {
         if(activo==null){
             return getTalleres();
         }else{
-            return tallerRepository.findByActivo(activo)
-                    .stream()
-                    .map(TallerMapper::toDto)
-                    .toList();
+            return mapear(tallerRepository.findByActivo(activo));
         }
     }
 
@@ -91,21 +85,22 @@ public class TallerService {
         Taller taller=encontrarTaller(id);
 
         if(usuario.getRol()!=Rol.ADMIN && !usuario.getId().equals(taller.getEncargadoTaller().getId())){
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Esta reparacion pertenece a otro encargado");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Este taller pertenece a otro encargado");
+        }
+
+        if(usuario.getRol()!=Rol.ADMIN && !taller.getActivo()){
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Este taller esta desactivado");
         }
 
         return TallerMapper.toDetalleDto(taller);
     }
 
     // Traer los talleres del encargado taller
-    public List<TallerResponse>getTalleresPorEncargado(String email){
-        Usuario usuario=usuarioRepository.findByEmail(email)
+    public List<TallerResponse>getTalleresPorEncargado(Authentication authentication){
+        Usuario usuario=usuarioRepository.findByEmail(authentication.getName())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
 
-        return tallerRepository.findByEncargadoTallerIdAndActivoTrue(usuario.getId())
-                .stream()
-                .map(taller -> TallerMapper.toDto(taller))
-                .toList();
+        return mapear(tallerRepository.findByEncargadoTallerIdAndActivoTrue(usuario.getId()));
     }
 
     // Eliminar un taller(baja logica para no eliminar el historial de reparaciones)
@@ -193,5 +188,13 @@ public class TallerService {
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "El taller no existe"
                 ));
+    }
+
+    // Metodo para reutilizar la conversion a dto
+
+    private List<TallerResponse>mapear(List<Taller>talleres){
+        return talleres.stream()
+                .map(TallerMapper::toDto)
+                .toList();
     }
 }
