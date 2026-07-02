@@ -1,11 +1,14 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.*;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CambiarEstadoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CrearReparacionRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
+import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Enums.EstadoReparacion;
 import com.Tesis.Programacion.Model.Mapper.ReparacionMapper;
 import com.Tesis.Programacion.Repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -46,9 +49,29 @@ public class HistorialReparacionService {
                 .toList();
     }
 
+    @Transactional
+    public void cambiarEstado(Long id, CambiarEstadoRequest request){
+        HistorialReparacion historialReparacion=encontrarReparacion(id);
+
+        if(historialReparacion.getEstadoReparacion()==EstadoReparacion.ENTREGADO){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El vehículo ya fue entregado, no se puede modificar el estado");
+        }
+
+        if (request.getEstadoReparacion()==EstadoReparacion.ENTREGADO){
+            Vehiculo vehiculo = vehiculoRepository.findById(historialReparacion.getVehiculo().getId())
+                    .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehiculo no encontrado"));
+
+            vehiculo.setEstado(Estado.DISPONIBLE);
+            vehiculoRepository.save(vehiculo);
+            historialReparacion.setFechaDeSalida(LocalDate.now());
+        }
+
+        historialReparacion.setEstadoReparacion(request.getEstadoReparacion());
+        repository.save(historialReparacion);
+    }
+
     public HistorialReparacion encontrarReparacion(Long id){
         return repository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Reparacion no encontrada"));
     }
-
 }

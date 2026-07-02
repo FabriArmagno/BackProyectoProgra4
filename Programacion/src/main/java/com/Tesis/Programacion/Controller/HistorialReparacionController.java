@@ -1,13 +1,11 @@
 package com.Tesis.Programacion.Controller;
 
-import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CrearReparacionRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Reparacion.CambiarEstadoRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Venta.VentaResponse;
-import com.Tesis.Programacion.Model.Historial;
 import com.Tesis.Programacion.Service.HistorialReparacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,8 +26,11 @@ public class HistorialReparacionController {
         return ResponseEntity.ok(reparacionService.getReparacionByID(id));
     }
 
-    @GetMapping("/taller/{idTaller}")
-    public ResponseEntity<List<HistorialReparacionResponse>> getReparacionesPorTaller(@PathVariable Long idTaller) {
-        return ResponseEntity.ok(reparacionService.getReparacionesPorTaller(idTaller));
+    @PatchMapping("/{id}/estado")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('ENCARGADOTALLER')")
+    public ResponseEntity<Void>cambiarEstado(@PathVariable Long id, @RequestBody CambiarEstadoRequest request){
+        reparacionService.cambiarEstado(id, request);
+        return ResponseEntity.noContent().build();
     }
+
 }
