@@ -23,7 +23,7 @@ public class UsuarioController {
 
     @GetMapping
     public ResponseEntity<List<UsuarioResponse>>getUsuarios(@RequestParam (required = false) Boolean activo){
-        return ResponseEntity.ok(usuarioService.getUsuariosPorEstado(activo));
+        return ResponseEntity.ok(usuarioService.getUsuarios(activo));
     }
 
     @PostMapping
@@ -39,6 +39,11 @@ public class UsuarioController {
     @GetMapping("/encargados")
     public ResponseEntity<List<UsuarioResponse>>getEncargados(){
         return ResponseEntity.ok(usuarioService.getEncargadosDeTaller());
+    }
+
+    @GetMapping("/empleados")
+    public ResponseEntity<List<UsuarioResponse>>getEmpleados(){
+        return ResponseEntity.ok(usuarioService.getEmpleados());
     }
 
     @DeleteMapping("/{id}")

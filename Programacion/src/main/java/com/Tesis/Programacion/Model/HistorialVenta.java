@@ -25,7 +25,9 @@ public class HistorialVenta extends Historial{
     @JoinColumn(name = "vendedor_id")
     private Usuario vendedor;
 
-    private Double precioVenta;
+    private Double precioCompra;
+
+    private Double precioFinalVenta;
 
     private LocalDate fechaVenta;
 

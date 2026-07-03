@@ -12,8 +12,11 @@ public class UpdateAutoRequest {
     @NotNull
     private Long idTrim;
 
-    @NotNull(message = "El precio es obligatorio")
-    private Double precio;
+    @NotNull(message = "El precio de compra es obligatorio")
+    private Double precioCompra;
+
+    @NotNull(message = "El precio de venta es obligatorio")
+    private Double precioVenta;
 
     @NotNull(message = "El kilometraje es obligatorio")
     private Double kilometraje;

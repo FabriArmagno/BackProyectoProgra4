@@ -10,7 +10,7 @@ public interface HistorialVentaRepository extends JpaRepository<HistorialVenta, 
 
     // Para listar las ventas de un empleado en específico por su username
     List<HistorialVenta> findByVendedorEmail(String email);
-
+    List<HistorialVenta>findByVendedorId(Long id);
     // Para contar solo las ventas de ese empleado
-    Long countByVendedorUsername(String username);
+    Long countByVendedorEmail(String email);
 }

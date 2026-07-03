@@ -12,8 +12,11 @@ public class CrearVehiculoRequest {
     @NotBlank(message = "La patente es obligatoria")
     private String patente;
 
-    @NotNull(message = "El precio es obligatorio")
-    private Double precio;
+    @NotNull(message = "El precio de compra es obligatorio")
+    private Double precioCompra;
+
+    @NotNull(message = "El precio de venta es obligatorio")
+    private Double precioVenta;
 
     @NotBlank(message = "El color es obligatorio")
     private String color;

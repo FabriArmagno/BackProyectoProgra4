@@ -48,22 +48,19 @@ public class UsuarioService {
 
     // Listar todos los usuarios
 
-    public List<UsuarioResponse>getUsuarios(){
-        return usuarioRepository.findAll()
+    public List<UsuarioResponse>getUsuarios(Boolean activo){
+        List<Usuario>usuarios;
+
+        if(activo!=null){
+            usuarios=usuarioRepository.findByActivo(activo);
+        }else{
+            usuarios=usuarioRepository.findAll();
+        }
+
+        return usuarios
                 .stream()
                 .map(usuario -> UsuarioMapper.toDto(usuario))
                 .toList();
-    }
-
-    public List<UsuarioResponse>getUsuariosPorEstado(Boolean activo){
-        if(activo==null){
-            return getUsuarios();
-        }else{
-            return usuarioRepository.findByActivo(activo)
-                    .stream()
-                    .map(usuario -> UsuarioMapper.toDto(usuario))
-                    .toList();
-        }
     }
 
     // Dar de baja un usuario(baja logica)
@@ -131,9 +128,15 @@ public class UsuarioService {
 
     // Metodo para traer todos los encargados de taller
     public List<UsuarioResponse> getEncargadosDeTaller(){
-        Rol rol = Rol.ENCARGADOTALLER;
+        return usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER)
+                .stream()
+                .map(usuario -> UsuarioMapper.toDto(usuario))
+                .toList();
+    }
 
-        return usuarioRepository.findByRolAndActivoTrue(rol)
+    // Metodo para traer todos los empleado
+    public List<UsuarioResponse> getEmpleados(){
+        return usuarioRepository.findByRol(Rol.EMPLEADO)
                 .stream()
                 .map(usuario -> UsuarioMapper.toDto(usuario))
                 .toList();

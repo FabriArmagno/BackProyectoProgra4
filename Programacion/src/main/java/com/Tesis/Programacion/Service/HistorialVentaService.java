@@ -37,9 +37,9 @@ public class HistorialVentaService {
 
     //CRUD
 
-    public VentaResponse createHistorial(Authentication authentication,CrearVentaRequest ventaRequest, Long vehiculoId) {
+    public VentaResponse createHistorial(Authentication authentication, CrearVentaRequest ventaRequest, Long vehiculoId) {
         Cliente cliente = clienteRepository.findById(ventaRequest.getClienteId())
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente no encontrado"));
 
         Usuario vendedor = usuarioRepository.findByEmail(authentication.getName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
@@ -47,27 +47,36 @@ public class HistorialVentaService {
         Vehiculo vehiculo = vehiculoRepository.findById(vehiculoId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
 
-        if(ventaRequest.getPrecioVenta()<=0) {
+        if (ventaRequest.getPrecioVenta() <= vehiculo.getPrecioCompra()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a 0");
         }
 
-        HistorialVenta historialVenta=new HistorialVenta();
+        HistorialVenta historialVenta = new HistorialVenta();
         historialVenta.setVehiculo(vehiculo);
         historialVenta.setCliente(cliente);
         historialVenta.setVendedor(vendedor);
-        historialVenta.setPrecioVenta(ventaRequest.getPrecioVenta());
+        historialVenta.setPrecioCompra(vehiculo.getPrecioCompra());
+        historialVenta.setPrecioFinalVenta(ventaRequest.getPrecioVenta());
         historialVenta.setFechaVenta(LocalDate.now());
 
         return VentaMapper.toDto(historialVentaRepository.save(historialVenta));
     }
 
-    public List<VentaResponse> getVentas() {
-        return historialVentaRepository.findAll().stream()
+    public List<VentaResponse> getVentas(Long empleadoId) {
+        List<HistorialVenta> ventas;
+
+        if (empleadoId != null) {
+            ventas = historialVentaRepository.findByVendedorId(empleadoId);
+        } else {
+            ventas = historialVentaRepository.findAll();
+        }
+
+        return ventas.stream()
                 .map(VentaMapper::toDto)
                 .toList();
     }
 
-    public List<VentaResponse>getVentasPorEmpleado(Authentication authentication){
+    public List<VentaResponse> getVentasPorEmpleado(Authentication authentication) {
         return historialVentaRepository.findByVendedorEmail(authentication.getName())
                 .stream()
                 .map(VentaMapper::toDto)
@@ -92,18 +101,9 @@ public class HistorialVentaService {
         }
     }
 
-    ///-----------------------------------------------CONTAR VENTAS--------------------------------------------------------
+    /// -----------------------------------------------CONTAR VENTAS--------------------------------------------------------
 
-    public Long contarVentas(Authentication authentication) {
-        String username = authentication.getName();
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ROLE_ADMIN"));
-
-        if (isAdmin) {
-            return historialVentaRepository.count();
-        } else {
-            return historialVentaRepository.countByVendedorUsername(username);
-        }
+    public Long contarVentas() {
+        return historialVentaRepository.count();
     }
 }

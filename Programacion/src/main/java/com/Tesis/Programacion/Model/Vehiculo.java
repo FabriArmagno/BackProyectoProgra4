@@ -44,7 +44,10 @@ public abstract class Vehiculo {
     private String version;
 
     @Column(nullable = false)
-    private Double precio;
+    private Double precioCompra;
+
+    @Column(nullable = false)
+    private Double precioVenta;
 
     @Column(nullable = false)
     private String color;

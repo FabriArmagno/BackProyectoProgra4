@@ -7,10 +7,11 @@ public class VentaMapper {
     public static VentaResponse toDto(HistorialVenta ventaCruda){
         return new VentaResponse(
                 ventaCruda.getId(),
-                ventaCruda.getVehiculo().getId(),
-                ventaCruda.getCliente().getId(),
-                ventaCruda.getVendedor().getId(),
-                ventaCruda.getPrecioVenta(),
+                VehiculoMapper.toDto(ventaCruda.getVehiculo()),
+                ClienteMapper.toDto(ventaCruda.getCliente()),
+                UsuarioMapper.toDto(ventaCruda.getVendedor()),
+                ventaCruda.getPrecioFinalVenta(),
+                ventaCruda.getPrecioFinalVenta()-ventaCruda.getPrecioCompra(),
                 ventaCruda.getFechaVenta()
         );
     }

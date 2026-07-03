@@ -12,7 +12,8 @@ public class VehiculoResponse {
     private String marca;
     private String modelo;
     private String version;
-    private Double precio;
+    private Double precioCompra;
+    private Double precioVenta;
     private String tipo;
     private Double kilometraje;
     private LocalDate fechaIngreso;

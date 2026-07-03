@@ -19,8 +19,8 @@ public class HistorialVentaController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<VentaResponse>> getVentas(){
-        return ResponseEntity.ok(ventaService.getVentas());
+    public ResponseEntity<List<VentaResponse>> getVentas(@RequestParam (required = false) Long empleadoId){
+        return ResponseEntity.ok(ventaService.getVentas(empleadoId));
     }
 
     @GetMapping("/mis-ventas")
@@ -35,7 +35,7 @@ public class HistorialVentaController {
     }
 
     @GetMapping("/cantidad")
-    public ResponseEntity<Long> contarVentas(Authentication authentication){
-        return ResponseEntity.ok(ventaService.contarVentas(authentication));
+    public ResponseEntity<Long> contarVentas(){
+        return ResponseEntity.ok(ventaService.contarVentas());
     }
 }

@@ -39,7 +39,8 @@ public class AutoService {
         auto.setPatente(request.getPatente());
         auto.setMarca(vehiculoDetalleDTO.getMake());
         auto.setModelo(vehiculoDetalleDTO.getModel());
-        auto.setPrecio(request.getPrecio());
+        auto.setPrecioCompra(request.getPrecioCompra());
+        auto.setPrecioVenta(request.getPrecioVenta());
         auto.setColor(request.getColor());
         auto.setAnio(vehiculoDetalleDTO.getYear());
         auto.setKilometraje(request.getKilometraje());
@@ -128,7 +129,8 @@ public class AutoService {
        }
 
        if (request.getPatente() != null) auto.setPatente(request.getPatente());
-       if (request.getPrecio() != null) auto.setPrecio(request.getPrecio());
+       if (request.getPrecioCompra() != null) auto.setPrecioCompra(request.getPrecioCompra());
+       if (request.getPrecioVenta() != null) auto.setPrecioVenta(request.getPrecioVenta());
        if (request.getColor() != null) auto.setColor(request.getColor());
        if (request.getKilometraje() != null) auto.setKilometraje(request.getKilometraje());
 

@@ -12,7 +12,8 @@ public class AutoMapper {
        autoResponse.setPatente(auto.getPatente());
        autoResponse.setMarca(auto.getMarca());
        autoResponse.setModelo(auto.getModelo());
-       autoResponse.setPrecio(auto.getPrecio());
+       autoResponse.setPrecioCompra(auto.getPrecioCompra());
+       autoResponse.setPrecioVenta(auto.getPrecioVenta());
        autoResponse.setColor(auto.getColor());
        autoResponse.setAnio(auto.getAnio());
        autoResponse.setKilometraje(auto.getKilometraje());

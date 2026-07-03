@@ -14,7 +14,8 @@ public class VehiculoDetalleResponse {
     private String marca;
     private String modelo;
     private String version;
-    private Double precio;
+    private Double precioCompra;
+    private Double precioVenta;
     private String color;
     private int anio;
     private Double kilometraje;

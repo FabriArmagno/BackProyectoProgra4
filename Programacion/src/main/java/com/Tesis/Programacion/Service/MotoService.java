@@ -35,7 +35,8 @@ public class MotoService {
         moto.setPatente(request.getPatente());
         moto.setMarca(request.getMarca());
         moto.setModelo(request.getModelo());
-        moto.setPrecio(request.getPrecio());
+        moto.setPrecioCompra(request.getPrecioCompra());
+        moto.setPrecioVenta(request.getPrecioVenta());
         moto.setColor(request.getColor());
         moto.setAnio(request.getAnio());
         moto.setKilometraje(request.getKilometraje());
@@ -90,7 +91,8 @@ public class MotoService {
         if (request.getPatente() != null) moto.setPatente(request.getPatente());
         if (request.getMarca() != null) moto.setMarca(request.getMarca());
         if (request.getModelo() != null) moto.setModelo(request.getModelo());
-        if (request.getPrecio() != null) moto.setPrecio(request.getPrecio());
+        if (request.getPrecioCompra() != null) moto.setPrecioCompra(request.getPrecioCompra());
+        if (request.getPrecioVenta() != null) moto.setPrecioVenta(request.getPrecioVenta());
         if (request.getColor() != null) moto.setColor(request.getColor());
         if (request.getAnio() != null)moto.setAnio(request.getAnio());
         if (request.getKilometraje() != null) moto.setKilometraje(request.getKilometraje());
