@@ -1,6 +1,7 @@
 package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.Auto;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 
 public class AutoMapper {
@@ -31,6 +32,8 @@ public class AutoMapper {
        autoResponse.setDescripcion(auto.getDescripcion());
        autoResponse.setIdTrim(auto.getIdTrim());
        autoResponse.setImagenes(auto.getImagenes());
+       autoResponse.setEstado(new EnumResponse(auto.getEstado().name(), auto.getEstado().getLabel()));
+       autoResponse.setHistorialDeReparacion(ReparacionMapper.toListReparacionesDto(auto.getHistorial()));
 
        return autoResponse;
     }

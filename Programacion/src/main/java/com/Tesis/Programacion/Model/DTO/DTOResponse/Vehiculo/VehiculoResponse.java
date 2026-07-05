@@ -20,5 +20,4 @@ public class VehiculoResponse {
     private EnumResponse estado;
     private String patente;
     private int anio;
-    private List<String> imagenes;
 }

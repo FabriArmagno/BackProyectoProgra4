@@ -24,6 +24,8 @@ public class MotoMapper {
         motoResponse.setCombustion(moto.getCombustion());
         motoResponse.setMotor(moto.getMotor());
         motoResponse.setTipo("MOTO");
+        motoResponse.setEstado(new EnumResponse(moto.getEstado().name(), moto.getEstado().getLabel()));
+        motoResponse.setHistorialDeReparacion(ReparacionMapper.toListReparacionesDto(moto.getHistorial()));
 
         // Atributos de la Moto
         motoResponse.setTipoMoto(new EnumResponse(moto.getTipoMoto().name(), moto.getTipoMoto().getLabel()));

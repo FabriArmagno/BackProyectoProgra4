@@ -1,7 +1,6 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Auth;
 
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
-import com.Tesis.Programacion.Model.Usuario;
 
 public class LoginResponse {
     private String token;

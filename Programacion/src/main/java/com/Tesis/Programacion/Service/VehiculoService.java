@@ -34,22 +34,31 @@ public class VehiculoService {
     @Autowired
     private HistorialVentaService historialVentaService;
 
-    public List<VehiculoResponse>getVehiculos(){
-       return vehiculoRepository.findAll()
+    public List<VehiculoResponse>getVehiculos(Estado estado, String busqueda){
+        List<Vehiculo>vehiculos;
+
+        if(estado!=null){
+            vehiculos=vehiculoRepository.findByEstado(estado);
+        }else{
+            vehiculos=vehiculoRepository.findAll();
+        }
+
+        if(busqueda!=null && !busqueda.isBlank()){
+            String b = busqueda.toLowerCase();
+
+            vehiculos=vehiculos.stream().filter(v->
+                                v.getMarca().toLowerCase().contains(b) ||
+                                v.getModelo().toLowerCase().contains(b) ||
+                                v.getVersion().toLowerCase().contains(b) ||
+                                v.getPatente().toLowerCase().contains(b) ||
+                                String.valueOf(v.getAnio()).contains(b)
+                    ).toList();
+        }
+
+       return vehiculos
                .stream()
                .map(VehiculoMapper::toDto)
                .toList();
-    }
-
-    public List<VehiculoResponse>getVehiculoByEstado(Estado estado){
-        if(estado==null){
-            return getVehiculos();
-        }else{
-            return vehiculoRepository.findByEstado(estado)
-                    .stream()
-                    .map(VehiculoMapper::toDto)
-                    .toList();
-        }
     }
 
     // Mostrar el detalle de un auto con el ID
@@ -83,18 +92,14 @@ public class VehiculoService {
     public void venderAuto(Authentication authentication, CrearVentaRequest request, Long vehiculoId){
         Vehiculo vehiculo = encontrarVehiculo(vehiculoId);
 
+        if(vehiculo.getEstado()==Estado.VENDIDO){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El vehiculo ya esta vendido");
+        }
+
         vehiculo.setEstado(Estado.VENDIDO);
         vehiculoRepository.save(vehiculo);
 
         historialVentaService.createHistorial(authentication, request, vehiculoId);
-    }
-
-    public Optional<Vehiculo> getVehiculoByPatente(String patente){
-        return vehiculoRepository.findByPatente(patente);
-    }
-
-    public Optional<Vehiculo> getVehiculoByMarca(String marca){
-        return vehiculoRepository.findByMarca(marca);
     }
 
     // METODO PARA ENCONTRAR EL VEHICULO
@@ -153,6 +158,12 @@ public class VehiculoService {
                         estado.name(),
                         estado.getLabel()
                 )).toList();
+    }
+
+    ///------------------------------------------VALIDAR SI EXISTE LA PATENTE--------------------------------------------
+    public Boolean validarPatente(String patente){
+        String patenteAbuscar=patente!=null ? patente.replaceAll("\\s+", "") : "";
+        return vehiculoRepository.existsByPatenteIgnoreCase(patenteAbuscar);
     }
 
 }

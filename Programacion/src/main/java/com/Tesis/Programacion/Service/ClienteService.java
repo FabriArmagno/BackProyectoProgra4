@@ -44,19 +44,28 @@ public class ClienteService {
 
     // Listar todos los clientes
 
-    public List<ClienteResponse>getClientes(){
-        return clienteRepository.findAll()
-                .stream()
-                .map(cliente -> ClienteMapper.toDto(cliente))
-                .toList();
-    }
+    public List<ClienteResponse>getClientes(Boolean activo, String busqueda){
+        List<Cliente>clientes;
 
-    // Listar todos los clientes segun el estado(si esta activo o no)
+        if(activo!=null){
+            clientes=clienteRepository.findByActivo(activo);
+        }else{
+            clientes=clienteRepository.findAll();
+        }
 
-    public List<ClienteResponse>getClientesPorEstado(Boolean activo){
-        return clienteRepository.findByActivo(activo)
-                .stream()
-                .map(cliente -> ClienteMapper.toDto(cliente))
+        if(busqueda!=null && !busqueda.isBlank()){
+            String b=busqueda.toLowerCase();
+
+            clientes=clientes.stream().filter(c->
+                            c.getNombre().toLowerCase().contains(b) ||
+                            c.getApellido().toLowerCase().contains(b) ||
+                            String.valueOf(c.getDni()).contains(b)
+                    )
+                    .toList();
+        }
+
+        return clientes.stream()
+                .map(ClienteMapper::toDto)
                 .toList();
     }
 

@@ -29,11 +29,6 @@ public class HistorialVentaController {
         return ResponseEntity.ok(ventaService.getVentasPorEmpleado(authentication));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<VentaResponse> getVentaById(@PathVariable Long id, Authentication authentication){
-        return ResponseEntity.ok(ventaService.getVentaById(id, authentication));
-    }
-
     @GetMapping("/cantidad")
     public ResponseEntity<Long> contarVentas(){
         return ResponseEntity.ok(ventaService.contarVentas());

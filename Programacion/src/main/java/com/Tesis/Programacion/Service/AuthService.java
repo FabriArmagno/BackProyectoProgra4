@@ -29,9 +29,15 @@ public class AuthService {
     private UsuarioRepository usuarioRepository;
 
     public LoginResponse login(LoginRequest loginRequest){
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
-        );
+
+        try{
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
+            );
+        }catch (BadCredentialsException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales invalidas");
+        }
+
 
         Usuario usuario=usuarioRepository.findByEmail(loginRequest.getEmail())
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));

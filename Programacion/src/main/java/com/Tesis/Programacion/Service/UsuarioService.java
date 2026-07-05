@@ -2,7 +2,9 @@ package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
+import com.Tesis.Programacion.Model.Enums.Especialidad;
 import com.Tesis.Programacion.Model.Enums.Rol;
 import com.Tesis.Programacion.Model.Mapper.UsuarioMapper;
 import com.Tesis.Programacion.Model.Usuario;
@@ -14,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -139,6 +142,15 @@ public class UsuarioService {
         return usuarioRepository.findByRol(Rol.EMPLEADO)
                 .stream()
                 .map(usuario -> UsuarioMapper.toDto(usuario))
+                .toList();
+    }
+
+    public List<EnumResponse>obtenerRoles(){
+        return Arrays.stream(Rol.values())
+                .map(rol -> new EnumResponse(
+                        rol.name(),
+                        rol.getLabel()
+                ))
                 .toList();
     }
 }

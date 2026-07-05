@@ -2,7 +2,10 @@ package com.Tesis.Programacion.Model.Mapper;
 
 import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
+import com.Tesis.Programacion.Model.Historial;
 import com.Tesis.Programacion.Model.HistorialReparacion;
+
+import java.util.List;
 
 public class ReparacionMapper {
     public static HistorialReparacionResponse toDto(HistorialReparacion historialReparacion){
@@ -15,5 +18,11 @@ public class ReparacionMapper {
                 historialReparacion.getMotivo(),
                 new EnumResponse(historialReparacion.getEstadoReparacion().name(), historialReparacion.getEstadoReparacion().getLabel())
         );
+    }
+
+    public static List<HistorialReparacionResponse> toListReparacionesDto(List<HistorialReparacion>reparaciones){
+        return reparaciones.stream()
+                .map(r->toDto(r))
+                .toList();
     }
 }

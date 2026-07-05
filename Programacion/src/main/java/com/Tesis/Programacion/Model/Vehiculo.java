@@ -74,7 +74,7 @@ public abstract class Vehiculo {
     private Estado estado;
 
     @OneToMany(mappedBy = "vehiculo", orphanRemoval = true)
-    private List<Historial> historial = new ArrayList<>();
+    private List<HistorialReparacion> historial = new ArrayList<>();
 
     @ElementCollection
     @CollectionTable(name = "vehiculo_imagenes", joinColumns = @JoinColumn(name = "vehiculo_id"))

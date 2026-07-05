@@ -21,12 +21,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponse>>getClientes(@RequestParam(required = false) Boolean activo){
-        if(activo==null){
-            return ResponseEntity.ok().body(clienteService.getClientes());
-        }
-
-        return ResponseEntity.ok().body(clienteService.getClientesPorEstado(activo));
+    public ResponseEntity<List<ClienteResponse>>getClientes(@RequestParam(required = false) Boolean activo, @RequestParam(required = false) String busqueda){
+        return ResponseEntity.ok().body(clienteService.getClientes(activo, busqueda));
     }
 
     @PostMapping

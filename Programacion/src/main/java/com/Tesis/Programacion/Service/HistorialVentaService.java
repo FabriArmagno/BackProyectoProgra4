@@ -48,7 +48,7 @@ public class HistorialVentaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
 
         if (ventaRequest.getPrecioVenta() <= vehiculo.getPrecioCompra()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a 0");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a al precio de compra");
         }
 
         HistorialVenta historialVenta = new HistorialVenta();
@@ -76,29 +76,12 @@ public class HistorialVentaService {
                 .toList();
     }
 
+    //Metodo para que cada empleado vea sus propias ventas
     public List<VentaResponse> getVentasPorEmpleado(Authentication authentication) {
         return historialVentaRepository.findByVendedorEmail(authentication.getName())
                 .stream()
                 .map(VentaMapper::toDto)
                 .toList();
-    }
-
-
-    public VentaResponse getVentaById(Long id, Authentication authentication) {
-        HistorialVenta venta = historialVentaRepository.findById(id).orElse(null);
-        if (venta == null) return null;
-
-        String username = authentication.getName();
-        boolean isAdmin = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .anyMatch(role -> role.equals("ROLE_ADMIN"));
-
-        // Regla de negocio: Si es admin O si es el vendedor que realizó la venta, puede ver el detalle
-        if (isAdmin || venta.getVendedor().getUsername().equals(username)) {
-            return VentaMapper.toDto(venta);
-        } else {
-            throw new RuntimeException("No tenés permisos para ver esta venta");
-        }
     }
 
     /// -----------------------------------------------CONTAR VENTAS--------------------------------------------------------

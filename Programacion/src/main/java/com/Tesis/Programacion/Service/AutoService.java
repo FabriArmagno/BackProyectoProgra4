@@ -2,10 +2,8 @@ package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Auto;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.CarApi.VehiculoDetalleDTO;
-import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.VehiculoDetalleResponse;
 import com.Tesis.Programacion.Model.Enums.Estado;
 import com.Tesis.Programacion.Model.Mapper.AutoMapper;
 import com.Tesis.Programacion.Repository.AutoRepository;
@@ -36,7 +34,10 @@ public class AutoService {
         VehiculoDetalleDTO vehiculoDetalleDTO=carApiService.obtenerDetalleDelVehiculo(request.getIdTrim());
 
         Auto auto=new Auto();
-        auto.setPatente(request.getPatente());
+
+        if(request.getPatente()!=null){
+            auto.setPatente(request.getPatente().replaceAll("\\s+", "").toUpperCase());
+        }
         auto.setMarca(vehiculoDetalleDTO.getMake());
         auto.setModelo(vehiculoDetalleDTO.getModel());
         auto.setPrecioCompra(request.getPrecioCompra());
@@ -92,7 +93,7 @@ public class AutoService {
 
     // Modificar auto por id
 
-   public AutoDetalleResponse modificarAuto(Long id, UpdateAutoRequest request) {
+   public AutoDetalleResponse modificarAuto(Long id, List<MultipartFile> files, CrearAutoRequest request) {
        Auto auto = autoRepository.findById(id)
                .orElseThrow(() -> new RuntimeException("Auto no encontrado"));
 
@@ -133,6 +134,26 @@ public class AutoService {
        if (request.getPrecioVenta() != null) auto.setPrecioVenta(request.getPrecioVenta());
        if (request.getColor() != null) auto.setColor(request.getColor());
        if (request.getKilometraje() != null) auto.setKilometraje(request.getKilometraje());
+
+
+
+       //LOGICA DE IMAGENES
+
+       if (files != null && !files.isEmpty()){
+           for (MultipartFile file : files){
+               if (!file.isEmpty()){
+                   try {
+                       String nombreImagen = uploadService.guardarImagen(file);
+                       auto.getImagenes().add(nombreImagen);
+                   }catch (IOException e){
+                       throw new ResponseStatusException(
+                               HttpStatus.INTERNAL_SERVER_ERROR,
+                               "Error al procesar las imagenes" + e.getMessage()
+                       );
+                   }
+               }
+           }
+       }
 
        return AutoMapper.toDetalleDTO(autoRepository.save(auto));
    }

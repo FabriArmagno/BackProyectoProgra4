@@ -2,6 +2,7 @@ package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;
 import com.Tesis.Programacion.Service.UsuarioService;
 import jakarta.validation.Valid;
@@ -58,5 +59,10 @@ public class UsuarioController {
         usuarioService.activarUsuario(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<EnumResponse>>obtenerRoles(){
+        return ResponseEntity.ok(usuarioService.obtenerRoles());
     }
 }

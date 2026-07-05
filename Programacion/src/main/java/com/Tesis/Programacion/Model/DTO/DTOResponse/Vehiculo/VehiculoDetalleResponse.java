@@ -1,5 +1,6 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo;
 
+import com.Tesis.Programacion.Model.DTO.DTOResponse.HistorialReparacion.HistorialReparacionResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,21 +9,11 @@ import java.util.List;
 
 @Setter
 @Getter
-public class VehiculoDetalleResponse {
-    private Long id;
-    private String patente;
-    private String marca;
-    private String modelo;
-    private String version;
-    private Double precioCompra;
-    private Double precioVenta;
+public class VehiculoDetalleResponse extends VehiculoResponse{
     private String color;
-    private int anio;
-    private Double kilometraje;
     private String motor;
     private String combustion;
-    private String tipo;
     private String descripcion;
-    private LocalDate fechaIngreso;
     private List<String> imagenes;
+    private List<HistorialReparacionResponse>historialDeReparacion;
 }

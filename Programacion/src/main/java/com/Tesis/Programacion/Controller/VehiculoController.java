@@ -1,7 +1,6 @@
 package com.Tesis.Programacion.Controller;
 
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.CrearAutoRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Auto.UpdateAutoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Vehiculo.Moto.CrearMotoRequest;
 import com.Tesis.Programacion.Model.DTO.DTORequest.Ventas.CrearVentaRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Vehiculo.Auto.AutoDetalleResponse;
@@ -46,8 +45,8 @@ public class VehiculoController {
     ///------------------------------------------VEHICULOS----------------------------------------------------------
 
     @GetMapping
-    public ResponseEntity<List<VehiculoResponse>> getVehiculosByEstado(@RequestParam(required = false) Estado estado) {
-        return ResponseEntity.ok(vehiculoService.getVehiculoByEstado(estado));
+    public ResponseEntity<List<VehiculoResponse>> getVehiculosByEstado(@RequestParam(required = false) Estado estado, @RequestParam(required = false) String busqueda) {
+        return ResponseEntity.ok(vehiculoService.getVehiculos(estado, busqueda));
     }
 
     @GetMapping("/{id}")
@@ -60,20 +59,6 @@ public class VehiculoController {
     public ResponseEntity<Void>eliminarVehiculo(@PathVariable Long id){
         vehiculoService.eliminarVehiculo(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/list/patente/{patente}")
-    public ResponseEntity<?> getVehiculoByPatente(@PathVariable String patente){
-        return vehiculoService.getVehiculoByPatente(patente).
-                map(vehiculo -> ResponseEntity.ok().body(vehiculo))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/list/marca/{marca}")
-    public ResponseEntity<?> getVehiculoByMarca (@PathVariable String marca){
-        return vehiculoService.getVehiculoByMarca(marca).
-                map(vehiculo -> ResponseEntity.ok().body(vehiculo))
-                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/vender/{vehiculoId}")
@@ -103,20 +88,28 @@ public class VehiculoController {
         return carApiService.obtenerSubmodels(model, year);
     }
 
+    ///-----------------------------------------VALIDACION DE PATENTE-------------------------------------------------
+
+    @GetMapping("/validarPatente/{patente}")
+    public ResponseEntity<Boolean>validarPatente(@PathVariable String patente){
+        return ResponseEntity.ok(vehiculoService.validarPatente(patente));
+    }
+
     ///------------------------------------------AUTO---------------------------------------------------------------
 
     @PostMapping(value = "/autos", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<AutoDetalleResponse> agregarAuto(
             @RequestPart("datos") @Valid CrearAutoRequest crearAutoRequest,
         @RequestPart(value = "files", required = false) List<MultipartFile> files) {
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body(autoService.createAuto(crearAutoRequest, files));
+            return ResponseEntity.ok().body(autoService.createAuto(crearAutoRequest, files));
     }
 
-    @PutMapping("/autos/{id}")
-    public ResponseEntity<AutoDetalleResponse> modificarAuto(@RequestBody @Valid UpdateAutoRequest request, @PathVariable Long id){
+    @PutMapping(value = "/autos/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<AutoDetalleResponse> modificarAuto(@RequestPart("datos") @Valid CrearAutoRequest crearAutoRequest,
+                                                             @RequestPart(value = "files", required = false) List<MultipartFile> files,
+                                                             @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(autoService.modificarAuto(id, request));
+                .body(autoService.modificarAuto(id, files, crearAutoRequest));
     }
 
     ///------------------------------------------MOTO----------------------------------------------------------------
@@ -124,6 +117,7 @@ public class VehiculoController {
     public ResponseEntity<MotoDetalleResponse> agregarMoto(
             @RequestPart("datos") @Valid CrearMotoRequest crearMotoRequest,
             @RequestPart(value = "files", required = false) List<MultipartFile> files) {
+        System.out.println("entre 1");
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(motoService.crearMoto(crearMotoRequest, files));
     }
@@ -133,11 +127,14 @@ public class VehiculoController {
             @PathVariable Long id,
             @Valid @RequestBody CrearMotoRequest crearMotoRequest
     ) {
+        System.out.println("entre 2");
+
         MotoDetalleResponse motoActualizada = motoService.editarMoto(id, crearMotoRequest);
 
         return ResponseEntity.ok(motoActualizada);
     }
 
+    ///-------------------------------------------IMAGENES-------------------------------------------------------------
 
     @DeleteMapping("/{id}/imagenes")
     public ResponseEntity<String> eliminarImagenDeVehiculo(
@@ -171,4 +168,5 @@ public class VehiculoController {
     public ResponseEntity<List<EnumResponse>>getTiposMoto(){
         return ResponseEntity.ok(motoService.obtenerTiposDeMotos());
     }
+
 }

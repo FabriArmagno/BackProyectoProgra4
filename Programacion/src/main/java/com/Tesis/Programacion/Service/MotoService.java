@@ -32,7 +32,10 @@ public class MotoService {
     public MotoDetalleResponse crearMoto(CrearMotoRequest request, List<MultipartFile>files){
 
         Moto moto=new Moto();
-        moto.setPatente(request.getPatente());
+
+        if(request.getPatente()!=null){
+            moto.setPatente(request.getPatente().replaceAll("\\s+", "").toUpperCase());
+        }
         moto.setMarca(request.getMarca());
         moto.setModelo(request.getModelo());
         moto.setPrecioCompra(request.getPrecioCompra());
