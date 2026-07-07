@@ -26,16 +26,25 @@ public class MotoService {
     private MotoRepository repo;
 
     @Autowired
+    private VehiculoService vehiculoService;
+
+    @Autowired
     private UploadFileService uploadService;
 
     //crear moto
     public MotoDetalleResponse crearMoto(CrearMotoRequest request, List<MultipartFile>files){
 
+        String patente=request.getPatente()!=null ? request.getPatente().replaceAll("\\s+", "").toUpperCase() : null;
+
+        vehiculoService.validarPatente(patente);
+
+        if(request.getPrecioCompra()>=request.getPrecioVenta()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor al precio de compra");
+        }
+
         Moto moto=new Moto();
 
-        if(request.getPatente()!=null){
-            moto.setPatente(request.getPatente().replaceAll("\\s+", "").toUpperCase());
-        }
+        moto.setPatente(patente);
         moto.setMarca(request.getMarca());
         moto.setModelo(request.getModelo());
         moto.setPrecioCompra(request.getPrecioCompra());
@@ -89,9 +98,19 @@ public class MotoService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Moto no encontrada con ID: " + id)
         );
 
+        String patente=request.getPatente()!=null ? request.getPatente().replaceAll("\\s+", "").toUpperCase() : null;
+
+        if(!patente.equals(moto.getPatente())){
+            vehiculoService.validarPatente(patente);
+        }
+
+        if(request.getPrecioCompra()>=request.getPrecioVenta()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor al precio de compra");
+        }
+
         List<String> imagenesActuales = moto.getImagenes();
 
-        if (request.getPatente() != null) moto.setPatente(request.getPatente());
+        if (request.getPatente() != null) moto.setPatente(patente);
         if (request.getMarca() != null) moto.setMarca(request.getMarca());
         if (request.getModelo() != null) moto.setModelo(request.getModelo());
         if (request.getPrecioCompra() != null) moto.setPrecioCompra(request.getPrecioCompra());

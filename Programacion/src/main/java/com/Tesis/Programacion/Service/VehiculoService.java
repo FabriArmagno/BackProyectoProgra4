@@ -161,9 +161,19 @@ public class VehiculoService {
     }
 
     ///------------------------------------------VALIDAR SI EXISTE LA PATENTE--------------------------------------------
-    public Boolean validarPatente(String patente){
+
+    //Metodo para validar si la patente existe(se usa para validar en el front)
+    public Boolean existePatente(String patente){
         String patenteAbuscar=patente!=null ? patente.replaceAll("\\s+", "") : "";
         return vehiculoRepository.existsByPatenteIgnoreCase(patenteAbuscar);
+    }
+
+    //Metodo para validar que la patente no exista
+    public void validarPatente(String patente){
+        String patenteABuscar=patente!=null ? patente.replaceAll("\\s+", "").toUpperCase() : "";
+        if(vehiculoRepository.existsByPatenteIgnoreCase(patenteABuscar)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"La patente ya esta registrada");
+        }
     }
 
 }

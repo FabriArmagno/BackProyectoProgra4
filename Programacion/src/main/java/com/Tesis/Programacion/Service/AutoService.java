@@ -27,17 +27,26 @@ public class AutoService {
     private CarApiService carApiService;
 
     @Autowired
+    private VehiculoService vehiculoService;
+
+    @Autowired
     private UploadFileService uploadService;
     // Crear un auto
 
     public AutoDetalleResponse createAuto(CrearAutoRequest request, List<MultipartFile> files){
         VehiculoDetalleDTO vehiculoDetalleDTO=carApiService.obtenerDetalleDelVehiculo(request.getIdTrim());
 
+        String patente=request.getPatente()!=null ? request.getPatente().replaceAll("\\s+", "").toUpperCase() : null;
+
+        vehiculoService.validarPatente(patente);
+
+        if(request.getPrecioCompra()>=request.getPrecioVenta()){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor al precio de compra");
+        }
+
         Auto auto=new Auto();
 
-        if(request.getPatente()!=null){
-            auto.setPatente(request.getPatente().replaceAll("\\s+", "").toUpperCase());
-        }
+        auto.setPatente(patente);
         auto.setMarca(vehiculoDetalleDTO.getMake());
         auto.setModelo(vehiculoDetalleDTO.getModel());
         auto.setPrecioCompra(request.getPrecioCompra());
@@ -97,6 +106,16 @@ public class AutoService {
        Auto auto = autoRepository.findById(id)
                .orElseThrow(() -> new RuntimeException("Auto no encontrado"));
 
+       String patente=request.getPatente()!=null ? request.getPatente().replaceAll("\\s+", "").toUpperCase() : null;
+
+       if(!patente.equals(auto.getPatente())){
+           vehiculoService.validarPatente(patente);
+       }
+
+       if(request.getPrecioCompra()>=request.getPrecioVenta()){
+           throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor al precio de compra");
+       }
+
        if (request.getIdTrim() != null) {
            auto.setIdTrim(request.getIdTrim());
 
@@ -129,7 +148,7 @@ public class AutoService {
            }
        }
 
-       if (request.getPatente() != null) auto.setPatente(request.getPatente());
+       if (request.getPatente() != null) auto.setPatente(patente);
        if (request.getPrecioCompra() != null) auto.setPrecioCompra(request.getPrecioCompra());
        if (request.getPrecioVenta() != null) auto.setPrecioVenta(request.getPrecioVenta());
        if (request.getColor() != null) auto.setColor(request.getColor());

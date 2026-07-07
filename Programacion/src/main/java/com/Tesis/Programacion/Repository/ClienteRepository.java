@@ -12,7 +12,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Optional<Cliente> findById(Long id);
     List<Cliente>findByActivo(Boolean activo);
     boolean existsByDni(Integer dni);
-    boolean existsByEmail(String email);
+    boolean existsByEmailIgnoreCase(String email);
 
     Long id(Long id);
 }

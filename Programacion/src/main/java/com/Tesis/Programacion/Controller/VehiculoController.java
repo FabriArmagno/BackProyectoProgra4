@@ -92,7 +92,7 @@ public class VehiculoController {
 
     @GetMapping("/validarPatente/{patente}")
     public ResponseEntity<Boolean>validarPatente(@PathVariable String patente){
-        return ResponseEntity.ok(vehiculoService.validarPatente(patente));
+        return ResponseEntity.ok(vehiculoService.existePatente(patente));
     }
 
     ///------------------------------------------AUTO---------------------------------------------------------------

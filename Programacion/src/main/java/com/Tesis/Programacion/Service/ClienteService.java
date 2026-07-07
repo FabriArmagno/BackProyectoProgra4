@@ -134,7 +134,7 @@ public class ClienteService {
 
     // Metodo para validar que el email no exista
     public void validarEmail(String email){
-        if (usuarioRepository.existsByEmail(email) || clienteRepository.existsByEmail(email)){
+        if (usuarioRepository.existsByEmailIgnoreCase(email) || clienteRepository.existsByEmailIgnoreCase(email)){
             throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
         }
     }

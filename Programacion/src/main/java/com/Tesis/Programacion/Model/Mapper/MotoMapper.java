@@ -14,7 +14,7 @@ public class MotoMapper {
         motoResponse.setMarca(moto.getMarca());
         motoResponse.setModelo(moto.getModelo());
         motoResponse.setPrecioCompra(moto.getPrecioCompra());
-        motoResponse.setPrecioVenta(motoResponse.getPrecioVenta());
+        motoResponse.setPrecioVenta(moto.getPrecioVenta());
         motoResponse.setColor(moto.getColor());
         motoResponse.setAnio(moto.getAnio());
         motoResponse.setKilometraje(moto.getKilometraje());

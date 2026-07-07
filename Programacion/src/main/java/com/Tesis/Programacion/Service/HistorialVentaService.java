@@ -48,7 +48,7 @@ public class HistorialVentaService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
 
         if (ventaRequest.getPrecioVenta() <= vehiculo.getPrecioCompra()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a al precio de compra");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El precio de venta debe ser mayor a el precio de compra");
         }
 
         HistorialVenta historialVenta = new HistorialVenta();

@@ -104,31 +104,6 @@ public class UsuarioService {
         return UsuarioMapper.toDto(usuarioRepository.save(usuario));
     }
 
-    // Metodo para verificar si existe el usuario
-    public Usuario encontrarUsuario(Long id){
-        return usuarioRepository.findById(id)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-    }
-
-    public Usuario encontrarUsuarioByEmail(String email){
-        return usuarioRepository.findByEmail(email)
-                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
-    }
-
-    // Metodo para validar que el DNI no exista
-    public void validarDni(Integer dni){
-        if (usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El DNI ya esta registrado");
-        }
-    }
-
-    // Metodo para validar que el email no exista
-    public void validarEmail(String email){
-        if (usuarioRepository.existsByEmail(email) || clienteRepository.existsByEmail(email)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
-        }
-    }
-
     // Metodo para traer todos los encargados de taller
     public List<UsuarioResponse> getEncargadosDeTaller(){
         return usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER)
@@ -152,5 +127,36 @@ public class UsuarioService {
                         rol.getLabel()
                 ))
                 .toList();
+    }
+
+    // Metodo para verificar si existe el usuario
+    public Usuario encontrarUsuario(Long id){
+        return usuarioRepository.findById(id)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+    }
+
+    // Metodo para validar que el DNI no exista
+    public void validarDni(Integer dni){
+        if (usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni)){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El DNI ya esta registrado");
+        }
+    }
+
+    // Metodo para validar que el email no exista
+    public void validarEmail(String email){
+        if (usuarioRepository.existsByEmailIgnoreCase(email.trim()) || clienteRepository.existsByEmailIgnoreCase(email.trim())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
+        }
+    }
+
+    //Metodo para validar si el email ya existe(se usa para validar en el front)
+    public Boolean existeEmail(String email){
+        String emailLimpio=email!=null ? email.trim() : "";
+        return usuarioRepository.existsByEmailIgnoreCase(emailLimpio) || clienteRepository.existsByEmailIgnoreCase(emailLimpio);
+    }
+
+    //Metodo para validar si el dni ya existe(se usa para validar en el front)
+    public Boolean existeDni(Integer dni){
+        return usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni);
     }
 }
