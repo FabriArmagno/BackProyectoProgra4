@@ -22,24 +22,27 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private ValidacionesService validacionesService;
 
     // Crear un cliente verificando que no exista
 
-    public ClienteDetalleResponse crearCliente(CrearClienteRequest request){
+    public ClienteResponse crearCliente(CrearClienteRequest request){
 
-        validarDni(request.getDni());
-        validarEmail(request.getEmail());
+        validacionesService.validarDni(request.getDni());
+        validacionesService.validarEmail(request.getEmail());
 
         Cliente cliente=new Cliente();
         cliente.setNombre(request.getNombre());
         cliente.setApellido(request.getApellido());
         cliente.setDni(request.getDni());
-        cliente.setTelefono(request.getTelefono());
+
+        String telefonoLimpio= request.getTelefono().replaceAll("[\\s\\-\\(\\)]", "").trim();
+        cliente.setTelefono(telefonoLimpio);
+
         cliente.setEmail(request.getEmail());
         cliente.setActivo(true);
 
-        return ClienteMapper.toDetalleDto(clienteRepository.save(cliente));
+        return ClienteMapper.toDto(clienteRepository.save(cliente));
     }
 
     // Listar todos los clientes
@@ -86,12 +89,12 @@ public class ClienteService {
         if(request.getApellido()!=null) cliente.setApellido(request.getApellido());
 
         if(request.getDni()!=null && !request.getDni().equals(cliente.getDni())){
-            validarDni(request.getDni());
+            validacionesService.validarDni(request.getDni());
             cliente.setDni(request.getDni());
         }
 
         if(request.getEmail()!=null && !request.getEmail().equals(cliente.getEmail())){
-            validarEmail(request.getEmail());
+            validacionesService.validarEmail(request.getEmail());
             cliente.setEmail(request.getEmail());
         }
 
@@ -124,19 +127,4 @@ public class ClienteService {
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Cliente no encontrado"));
     }
-
-    // Metodo para validar que el DNI no exista
-    public void validarDni(Integer dni){
-        if (usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El DNI ya esta registrado");
-        }
-    }
-
-    // Metodo para validar que el email no exista
-    public void validarEmail(String email){
-        if (usuarioRepository.existsByEmailIgnoreCase(email) || clienteRepository.existsByEmailIgnoreCase(email)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
-        }
-    }
-
 }

@@ -65,16 +65,4 @@ public class UsuarioController {
     public ResponseEntity<List<EnumResponse>>obtenerRoles(){
         return ResponseEntity.ok(usuarioService.obtenerRoles());
     }
-
-    ///--------------------------------------VALIDACION EMAIL Y DNI--------------------------------------------------------------
-
-    @GetMapping("/validarEmail/{email}")
-    public ResponseEntity<Boolean>existsEmail(@PathVariable String email){
-        return ResponseEntity.ok(usuarioService.existeEmail(email));
-    }
-
-    @GetMapping("/validarDni/{dni}")
-    public ResponseEntity<Boolean>existsDni(@PathVariable Integer dni){
-        return ResponseEntity.ok(usuarioService.existeDni(dni));
-    }
 }

@@ -26,7 +26,7 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ValidacionesService validacionesService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -34,8 +34,8 @@ public class UsuarioService {
     // Crear un usuario verificando que no exista
 
     public UsuarioResponse createUser(CrearUsuarioRequest request){
-       validarDni(request.getDni());
-       validarEmail(request.getEmail());
+       validacionesService.validarDni(request.getDni());
+       validacionesService.validarEmail(request.getEmail());
 
         Usuario usuario=new Usuario();
         usuario.setDni(request.getDni());
@@ -88,12 +88,12 @@ public class UsuarioService {
         Usuario usuario=encontrarUsuario(idUsuario);
 
         if(request.getDni()!=null && !usuario.getDni().equals(request.getDni())){
-            validarDni(request.getDni());
+            validacionesService.validarDni(request.getDni());
             usuario.setDni(request.getDni());
         }
 
         if(request.getEmail()!=null && !usuario.getEmail().equals(request.getEmail())) {
-            validarEmail(request.getEmail());
+            validacionesService.validarEmail(request.getEmail());
             usuario.setEmail(request.getEmail());
         }
 
@@ -135,28 +135,4 @@ public class UsuarioService {
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
     }
 
-    // Metodo para validar que el DNI no exista
-    public void validarDni(Integer dni){
-        if (usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El DNI ya esta registrado");
-        }
-    }
-
-    // Metodo para validar que el email no exista
-    public void validarEmail(String email){
-        if (usuarioRepository.existsByEmailIgnoreCase(email.trim()) || clienteRepository.existsByEmailIgnoreCase(email.trim())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya esta registrado");
-        }
-    }
-
-    //Metodo para validar si el email ya existe(se usa para validar en el front)
-    public Boolean existeEmail(String email){
-        String emailLimpio=email!=null ? email.trim() : "";
-        return usuarioRepository.existsByEmailIgnoreCase(emailLimpio) || clienteRepository.existsByEmailIgnoreCase(emailLimpio);
-    }
-
-    //Metodo para validar si el dni ya existe(se usa para validar en el front)
-    public Boolean existeDni(Integer dni){
-        return usuarioRepository.existsByDni(dni) || clienteRepository.existsByDni(dni);
-    }
 }

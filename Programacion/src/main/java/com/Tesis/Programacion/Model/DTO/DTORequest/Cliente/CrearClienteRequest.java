@@ -24,5 +24,6 @@ public class CrearClienteRequest {
     private String email;
 
     @NotNull(message = "El telefono es obligatorio")
+    @Pattern(regexp = "^[+]?[0-9\\s\\-]{8,15}$", message = "El teléfono no tiene un formato válido")
     private String telefono;
 }

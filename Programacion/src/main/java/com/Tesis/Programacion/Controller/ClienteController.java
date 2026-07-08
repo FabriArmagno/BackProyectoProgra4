@@ -26,7 +26,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDetalleResponse>agregarCliente(@Valid @RequestBody CrearClienteRequest request){
+    public ResponseEntity<ClienteResponse>agregarCliente(@Valid @RequestBody CrearClienteRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.crearCliente(request));
     }
 
