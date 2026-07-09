@@ -15,6 +15,5 @@ public class LoginRequest {
     private String email;
 
     @NotBlank(message = "La contraseña no puede estar vacia")
-    @Size(min = 6)
     private String password;
 }

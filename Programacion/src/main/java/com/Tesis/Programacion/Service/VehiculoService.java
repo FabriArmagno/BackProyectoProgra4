@@ -44,14 +44,25 @@ public class VehiculoService {
         }
 
         if(busqueda!=null && !busqueda.isBlank()){
-            String b = busqueda.toLowerCase();
+        String[]palabras=busqueda.toLowerCase().trim().split("\\s+");
 
             vehiculos=vehiculos.stream().filter(v->
-                                v.getMarca().toLowerCase().contains(b) ||
-                                v.getModelo().toLowerCase().contains(b) ||
-                                v.getVersion().toLowerCase().contains(b) ||
-                                v.getPatente().toLowerCase().contains(b) ||
-                                String.valueOf(v.getAnio()).contains(b)
+                    {
+                        String infoVehiculo=(
+                                v.getMarca() + " " +
+                                v.getModelo() + " " +
+                                v.getVersion() + " " +
+                                v.getPatente() + " " +
+                                v.getAnio()
+                        ).toLowerCase();
+
+                    for(String palabra:palabras){
+                        if(!infoVehiculo.contains(palabra)){
+                            return false;
+                        }
+                    }
+                    return  true;
+                    }
                     ).toList();
         }
 

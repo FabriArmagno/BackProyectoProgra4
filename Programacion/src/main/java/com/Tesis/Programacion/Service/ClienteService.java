@@ -57,12 +57,23 @@ public class ClienteService {
         }
 
         if(busqueda!=null && !busqueda.isBlank()){
-            String b=busqueda.toLowerCase();
+            String[]palabras=busqueda.toLowerCase().trim().split("\\s+");
 
-            clientes=clientes.stream().filter(c->
-                            c.getNombre().toLowerCase().contains(b) ||
-                            c.getApellido().toLowerCase().contains(b) ||
-                            String.valueOf(c.getDni()).contains(b)
+            clientes=clientes.stream().filter(c->{
+                    String infoCliente=(
+                                    c.getNombre() + " " +
+                                    c.getApellido() + " " +
+                                    c.getDni()
+                                ).toLowerCase();
+
+                    for (String palabra:palabras){
+                        if(!infoCliente.contains(palabra)){
+                            return false;
+                        }
+                    }
+                    return true;
+
+                     }
                     )
                     .toList();
         }
