@@ -3,11 +3,13 @@ package com.Tesis.Programacion.Controller;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Venta.VentaResponse;
 import com.Tesis.Programacion.Service.HistorialVentaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;// <-- Importante
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -19,8 +21,12 @@ public class HistorialVentaController {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<VentaResponse>> getVentas(@RequestParam (required = false) Long empleadoId){
-        return ResponseEntity.ok(ventaService.getVentas(empleadoId));
+    public ResponseEntity<List<VentaResponse>> getVentas(
+            @RequestParam(required = false) Long empleadoId,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
+
+        return ResponseEntity.ok(ventaService.getVentas(empleadoId, desde, hasta));
     }
 
     @GetMapping("/mis-ventas")
@@ -33,4 +39,6 @@ public class HistorialVentaController {
     public ResponseEntity<Long> contarVentas(){
         return ResponseEntity.ok(ventaService.contarVentas());
     }
+
+
 }

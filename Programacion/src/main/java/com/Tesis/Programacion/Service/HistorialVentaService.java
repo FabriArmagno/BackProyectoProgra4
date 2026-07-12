@@ -62,12 +62,26 @@ public class HistorialVentaService {
         return VentaMapper.toDto(historialVentaRepository.save(historialVenta));
     }
 
-    public List<VentaResponse> getVentas(Long empleadoId) {
+    public List<VentaResponse> getVentas(Long empleadoId, LocalDate desde, LocalDate hasta) {
         List<HistorialVenta> ventas;
 
-        if (empleadoId != null) {
+        // Evaluamos si nos mandaron el rango de fechas completo
+        boolean tieneFechas = desde != null && hasta != null;
+
+        if (empleadoId != null && tieneFechas) {
+            // Tiene AMBOS filtros
+            ventas = historialVentaRepository.findByVendedorIdAndFechaVentaBetween(empleadoId, desde, hasta);
+
+        } else if (empleadoId != null) {
+            // Solo filtro de empleado
             ventas = historialVentaRepository.findByVendedorId(empleadoId);
+
+        } else if (tieneFechas) {
+            // Solo filtro de fechas
+            ventas = historialVentaRepository.findByFechaVentaBetween(desde, hasta);
+
         } else {
+            // No mandaron filtros, devolvemos todo
             ventas = historialVentaRepository.findAll();
         }
 
@@ -89,4 +103,5 @@ public class HistorialVentaService {
     public Long contarVentas() {
         return historialVentaRepository.count();
     }
+
 }
