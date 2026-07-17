@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3e345e2-0ffb-450b-958c-d12b0e031153" name="Changes" comment="Crear autos con Imagenes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialVentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Controller/HistorialVentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialVentaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Repository/HistorialVentaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialVentaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/java/com/Tesis/Programacion/Service/HistorialVentaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Programacion/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Programacion/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
