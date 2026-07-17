@@ -1,0 +1,59 @@
+Index: Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.Tesis.Programacion.Controller;\r\n\r\nimport com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;\r\nimport com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;\r\nimport com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;\r\nimport com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;\r\nimport com.Tesis.Programacion.Service.UsuarioService;\r\nimport jakarta.validation.Valid;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.security.access.prepost.PreAuthorize;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\n\r\n@RestController\r\n@PreAuthorize(\"hasRole('ADMIN')\")\r\n@RequestMapping(\"/usuarios\")\r\npublic class UsuarioController {\r\n\r\n    @Autowired\r\n    private UsuarioService usuarioService;\r\n\r\n    @GetMapping\r\n    public ResponseEntity<List<UsuarioResponse>>getUsuarios(@RequestParam (required = false) Boolean activo){\r\n        return ResponseEntity.ok(usuarioService.getUsuarios(activo));\r\n    }\r\n\r\n    @PostMapping\r\n    public ResponseEntity<UsuarioResponse>agregarUsuario(@Valid @RequestBody CrearUsuarioRequest crearUsuarioRequest){\r\n        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(crearUsuarioRequest));\r\n    }\r\n\r\n    @PutMapping(\"/{id}\")\r\n    public ResponseEntity<UsuarioResponse>modificarUsuario(@Valid @RequestBody UpdateUsuarioRequest request, @PathVariable Long id){\r\n        return ResponseEntity.ok().body(usuarioService.actualizarUsuario(request, id));\r\n    }\r\n\r\n    @GetMapping(\"/encargados\")\r\n    public ResponseEntity<List<UsuarioResponse>>getEncargados(){\r\n        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller());\r\n    }\r\n\r\n    @GetMapping(\"/empleados\")\r\n    public ResponseEntity<List<UsuarioResponse>>getEmpleados(){\r\n        return ResponseEntity.ok(usuarioService.getEmpleados());\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    public ResponseEntity<Void>darDeBajaUsuario(@PathVariable Long id){\r\n        usuarioService.bajaDeUsuario(id);\r\n\r\n        return ResponseEntity.noContent().build();\r\n    }\r\n\r\n    @PatchMapping(\"/{id}/activar\")\r\n    public ResponseEntity<Void>activarUsuario(@PathVariable Long id){\r\n        usuarioService.activarUsuario(id);\r\n\r\n        return ResponseEntity.noContent().build();\r\n    }\r\n\r\n    @GetMapping(\"/roles\")\r\n    public ResponseEntity<List<EnumResponse>>obtenerRoles(){\r\n        return ResponseEntity.ok(usuarioService.obtenerRoles());\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java b/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java
+--- a/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java	(revision 123682026d4f213d1b0980b63252932624242635)
++++ b/Programacion/src/main/java/com/Tesis/Programacion/Controller/UsuarioController.java	(date 1784316610731)
+@@ -38,8 +38,8 @@
+     }
+ 
+     @GetMapping("/encargados")
+-    public ResponseEntity<List<UsuarioResponse>>getEncargados(){
+-        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller());
++    public ResponseEntity<List<UsuarioResponse>>getEncargados(@RequestParam (required = false) String buscador){
++        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller(buscador));
+     }
+ 
+     @GetMapping("/empleados")
+Index: Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.Tesis.Programacion.Service;\r\n\r\nimport com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.CrearUsuarioRequest;\r\nimport com.Tesis.Programacion.Model.DTO.DTORequest.Usuario.UpdateUsuarioRequest;\r\nimport com.Tesis.Programacion.Model.DTO.DTOResponse.Enum.EnumResponse;\r\nimport com.Tesis.Programacion.Model.DTO.DTOResponse.Usuario.UsuarioResponse;\r\nimport com.Tesis.Programacion.Model.Enums.Especialidad;\r\nimport com.Tesis.Programacion.Model.Enums.Rol;\r\nimport com.Tesis.Programacion.Model.Mapper.UsuarioMapper;\r\nimport com.Tesis.Programacion.Model.Usuario;\r\nimport com.Tesis.Programacion.Repository.ClienteRepository;\r\nimport com.Tesis.Programacion.Repository.UsuarioRepository;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.security.crypto.password.PasswordEncoder;\r\nimport org.springframework.stereotype.Service;\r\nimport org.springframework.web.server.ResponseStatusException;\r\n\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n@Service\r\npublic class UsuarioService {\r\n    @Autowired\r\n    private UsuarioRepository usuarioRepository;\r\n\r\n    @Autowired\r\n    private ValidacionesService validacionesService;\r\n\r\n    @Autowired\r\n    private PasswordEncoder passwordEncoder;\r\n\r\n    // Crear un usuario verificando que no exista\r\n\r\n    public UsuarioResponse createUser(CrearUsuarioRequest request){\r\n       validacionesService.validarDni(request.getDni());\r\n       validacionesService.validarEmail(request.getEmail());\r\n\r\n        Usuario usuario=new Usuario();\r\n        usuario.setDni(request.getDni());\r\n        usuario.setNombre(request.getNombre());\r\n        usuario.setApellido(request.getApellido());\r\n        usuario.setRol(request.getRol());\r\n        usuario.setEmail(request.getEmail());\r\n        usuario.setPassword(passwordEncoder.encode(request.getPassword()));\r\n        usuario.setActivo(true);\r\n\r\n        return UsuarioMapper.toDto(usuarioRepository.save(usuario));\r\n    }\r\n\r\n    // Listar todos los usuarios\r\n\r\n    public List<UsuarioResponse>getUsuarios(Boolean activo){\r\n        List<Usuario>usuarios;\r\n\r\n        if(activo!=null){\r\n            usuarios=usuarioRepository.findByActivo(activo);\r\n        }else{\r\n            usuarios=usuarioRepository.findAll();\r\n        }\r\n\r\n        return usuarios\r\n                .stream()\r\n                .map(usuario -> UsuarioMapper.toDto(usuario))\r\n                .toList();\r\n    }\r\n\r\n    // Dar de baja un usuario(baja logica)\r\n\r\n    public void bajaDeUsuario(Long id){\r\n        Usuario usuario=encontrarUsuario(id);\r\n        usuario.setActivo(false);\r\n        usuarioRepository.save(usuario);\r\n    }\r\n\r\n    // Activar un usuario que estaba dado de baja\r\n\r\n    public void activarUsuario(Long id){\r\n        Usuario usuario=encontrarUsuario(id);\r\n        usuario.setActivo(true);\r\n        usuarioRepository.save(usuario);\r\n    }\r\n\r\n    // Actualizar un usuario\r\n\r\n    public UsuarioResponse actualizarUsuario(UpdateUsuarioRequest request, Long idUsuario){\r\n        Usuario usuario=encontrarUsuario(idUsuario);\r\n\r\n        if(request.getDni()!=null && !usuario.getDni().equals(request.getDni())){\r\n            validacionesService.validarDni(request.getDni());\r\n            usuario.setDni(request.getDni());\r\n        }\r\n\r\n        if(request.getEmail()!=null && !usuario.getEmail().equals(request.getEmail())) {\r\n            validacionesService.validarEmail(request.getEmail());\r\n            usuario.setEmail(request.getEmail());\r\n        }\r\n\r\n        if(request.getNombre()!=null) usuario.setNombre(request.getNombre());\r\n        if(request.getApellido()!=null) usuario.setApellido(request.getApellido());\r\n        if(request.getRol()!=null) usuario.setRol(request.getRol());\r\n\r\n        return UsuarioMapper.toDto(usuarioRepository.save(usuario));\r\n    }\r\n\r\n    // Metodo para traer todos los encargados de taller\r\n    public List<UsuarioResponse> getEncargadosDeTaller(){\r\n        return usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER)\r\n                .stream()\r\n                .map(usuario -> UsuarioMapper.toDto(usuario))\r\n                .toList();\r\n    }\r\n\r\n    // Metodo para traer todos los empleado\r\n    public List<UsuarioResponse> getEmpleados(){\r\n        return usuarioRepository.findByRol(Rol.EMPLEADO)\r\n                .stream()\r\n                .map(usuario -> UsuarioMapper.toDto(usuario))\r\n                .toList();\r\n    }\r\n\r\n    public List<EnumResponse>obtenerRoles(){\r\n        return Arrays.stream(Rol.values())\r\n                .map(rol -> new EnumResponse(\r\n                        rol.name(),\r\n                        rol.getLabel()\r\n                ))\r\n                .toList();\r\n    }\r\n\r\n    // Metodo para verificar si existe el usuario\r\n    public Usuario encontrarUsuario(Long id){\r\n        return usuarioRepository.findById(id)\r\n                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, \"Usuario no encontrado\"));\r\n    }\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java b/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java
+--- a/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java	(revision 123682026d4f213d1b0980b63252932624242635)
++++ b/Programacion/src/main/java/com/Tesis/Programacion/Service/UsuarioService.java	(date 1784316610732)
+@@ -105,8 +105,25 @@
+     }
+ 
+     // Metodo para traer todos los encargados de taller
+-    public List<UsuarioResponse> getEncargadosDeTaller(){
+-        return usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER)
++    public List<UsuarioResponse> getEncargadosDeTaller(String buscador){
++        List<Usuario>encargados=usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER);
++
++        if(buscador!=null){
++            String[]palabras=buscador.toLowerCase().trim().split("\\s+");
++
++            encargados=encargados.stream().filter(e->{
++                String nombreEncargado= (e.getNombre() + " " + e.getApellido()).toLowerCase();
++
++                for (String palabra:palabras){
++                    if(!nombreEncargado.contains(palabra)){
++                        return false;
++                    }
++                }
++                return true;
++            }).toList();
++        }
++
++        return encargados
+                 .stream()
+                 .map(usuario -> UsuarioMapper.toDto(usuario))
+                 .toList();
