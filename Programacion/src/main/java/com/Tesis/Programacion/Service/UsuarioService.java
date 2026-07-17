@@ -105,8 +105,25 @@ public class UsuarioService {
     }
 
     // Metodo para traer todos los encargados de taller
-    public List<UsuarioResponse> getEncargadosDeTaller(){
-        return usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER)
+    public List<UsuarioResponse> getEncargadosDeTaller(String buscador){
+        List<Usuario>encargados=usuarioRepository.findByRolAndActivoTrue(Rol.ENCARGADOTALLER);
+
+        if(buscador!=null){
+            String[]palabras=buscador.toLowerCase().trim().split("\\s+");
+
+            encargados=encargados.stream().filter(e->{
+                String nombreEncargado= (e.getNombre() + " " + e.getApellido()).toLowerCase();
+
+                for (String palabra:palabras){
+                    if(!nombreEncargado.contains(palabra)){
+                        return false;
+                    }
+                }
+                return true;
+            }).toList();
+        }
+
+        return encargados
                 .stream()
                 .map(usuario -> UsuarioMapper.toDto(usuario))
                 .toList();

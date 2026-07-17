@@ -38,8 +38,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/encargados")
-    public ResponseEntity<List<UsuarioResponse>>getEncargados(){
-        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller());
+    public ResponseEntity<List<UsuarioResponse>>getEncargados(@RequestParam (required = false) String buscador){
+        return ResponseEntity.ok(usuarioService.getEncargadosDeTaller(buscador));
     }
 
     @GetMapping("/empleados")
