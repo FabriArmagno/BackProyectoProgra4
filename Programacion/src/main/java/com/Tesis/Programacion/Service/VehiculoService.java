@@ -187,4 +187,10 @@ public class VehiculoService {
         }
     }
 
+    /// -----------------------------------------------METODOS PARA MOSTRAR LOS KPIs EN EL FRONT--------------------------------------------------------
+
+    public Long countVehiculosDisponibles(){
+        return vehiculoRepository.countVehiculosDisponibles();
+    }
+
 }

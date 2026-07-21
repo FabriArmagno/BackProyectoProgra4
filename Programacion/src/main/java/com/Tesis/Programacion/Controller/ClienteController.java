@@ -51,4 +51,9 @@ public class ClienteController {
     public ResponseEntity<ClienteDetalleResponse>activarUsuario(@PathVariable Long id){
         return ResponseEntity.ok().body(clienteService.activarCliente(id));
     }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long>countCliente(){
+        return ResponseEntity.ok(clienteService.countClientes());
+    }
 }

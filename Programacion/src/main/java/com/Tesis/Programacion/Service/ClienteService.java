@@ -138,4 +138,10 @@ public class ClienteService {
                 .orElseThrow(()->new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Cliente no encontrado"));
     }
+
+    /// -----------------------------------------------METODOS PARA MOSTRAR LOS KPIs EN EL FRONT--------------------------------------------------------
+
+    public Long countClientes(){
+        return clienteRepository.count();
+    }
 }

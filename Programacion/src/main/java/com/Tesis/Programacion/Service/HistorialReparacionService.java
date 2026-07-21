@@ -74,4 +74,10 @@ public class HistorialReparacionService {
         return repository.findById(id)
                 .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Reparacion no encontrada"));
     }
+
+    /// -----------------------------------------------METODOS PARA MOSTRAR LOS KPIs EN EL FRONT--------------------------------------------------------
+
+    public Long contarReparacionesActivas(){
+        return repository.contarReparacionesActivas();
+    }
 }

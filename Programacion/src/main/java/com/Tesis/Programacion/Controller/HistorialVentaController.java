@@ -35,10 +35,28 @@ public class HistorialVentaController {
         return ResponseEntity.ok(ventaService.getVentasPorEmpleado(authentication));
     }
 
-    @GetMapping("/cantidad")
-    public ResponseEntity<Long> contarVentas(){
-        return ResponseEntity.ok(ventaService.contarVentas());
+    @GetMapping("/facturacion-mes")
+    public ResponseEntity<Double> getFacturacionDelMes() {
+        return ResponseEntity.ok(ventaService.facturacionDelMes());
     }
 
+    @GetMapping("/ventas-mes")
+    public ResponseEntity<Long> getVentasDelMes() {
+        return ResponseEntity.ok(ventaService.ventasDelMes());
+    }
 
+    @GetMapping("/empleado/ventas-mes")
+    public ResponseEntity<Long> getVentasDelMesEmpleado(Authentication authentication) {
+        return ResponseEntity.ok(ventaService.ventasDelMesPorEmpleado(authentication));
+    }
+
+    @GetMapping("/empleado/facturacion-mes")
+    public ResponseEntity<Double> getFacturacionDelMesEmpleado(Authentication authentication) {
+        return ResponseEntity.ok(ventaService.facturacionDelMesPorEmpleado(authentication));
+    }
+
+    @GetMapping("/empleado/ultimas-ventas")
+    public ResponseEntity<List<VentaResponse>> getUltimasTresVentasEmpleado(Authentication authentication) {
+        return ResponseEntity.ok(ventaService.obtenerUltimasTresVentas(authentication));
+    }
 }

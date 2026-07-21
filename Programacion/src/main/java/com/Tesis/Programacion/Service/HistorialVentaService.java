@@ -98,10 +98,51 @@ public class HistorialVentaService {
                 .toList();
     }
 
-    /// -----------------------------------------------CONTAR VENTAS--------------------------------------------------------
+    /// -----------------------------------------------METODOS PARA MOSTRAR LOS KPIs EN EL FRONT--------------------------------------------------------
 
-    public Long contarVentas() {
-        return historialVentaRepository.count();
+    public Long ventasDelMes() {
+        return historialVentaRepository.getVentasDelMes(inicioMes(), finMes());
     }
 
+    public Double facturacionDelMes(){
+        return historialVentaRepository.getFacturacionDelMes(inicioMes(), finMes());
+    }
+
+    public Long ventasDelMesPorEmpleado(Authentication authentication){
+        String email=authentication.getName();
+
+        Usuario usuario=usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        return historialVentaRepository.getVentasDelMesPorEmpleado(inicioMes(), finMes(), usuario.getId());
+    }
+
+    public Double facturacionDelMesPorEmpleado(Authentication authentication){
+        String email=authentication.getName();
+
+        Usuario usuario=usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+       return historialVentaRepository.getFacturacionDelMesPorEmpleado(inicioMes(), finMes(), usuario.getId());
+    }
+
+    public List<VentaResponse>obtenerUltimasTresVentas(Authentication authentication){
+        String email=authentication.getName();
+
+        Usuario usuario=usuarioRepository.findByEmail(email)
+                .orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado"));
+
+        return historialVentaRepository.findTop3ByVendedorIdOrderByFechaVentaDesc(usuario.getId())
+                .stream()
+                .map(VentaMapper::toDto)
+                .toList();
+    }
+
+    private LocalDate inicioMes() {
+        return LocalDate.now().withDayOfMonth(1);
+    }
+
+    private LocalDate finMes() {
+        return LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth());
+    }
 }

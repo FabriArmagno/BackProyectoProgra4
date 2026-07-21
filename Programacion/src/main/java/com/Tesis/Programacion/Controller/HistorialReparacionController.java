@@ -33,4 +33,8 @@ public class HistorialReparacionController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/reparacionesActivas")
+    public ResponseEntity<Long> getReparacionesActivas() {
+        return ResponseEntity.ok(reparacionService.contarReparacionesActivas());
+    }
 }

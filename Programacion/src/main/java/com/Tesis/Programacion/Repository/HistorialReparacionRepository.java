@@ -11,4 +11,7 @@ import java.util.List;
 @Repository
 public interface HistorialReparacionRepository extends JpaRepository<HistorialReparacion,Long> {
     List<HistorialReparacion> findByTallerId(Long tallerId);
+
+    @Query("SELECT COUNT(r.id) FROM HistorialReparacion r WHERE r.estadoReparacion!=ENTREGADO")
+    Long contarReparacionesActivas();
 }

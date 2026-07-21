@@ -88,6 +88,11 @@ public class VehiculoController {
         return carApiService.obtenerSubmodels(model, year);
     }
 
+    @GetMapping("/cantidadDisponible")
+    public ResponseEntity<Long>countVehiculosDisponibles(){
+        return ResponseEntity.ok(vehiculoService.countVehiculosDisponibles());
+    }
+
     ///-----------------------------------------VALIDACION DE PATENTE-------------------------------------------------
 
     @GetMapping("/validarPatente/{patente}")
