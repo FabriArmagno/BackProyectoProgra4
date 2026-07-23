@@ -17,13 +17,9 @@ public class HistorialReparacionController {
     private HistorialReparacionService reparacionService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<HistorialReparacionResponse>> getReparaciones(){
         return ResponseEntity.ok(reparacionService.getReparaciones());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<HistorialReparacionResponse> getReparacionById(@PathVariable Long id){
-        return ResponseEntity.ok(reparacionService.getReparacionByID(id));
     }
 
     @PatchMapping("/{id}/estado")

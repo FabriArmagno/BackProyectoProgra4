@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,11 +22,13 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<List<ClienteResponse>>getClientes(@RequestParam(required = false) Boolean activo, @RequestParam(required = false) String busqueda){
         return ResponseEntity.ok().body(clienteService.getClientes(activo, busqueda));
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<ClienteResponse>agregarCliente(@Valid @RequestBody CrearClienteRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.crearCliente(request));
     }
@@ -36,6 +39,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<ClienteDetalleResponse>actualizarCliente(@PathVariable Long id,
                                                                    @Valid @RequestBody UpdateClienteRequest request){
 
@@ -43,6 +47,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClienteDetalleResponse>darDeBajaCliente(@PathVariable Long id){
         return ResponseEntity.ok().body(clienteService.bajaDeCliente(id));
     }

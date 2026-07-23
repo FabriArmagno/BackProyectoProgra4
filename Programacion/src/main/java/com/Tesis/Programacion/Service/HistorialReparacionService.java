@@ -23,9 +23,6 @@ public class HistorialReparacionService {
     private HistorialReparacionRepository repository;
 
     @Autowired
-    private TallerRepository tallerRepository;
-
-    @Autowired
     private VehiculoRepository vehiculoRepository;
 
     //CRUD
@@ -37,10 +34,6 @@ public class HistorialReparacionService {
         return repository.findAll().stream()
                 .map(ReparacionMapper::toDto)
                 .toList();
-    }
-
-    public HistorialReparacionResponse getReparacionByID(Long id){
-        return ReparacionMapper.toDto(encontrarReparacion(id));
     }
 
     public List<HistorialReparacionResponse> getReparacionesPorTaller(Long idTaller) {
