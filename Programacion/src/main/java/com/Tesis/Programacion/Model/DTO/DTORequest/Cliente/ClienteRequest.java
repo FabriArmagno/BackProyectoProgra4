@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 
 @Getter
-public class UpdateClienteRequest {
+public class ClienteRequest {
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 3, max = 30)
@@ -23,5 +23,6 @@ public class UpdateClienteRequest {
     private String email;
 
     @NotNull(message = "El telefono es obligatorio")
+    @Pattern(regexp = "^[+]?[0-9\\s\\-]{8,15}$", message = "El teléfono no tiene un formato válido")
     private String telefono;
 }

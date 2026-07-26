@@ -1,7 +1,6 @@
 package com.Tesis.Programacion.Controller;
 
-import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.CrearClienteRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.UpdateClienteRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.ClienteRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Cliente.ClienteDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Cliente.ClienteResponse;
 import com.Tesis.Programacion.Service.ClienteService;
@@ -29,11 +28,12 @@ public class ClienteController {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
-    public ResponseEntity<ClienteResponse>agregarCliente(@Valid @RequestBody CrearClienteRequest request){
+    public ResponseEntity<ClienteResponse>agregarCliente(@Valid @RequestBody ClienteRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.crearCliente(request));
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<ClienteDetalleResponse>getClienteById(@PathVariable Long id){
         return ResponseEntity.ok().body(clienteService.getClienteById(id));
     }
@@ -41,7 +41,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
     public ResponseEntity<ClienteDetalleResponse>actualizarCliente(@PathVariable Long id,
-                                                                   @Valid @RequestBody UpdateClienteRequest request){
+                                                                   @Valid @RequestBody ClienteRequest request){
 
         return ResponseEntity.ok().body(clienteService.actualizarCliente(request, id));
     }

@@ -1,13 +1,11 @@
 package com.Tesis.Programacion.Service;
 
 import com.Tesis.Programacion.Model.Cliente;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.CrearClienteRequest;
-import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.UpdateClienteRequest;
+import com.Tesis.Programacion.Model.DTO.DTORequest.Cliente.ClienteRequest;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Cliente.ClienteDetalleResponse;
 import com.Tesis.Programacion.Model.DTO.DTOResponse.Cliente.ClienteResponse;
 import com.Tesis.Programacion.Model.Mapper.ClienteMapper;
 import com.Tesis.Programacion.Repository.ClienteRepository;
-import com.Tesis.Programacion.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +24,7 @@ public class ClienteService {
 
     // Crear un cliente verificando que no exista
 
-    public ClienteResponse crearCliente(CrearClienteRequest request){
+    public ClienteResponse crearCliente(ClienteRequest request){
 
         validacionesService.validarDni(request.getDni());
         validacionesService.validarEmail(request.getEmail());
@@ -93,7 +91,7 @@ public class ClienteService {
 
     // Actualiza un cliente
 
-    public ClienteDetalleResponse actualizarCliente(UpdateClienteRequest request, Long id){
+    public ClienteDetalleResponse actualizarCliente(ClienteRequest request, Long id){
         Cliente cliente=encontrarCliente(id);
 
         if(request.getNombre()!=null) cliente.setNombre(request.getNombre());

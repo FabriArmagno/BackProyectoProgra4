@@ -22,11 +22,11 @@ public class HistorialVentaController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<VentaResponse>> getVentas(
-            @RequestParam(required = false) Long empleadoId,
+            @RequestParam(required = false) Long vendedorId,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
 
-        return ResponseEntity.ok(ventaService.getVentas(empleadoId, desde, hasta));
+        return ResponseEntity.ok(ventaService.getVentas(vendedorId, desde, hasta));
     }
 
     @GetMapping("/mis-ventas")

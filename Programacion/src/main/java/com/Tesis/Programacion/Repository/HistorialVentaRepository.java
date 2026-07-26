@@ -15,7 +15,7 @@ public interface HistorialVentaRepository extends JpaRepository<HistorialVenta, 
     List<HistorialVenta> findByVendedorEmail(String email);
     List<HistorialVenta>findByVendedorId(Long id);
     List<HistorialVenta>findByFechaVentaBetween(LocalDate desde, LocalDate hasta);
-    List<HistorialVenta>findByVendedorIdAndFechaVentaBetween(Long empleadoId, LocalDate desde, LocalDate hasta);
+    List<HistorialVenta>findByVendedorIdAndFechaVentaBetween(Long vendedorId, LocalDate desde, LocalDate hasta);
 
     @Query("SELECT SUM(v.precioFinalVenta-v.precioCompra) FROM HistorialVenta v WHERE v.fechaVenta BETWEEN :inicio AND :fin")
     Double getFacturacionDelMes(LocalDate inicio, LocalDate fin);

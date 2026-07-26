@@ -1,21 +1,18 @@
 package com.Tesis.Programacion.Model.DTO.DTOResponse.Cliente;
 
-import com.Tesis.Programacion.Model.Historial;
-import com.Tesis.Programacion.Model.HistorialVenta;
-import lombok.AllArgsConstructor;
+import com.Tesis.Programacion.Model.DTO.DTOResponse.Venta.VentaResponse;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
-public class ClienteDetalleResponse {
-    private Long id;
-    private String nombre;
-    private String apellido;
-    private Integer dni;
+public class ClienteDetalleResponse extends ClienteResponse{
     private String email;
-    private String telefono;
-    private Boolean activo;
-    private List<HistorialVenta>historialVentas;
+    private List<VentaResponse>historialVentas;
+
+    public ClienteDetalleResponse(Long id, String nombre, String apellido, Integer dni,String email,String telefono, Boolean activo, List<VentaResponse> historialVentas) {
+        super(id, nombre, apellido, dni, activo, telefono);
+        this.email = email;
+        this.historialVentas = historialVentas;
+    }
 }

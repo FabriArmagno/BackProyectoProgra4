@@ -13,7 +13,8 @@ public class ClienteMapper {
                 cliente.getNombre(),
                 cliente.getApellido(),
                 cliente.getDni(),
-                cliente.getActivo()
+                cliente.getActivo(),
+                cliente.getTelefono()
         );
     }
 
@@ -26,7 +27,9 @@ public class ClienteMapper {
                 cliente.getEmail(),
                 cliente.getTelefono(),
                 cliente.getActivo(),
-                cliente.getHistorialCompras()
+                cliente.getHistorialCompras().stream()
+                        .map(v->VentaMapper.toDto(v))
+                        .toList()
         );
     }
 

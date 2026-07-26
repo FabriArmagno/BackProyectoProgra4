@@ -66,6 +66,12 @@ public class UsuarioService {
                 .toList();
     }
 
+    public UsuarioResponse getUsuarioById(Long id){
+        Usuario usuario=encontrarUsuario(id);
+
+        return UsuarioMapper.toDto(usuario);
+    }
+
     // Dar de baja un usuario(baja logica)
 
     public void bajaDeUsuario(Long id){
@@ -99,7 +105,6 @@ public class UsuarioService {
 
         if(request.getNombre()!=null) usuario.setNombre(request.getNombre());
         if(request.getApellido()!=null) usuario.setApellido(request.getApellido());
-        if(request.getRol()!=null) usuario.setRol(request.getRol());
 
         return UsuarioMapper.toDto(usuarioRepository.save(usuario));
     }

@@ -1,7 +1,7 @@
 package com.Tesis.Programacion.Model.Enums;
 
 public enum Rol {
-    ADMIN("Admin"), EMPLEADO("Empleado"), ENCARGADOTALLER("Encargado taller"), CLIENTE("Cliente");
+    ADMIN("Admin"), EMPLEADO("Empleado"), ENCARGADOTALLER("Encargado taller");
 
     private String label;
 

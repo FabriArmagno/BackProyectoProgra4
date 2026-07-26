@@ -21,10 +21,6 @@ public class UpdateUsuarioRequest {
     @Size(min = 2, max = 30)
     private String apellido;
 
-    @NotNull(message = "El rol es obligatorio")
-    private Rol rol;
-
     @Email(message = "El email es obligatorio")
     private String email;
-
 }

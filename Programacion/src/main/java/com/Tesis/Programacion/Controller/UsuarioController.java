@@ -27,6 +27,11 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.getUsuarios(activo));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UsuarioResponse>getUsuarioById(@PathVariable Long id){
+        return ResponseEntity.ok(usuarioService.getUsuarioById(id));
+    }
+
     @PostMapping
     public ResponseEntity<UsuarioResponse>agregarUsuario(@Valid @RequestBody CrearUsuarioRequest crearUsuarioRequest){
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(crearUsuarioRequest));
