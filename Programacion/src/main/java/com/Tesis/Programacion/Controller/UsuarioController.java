@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
+@PreAuthorize("hasRole('ADMIN')")
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
@@ -37,6 +37,7 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.createUser(crearUsuarioRequest));
     }
 
+    @PreAuthorize("hasRole('EMPLEADO') or hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponse>modificarUsuario(@Valid @RequestBody UpdateUsuarioRequest request, @PathVariable Long id){
         return ResponseEntity.ok().body(usuarioService.actualizarUsuario(request, id));

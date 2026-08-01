@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN') or hasRole('EMPLEADO')")
 @RequestMapping("/vehiculos")
 public class VehiculoController {
 
@@ -132,7 +133,6 @@ public class VehiculoController {
             @PathVariable Long id,
             @Valid @RequestBody CrearMotoRequest crearMotoRequest
     ) {
-        System.out.println("entre 2");
 
         MotoDetalleResponse motoActualizada = motoService.editarMoto(id, crearMotoRequest);
 

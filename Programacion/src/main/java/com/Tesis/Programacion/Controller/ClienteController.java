@@ -53,6 +53,7 @@ public class ClienteController {
     }
 
     @PatchMapping("/{id}/activar")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ClienteDetalleResponse>activarUsuario(@PathVariable Long id){
         return ResponseEntity.ok().body(clienteService.activarCliente(id));
     }
