@@ -128,13 +128,14 @@ public class VehiculoController {
                     .body(motoService.crearMoto(crearMotoRequest, files));
     }
 
-    @PutMapping("/motos/{id}")
+    @PutMapping(value = "/motos/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<MotoDetalleResponse> editarMoto(
-            @PathVariable Long id,
-            @Valid @RequestBody CrearMotoRequest crearMotoRequest
+            @RequestPart("datos") @Valid CrearMotoRequest crearMotoRequest,
+    @RequestPart(value = "files", required = false) List<MultipartFile> files,
+    @PathVariable Long id
     ) {
 
-        MotoDetalleResponse motoActualizada = motoService.editarMoto(id, crearMotoRequest);
+        MotoDetalleResponse motoActualizada = motoService.editarMoto(id, files, crearMotoRequest);
 
         return ResponseEntity.ok(motoActualizada);
     }

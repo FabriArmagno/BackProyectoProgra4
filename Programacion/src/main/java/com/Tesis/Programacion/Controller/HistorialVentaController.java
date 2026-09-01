@@ -21,7 +21,7 @@ public class HistorialVentaController {
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<VentaResponse>> getVentas(
-            @RequestParam(required = false) Long vendedorId,
+            @RequestParam(required = false) Long vendedorId,    
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate desde,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate hasta) {
 

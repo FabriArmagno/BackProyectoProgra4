@@ -27,6 +27,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.getUsuarios(activo));
     }
 
+    @PreAuthorize("hasRole('EMPLEADO') or hasRole('ADMIN') or hasRole('ENCARGADOTALLER')")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponse>getUsuarioById(@PathVariable Long id){
         return ResponseEntity.ok(usuarioService.getUsuarioById(id));

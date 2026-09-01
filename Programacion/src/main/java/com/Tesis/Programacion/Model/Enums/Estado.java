@@ -2,7 +2,6 @@ package com.Tesis.Programacion.Model.Enums;
 
 public enum Estado {
     DISPONIBLE("Disponible"),
-    RESERVADO("Reservado"),
     ENREPARACION("En reparacion"),
     VENDIDO("Vendido");
 

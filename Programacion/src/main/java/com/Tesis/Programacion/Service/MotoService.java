@@ -93,7 +93,7 @@ public class MotoService {
                 .toList();
     }
 
-    public MotoDetalleResponse editarMoto(Long id, CrearMotoRequest request) {
+    public MotoDetalleResponse editarMoto(Long id, List<MultipartFile> files, CrearMotoRequest request) {
         Moto moto = repo.findById(id).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Moto no encontrada con ID: " + id)
         );
@@ -122,7 +122,24 @@ public class MotoService {
         if (request.getDescripcion() != null)moto.setDescripcion(request.getDescripcion());
         if (request.getTipoMoto() != null)moto.setTipoMoto(request.getTipoMoto());
         if (request.getCilindrada() != null)moto.setCilindrada(request.getCilindrada());
-        if (imagenesActuales != null) moto.setImagenes(imagenesActuales);
+
+        //LOGICA DE IMAGENES
+
+        if (files != null && !files.isEmpty()){
+            for (MultipartFile file : files){
+                if (!file.isEmpty()){
+                    try {
+                        String nombreImagen = uploadService.guardarImagen(file);
+                        moto.getImagenes().add(nombreImagen);
+                    }catch (IOException e){
+                        throw new ResponseStatusException(
+                                HttpStatus.INTERNAL_SERVER_ERROR,
+                                "Error al procesar las imagenes" + e.getMessage()
+                        );
+                    }
+                }
+            }
+        }
 
         return MotoMapper.toDetalleDTO(repo.save(moto));
     }
